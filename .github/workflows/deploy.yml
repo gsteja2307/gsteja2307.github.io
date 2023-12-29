@@ -3,18 +3,23 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Install and Build
         run: |
           npm install
           npm run build
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Ensure GITHUB_TOKEN is available as a secret.
           branch: gh-pages # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
+          clean: true # Automatically remove deleted files from the deployment.
