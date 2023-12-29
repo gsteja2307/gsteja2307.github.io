@@ -1,0 +1,35 @@
+---
+import heroImage from '../assets/images/hero.png';
+import { Image } from 'astro:assets';
+import Button from '../components/ui/Button.astro';
+---
+
+<section
+	data-testid="hero"
+	class="flex h-screen flex-col-reverse items-center justify-center text-center lg:flex-row"
+>
+	<div class="mb-10 flex flex-col items-center lg:mb-0 lg:w-1/2">
+		<div>
+			<h1 class="mb-10 font-monospace text-3xl text-black dark:text-white lg:text-5xl">
+				Hi! My name is <span class="text-orange">Surya Teja</span> and I am a full stack developer based in Hyderabad.
+			</h1>
+		</div>
+		<div class="mb-10">
+			<Button style={'primary'} size={'lg'} class={'flex'} name="learn more"><a target="_blank" href="https://www.linkedin.com/in/surya-teja-gollamudi/">Connect with me in @Linkedin</a></Button>
+		</div>
+	</div>
+	<div data-testid="hero-img" class="mb-10 flex w-1/2 items-center justify-center">
+		<Image
+			src={heroImage}
+			alt="Coding girl"
+			format="png"
+			width={600}
+			height={600}
+			loading="eager"
+		/>
+	</div>
+</section>
+
+<script>
+
+</script>
