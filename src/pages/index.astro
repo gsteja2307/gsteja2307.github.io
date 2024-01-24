@@ -6,9 +6,35 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<main>
-		<Hero />
-		<About />
-		<BackToTop />
-	</main>
+  <div id="splashScreen" class="fixed inset-0 flex justify-center items-center bg-black z-50">
+    <h1 id="splashText" class="text-4xl font-bold text-orange font-monospace"></h1>
+  </div>
+
+  <main class="hidden" id="mainContent">
+    <Hero />
+    <About />
+    <BackToTop />
+  </main>
+
+  <script type="module">
+    const SPLASH_DURATION = 2000; // 3 seconds
+
+    const splashScreen = document.getElementById('splashScreen');
+    const mainContent = document.getElementById('mainContent');
+    let index = 0;
+    const text = 'G Surya Teja';
+    const splashText = document.getElementById('splashText');
+
+    const interval = setInterval(() => {
+      if (splashText) {
+        splashText.textContent += text[index++];
+      }
+      if (index >= text.length) clearInterval(interval);
+    }, 100);
+
+    setTimeout(() => {
+      splashScreen.style.display = 'none';
+      mainContent.style.display = 'block';
+    }, SPLASH_DURATION);
+  </script>
 </Layout>
