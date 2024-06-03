@@ -1,13 +1,26 @@
 ---
-import BackToTop from '../components/ui/BackToTop.astro';
+import BackToTop from '../components/reusable/standard/BackToTop.astro';
+import BlogCard from '../components/reusable/blogCard/BlogCard.astro';
 import Layout from '../layouts/Layout.astro';
-//this page is not visible to user yet
+import type { BlogPost } from '../types';
+const blogPosts: BlogPost[] = [
+  // Your blog posts data here
+];
 ---
 
 <Layout>
-
   <main id="blogContent">
-    <section class="flex flex-col-reverse items-center justify-center text-center lg:flex-row min-h-80">
+    <section class="flex flex-col min-h-80 max-w-[768px] mx-auto">
+      {blogPosts.map(post => (
+        <BlogCard 
+          id={post.id} 
+          title={post.title} 
+          description={post.description} 
+          views={post.views} 
+          tags={post.tags} 
+          lastUpdated={post.lastUpdated} 
+        />
+      ))}
     </section>
     <BackToTop />
   </main>

@@ -1,0 +1,18 @@
+---
+const { id, title, description , views, tags, lastUpdated } = Astro.props;
+const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+const postUrl = `/blog/${id}/${slug}`;
+const truncatedDescription = description.length > 100 ? description.substring(0, 100) + '...' : description;
+---
+<section class="flex flex-col p-4">
+  <h2 class="text-2xl text-orange cursor-pointer hover:border-b-2 mb-2">
+    <a href={postUrl} class="text-orange no-underline hover:underline">{title}</a>
+  </h2>
+  <div class="text-xs opacity-80 text-black dark:text-gray-400 mb-2 flex justify-between items-center">
+    <span>Published/Last updated on: {lastUpdated}</span>
+    <span>Views : {views} {tags && tags.length > 0 ? '| ' + tags.join(' | ') : ''}</span>
+  </div>
+  <div class="flex justify-between items-center">
+    <p class="text-sm text-black dark:text-gray-400 mb-4 flex-grow"> {truncatedDescription} <a href={postUrl} class="text-orange no-underline hover:underline ml-4">View more</a></p>
+  </div>
+</section>
