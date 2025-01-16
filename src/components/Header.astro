@@ -1,0 +1,88 @@
+---
+import HeaderLink from '@/components/HeaderLink';
+import MenuIcon from './icons/MenuIcon.astro';
+import Search from '@/components/Search';
+import TagIcon from './icons/TagIcon.astro';
+import ToggleTheme from './ToggleTheme.astro';
+import { SOCIALNETWORKS } from '@/data/links';
+// Get the current path
+const currentPage = Astro.url.pathname;
+console.log(currentPage);
+// Check if it's the home page
+const isHomePage = currentPage === '/';
+---
+
+<header class="relative flex h-12 items-center font-semibold">
+	<a class="mr-auto text-lg" href="/blog" onclick="window.location.href='/blog'; return false;"
+		>Blog</a
+	>
+	<a class="mr-auto text-lg" href="/" onclick="window.location.href='/'; return false;">About</a>
+
+	<div
+		id="astro-header-drawer"
+		class="absolute -right-5 top-12 z-50 h-[200px] w-[200px] translate-x-96 rounded-l-lg bg-white pb-4 pl-4 pt-6 shadow transition-transform duration-300 ease-in dark:bg-[#0a0910] md:static md:h-auto md:translate-x-0 md:rounded-none md:border-none md:bg-transparent md:p-0 md:shadow-none dark:md:bg-transparent"
+	>
+		<nav
+			class="flex h-full flex-col justify-between gap-12 text-left md:w-full md:flex-row md:gap-5"
+		>
+			{
+				!isHomePage && (
+					<div class="flex flex-col gap-4 border-black pr-4 dark:border-white md:flex-row md:border-r-2">
+						<HeaderLink href="/tags" class="flex items-center gap-1 text-2xl md:text-base">
+							<TagIcon /> Tags
+						</HeaderLink>
+					</div>
+				)
+			}
+			{isHomePage && <div class="flex flex-col gap-4 md:flex-row" />}
+
+			<div class="flex items-center justify-center gap-3 md:justify-end md:p-0">
+				{
+					SOCIALNETWORKS.map((network) => (
+						<HeaderLink class="" href={network.url} target="_blank" aria-label={network.name}>
+							<span>{<network.icon />} </span>
+						</HeaderLink>
+					))
+				}
+			</div>
+		</nav>
+	</div>
+	{
+		!isHomePage && (
+			<div class="flex items-center gap-3 md:pl-3" transition:persist="navbar">
+				<div>
+					<Search />
+				</div>
+				<ToggleTheme />
+				<button id="astro-header-drawer-button" type="button" class="md:ml-6 md:hidden">
+					<MenuIcon />
+					<span class="sr-only">Show Menu</span>
+				</button>
+			</div>
+		)
+	}
+	{
+		isHomePage && (
+			<div class="flex items-center gap-3 md:pl-3" transition:persist="navbar">
+				<div />
+				<ToggleTheme />
+				<div />
+			</div>
+		)
+	}
+</header>
+<script>
+	document.addEventListener('click', (event) => {
+		const menu = document.getElementById('astro-header-drawer');
+		const menuButton = document.getElementById('astro-header-drawer-button');
+		const isClickInside =
+			menu?.contains(event.target as HTMLDivElement) ||
+			menuButton?.contains(event.target as HTMLButtonElement);
+
+		if (isClickInside) {
+			menu?.classList.toggle('translate-x-96');
+		} else {
+			menu?.classList.add('translate-x-96');
+		}
+	});
+</script>

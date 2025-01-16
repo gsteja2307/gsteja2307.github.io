@@ -1,5 +1,10 @@
-<footer data-testid="footer" class="p-6 text-center text-sm text-black dark:text-white">
-	<p>
-		Copyright © {new Date().getFullYear()}. All rights reserved.
-	</p>
+---
+import { siteConfig } from '@/site-config';
+
+const today = new Date();
+---
+
+<footer class="flex h-28 w-full items-center justify-center border-t-2 px-16">
+	&copy; {today.getFullYear()}
+	{siteConfig.author}. All rights reserved.
 </footer>
