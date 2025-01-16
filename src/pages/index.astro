@@ -1,40 +1,44 @@
 ---
+import BaseLayout from '@/layouts/BaseLayout';
 import About from '../components/About.astro';
 import Hero from '../components/Hero.astro';
 import BackToTop from '../components/ui/BackToTop.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
-  <div id="splashScreen" class="fixed inset-0 flex justify-center items-center bg-black z-50">
-    <h1 id="splashText" class="text-4xl font-bold text-orange font-monospace"></h1>
-  </div>
+<BaseLayout title="Surya Teja | Web Developer">
+	<div id="splashScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+		<h1 id="splashText" class="font-monospace text-4xl font-bold text-orange"></h1>
+	</div>
 
-  <main class="hidden" id="mainContent">
-    <Hero />
-    <About />
-    <BackToTop />
-  </main>
+	<main class="hidden" id="mainContent">
+		<Hero />
+		<About />
+		<BackToTop />
+	</main>
 
-  <script type="module">
-    const SPLASH_DURATION = 2000; // 3 seconds
+	<script type="module" is:inline>
+		function showSplashScreen() {
+			const SPLASH_DURATION = 2000; // 2 seconds
 
-    const splashScreen = document.getElementById('splashScreen');
-    const mainContent = document.getElementById('mainContent');
-    let index = 0;
-    const text = 'G Surya Teja';
-    const splashText = document.getElementById('splashText');
+			const splashScreen = document.getElementById('splashScreen');
+			const mainContent = document.getElementById('mainContent');
+			let index = 0;
+			const text = 'G Surya Teja';
+			const splashText = document.getElementById('splashText');
 
-    const interval = setInterval(() => {
-      if (splashText) {
-        splashText.textContent += text[index++];
-      }
-      if (index >= text.length) clearInterval(interval);
-    }, 100);
+			const interval = setInterval(() => {
+				if (splashText) {
+					splashText.textContent += text[index++];
+				}
+				if (index >= text.length) clearInterval(interval);
+			}, 100);
 
-    setTimeout(() => {
-      splashScreen.style.display = 'none';
-      mainContent.style.display = 'block';
-    }, SPLASH_DURATION);
-  </script>
-</Layout>
+			setTimeout(() => {
+				splashScreen.style.display = 'none';
+				mainContent.style.display = 'block';
+			}, SPLASH_DURATION);
+		}
+		showSplashScreen();
+	</script>
+</BaseLayout>
