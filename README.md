@@ -52,3 +52,10 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+ npx @tinacms/cli@latest init
+ npx tinacms dev -c "astro dev --port 8080"
+ With TinaCMS running, navigate to http://localhost:8080/admin/index.html
+
+ blog inspiration: [text](https://github.com/danielcgilibert)
