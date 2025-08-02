@@ -1,0 +1,613 @@
+---
+title: "Demystifying Caching in Node.js: A Deep Dive Into My npm Package, Runtime Memory Cache"
+description: "Learn about in-memory caching, eviction policies, stats, and how to use the runtime-memory-cache npm package for fast Node.js apps."
+pubDate: "2024-06-01"
+heroImage: ../../assets/images/cache.png
+category: System Design
+tags:
+  - Node.js
+  - Caching
+  - TypeScript
+  - npm
+  - Performance
+draft: false
+---
+
+# Demystifying Caching in Node.js: A Deep Dive Into My npm Package, Runtime Memory Cache
+
+*Building blazing fast Node.js applications often comes down to how well you handle data retrieval. Caching is the secret weapon for reducing latency, cutting costs, and enhancing user experience.*
+
+In this article, I introduce you to my **runtime-memory-cache** package, a zero-dependency, TypeScript-safe in-memory cache I built, initially for my personal projects but now shared as a lightweight, flexible tool in the Node.js ecosystem.
+
+But beyond usage, I want to unpack **why caching matters**, **how it fundamentally works**, and **why your cache implementation matters** just as much as your code that uses it. We’ll go deep into eviction strategies, TTL, stats, and real-world usage patterns — all aligned strictly with the actual design and code in runtime-memory-cache.
+
+## 1. What is Caching and Why Is It Important?
+
+Modern web services usually rely on databases and remote APIs to fetch data dynamically. But often these systems respond with delays measured in tens or hundreds of milliseconds, sometimes seconds — a prohibitive latency for many user-facing applications.
+
+### The Simple Definition
+
+**Caching** stores copies of data that were expensive to compute or fetch so that future requests serve those copies directly, reducing cost and latency.
+
+### Real-World Analogy
+
+Imagine you always buy coffee from the same coffee shop by ordering through an app. The app fetches your favorite order (with a bunch of customization) from a back-end service. If every time you open the app, it asks the coffee shop’s server for your preferences and recent orders, the latency adds up.
+
+If the app caches your favorite coffee order locally and refreshes it periodically, the app instantly shows you your usual drink without delay.
+
+### Caching as a Trade-Off
+
+Caching is a trade-off:
+
+- **Benefit:** Lower latency, fewer external requests.
+- **Cost:** Consumes memory/storage and risks staleness (outdated data).
+
+Adding caching thoughtfully improves scalability, user experience, and reduces cost. Getting it wrong leads to stale data, bugs, or memory exhaustion.
+
+### 1.1 The Cost of Fetching Data Repeatedly
+
+Modern backend systems may have multiple layers — DB queries, service calls, and external API calls. For frequently requested data like user profiles or product info, fetching repeatedly wastes resources.
+
+**Example:** Retrieving a product catalog item may take 50ms from DB. Handling 1,000 such requests per second continuously adds 50 seconds worth of compute time per second — unsustainable at scale.
+
+### 1.2 Caching Speeds Things Up
+
+Bringing those 1,000 requests in-memory reduces that cost drastically — memory is accessed in nanoseconds or microseconds. You can serve cached responses immediately instead of querying backend systems repeatedly.
+
+### 1.3 Common Types of Caches
+
+| Type | Description | Data Location | Example Use Cases |
+| :-- | :-- | :-- | :-- |
+| Browser Cache | Local cache on user browser | Client (browser) | Static assets, API responses |
+| CDN Cache | Distributed cache network | Edge servers | Static files, global content |
+| Disk Cache | Persistent local cache | App server’s disk | Intermediate storage, logs |
+| Distributed Cache | Shared cache across systems | External service (redis/memcached) | Session state, rate limiting counters |
+| Runtime/In-Memory Cache | Local cache within your app process memory | Node.js process memory | Session tokens, hot data caching |
+
+Our focus is the last: **runtime in-memory cache** — ultra-fast, lightweight, but ephemeral and process-local.
+
+### 1.4 Why Runtime (In-Memory) Caches?
+
+Your runtime cache lives inside your app process’s RAM. It’s:
+
+- **Fastest:** No network or disk call.
+- **Scoped:** Isolated per Node.js instance.
+- **Temporary:** Data gone on restart.
+
+Great for:
+
+- Session tokens
+- Rate limiting counters
+- Hot DB/API query results
+
+Not suited for:
+
+- Data consistency across multiple servers
+- Data durability after restart
+
+
+### 1.5 Node.js and Runtime Cache
+
+Node.js environments are perfect for runtime caches:
+
+- Single-threaded event loop, predictable memory.
+- Easy to integrate with TypeScript and modern JS.
+- Your package `runtime-memory-cache` fits perfectly here.
+
+
+### 1.6 The Missing Piece — The Cache Itself
+
+You might ask:
+
+> How do I cache? Should I write my own?
+
+That’s why I built **runtime-memory-cache** — a zero dependencies, type-safe, minimal, yet powerful JS cache suited for Node.js apps, with TTL expirations, eviction policies (FIFO/LRU), and stats — built exactly for runtime caching needs.
+
+## 2. Understanding Eviction Policies: FIFO, LRU, and Beyond
+
+When using any in-memory cache, **eviction policies** are critical. They define *which* cache entries get removed when the cache reaches its maximum size or runs out of capacity. Because RAM is limited, caches cannot grow indefinitely, so knowing how data gets evicted helps you design caches that keep the most important data as long as possible.
+
+### 2.1 Why Eviction Is Necessary
+
+Imagine your cache can only hold 1,000 entries. When you add the 1,001st entry, the cache must evict (discard) one existing entry to maintain its size constraints. Without eviction, memory usage would continue climbing until your app crashes or slows drastically.
+
+Smart eviction policies help maintain cache effectiveness by balancing between expiring stale data and retaining frequently or recently used items.
+
+### 2.2 Key Eviction Policies
+
+Here are some of the most common eviction strategies you'll encounter:
+
+#### FIFO — First-In, First-Out
+
+- FIFO evicts the cache entry that was **added earliest**—the one that’s been in the cache the longest.
+- Think of it like a queue: first in, first out.
+- It’s simple, predictable, and easy to implement.
+- However, FIFO doesn’t consider the value or usage frequency of entries—an item frequently accessed early can still be evicted just because it’s old.
+- Good for workloads where access patterns are uniform or time order matters.
+
+
+#### LRU — Least Recently Used
+
+- LRU evicts the entry that was **accessed the longest time ago**.
+- The idea is that data used recently is more likely to be used again soon, so it should stay in the cache longer.
+- LRU typically leads to better hit rates in real-world applications because it adapts to temporal locality of references.
+- Implementing LRU requires tracking when entries were last used, which can add complexity and overhead.
+- Suitable for session stores, caches for queries, API responses, or UI state.
+
+
+#### LFU — Least Frequently Used
+
+- LFU evicts the element with the **fewest accesses** over time.
+- This policy favors keeping the most “popular” or “hot” entries, which might be accessed many times over longer periods.
+- LFU is more sophisticated than LRU and can perform better when access frequency is a stronger predictor of usefulness than recency.
+- Implementation is more complex, involving counters and often requires approximate or amortized methods for performance.
+- Favored in recommendation engines, analytics, or places with highly skewed hot keys.
+
+
+#### Other Eviction Policies
+
+- **Random Eviction:** Remove a random cache entry when space is needed. Very simple, but generally less effective.
+- **TTL-Based Eviction:** Entries are evicted based on a time-to-live expiration rather than usage patterns.
+- **ARC (Adaptive Replacement Cache):** A hybrid strategy combining recency and frequency for more finely tuned eviction.
+
+
+### 2.3 Choosing the Right Eviction Policy
+
+Picking an eviction policy depends on your application’s data and access patterns:
+
+
+| Policy | Description | When to Use |
+| :-- | :-- | :-- |
+| FIFO | Evict oldest first | Workloads with uniform or time-based data aging |
+| LRU | Evict least recently used | Widely accessed data with temporal locality (e.g., sessions, UI caches) |
+| LFU | Evict least frequently used | When “popularity” drives access patterns, like analytics or trending data |
+| Random | Evict random entry | Simple, low overhead; rarely ideal |
+| TTL | Evict after time expiration | When freshness is more important than usage |
+
+Understanding your access patterns will guide you to the eviction strategy that yields the best cache hit rate and resource usage.
+
+### 2.4 Eviction Policy Tradeoffs
+
+| Policy | Advantages | Considerations |
+| :-- | :-- | :-- |
+| FIFO | Simple and fast to implement | May evict frequently accessed data prematurely |
+| LRU | Adapts to changing access patterns | Slightly more complex; must track usage order |
+| LFU | Keeps popular data longer | More overhead; counters required |
+| Random | Minimal overhead | Potentially worse hit rates |
+| TTL | Ensures fresh data | May cause premature eviction of still-useful data |
+
+### 2.5 The Future of Eviction Strategies
+
+While FIFO and LRU are the most common and widely understood, the field of cache eviction policies continues evolving. Hybrid and adaptive strategies aim to combine the strengths of several policies, adjusting dynamically to workload shifts.
+
+If you’re building or choosing a cache for your Node.js application, knowing these policies helps you align cache behavior with your performance goals and user expectations.
+
+## 3. Understanding TTL (Time-To-Live) and Expiry in Caching
+
+When implementing caching, it’s not enough to just store data; you also need to decide **how long** to keep each cached entry. That’s where TTL — or **Time-To-Live** — comes into play.
+
+TTL is a simple but powerful concept that tells your cache how long a value should remain valid before it expires and is removed. In this section, I’ll explain why TTL matters, how it works, and some practical considerations to help you tune cache freshness and effectiveness.
+
+### 3.1 What is TTL?
+
+**Time-To-Live (TTL)** is the duration, typically specified in milliseconds or seconds, for which a cache entry is considered fresh and valid. Once the TTL expires, the cache entry becomes stale and should be removed or refreshed.
+
+TTL limits how long your cache holds onto data, preventing stale or obsolete information from lingering indefinitely.
+
+### 3.2 Why TTL is Important
+
+- **Ensures data freshness:** Without TTL, once data is cached, it could remain forever—even if the original source changes.
+- **Prevents memory bloat:** By expiring entries regularly, TTL keeps cache size manageable and prevents accumulation of outdated data.
+- **Facilitates cache consistency:** Even if you don’t track every source update, TTL guarantees eventual expiration.
+- **Improves user experience:** Serving data that’s too old can confuse users or cause bugs; TTL balances speed with accuracy.
+
+
+### 3.3 How TTL Works in Practice
+
+Most caches, including runtime in-memory caches, implement TTL in one of two fundamental ways:
+
+#### Lazy Expiry
+
+- Cache entries store their expiry timestamp (time added + TTL).
+- When the entry is accessed (via `get` or `has`), the cache checks if the current time exceeds expiry.
+- If expired, the entry is removed *at that moment*.
+- Otherwise, the cached value is returned.
+
+**Pros:**
+
+- Minimal overhead; expiry only checked on access.
+- No need for continuous cleanup tasks.
+
+**Cons:**
+
+- Expired entries that are never queried remain in the cache, occupying memory until cleanup.
+
+
+#### Proactive/Eager Cleanup
+
+- A background task (e.g., periodic timer, cron job) scans the cache and removes expired entries.
+- This prevents buildup of stale entries left unaccessed for a long time.
+- Particularly useful in caches where entries are rarely queried after insertion.
+
+**Hybrid Approach:**
+
+Many caches (including mine) combine both:
+
+- Lazy expiry during normal access operations.
+- Manual or scheduled `cleanup()` functions to purge expired entries proactively.
+
+
+### 3.4 Choosing a TTL Value
+
+TTL isn’t one-size-fits-all; it depends heavily on:
+
+- **Data volatility:** How often does the underlying data actually change?
+- **Tolerance for staleness:** Can your app serve slightly outdated info gracefully?
+- **Performance needs:** Longer TTL means fewer backend hits, but increased risk of stale data.
+- **Memory constraints:** Short TTL requires more frequent backend fetches but keeps cache lean.
+
+Example use cases:
+
+
+| Use Case | Suggested TTL |
+| :-- | :-- |
+| Session tokens | Minutes to hours |
+| User permissions | Seconds to minutes |
+| API responses (static) | Hours to days |
+| Real-time stock prices | Seconds or less |
+
+### 3.5 TTL Granularity: Global vs Per-Entry
+
+Many caches choose a **global TTL** for simplicity — all entries expire after the same duration.
+
+But a more flexible design allows **per-entry TTL** during insertion:
+
+- Customize expiry depending on the type or freshness of data.
+- Example: Cache user session with longer TTL but cache API results with shorter TTL.
+
+Per-entry TTL adds complexity but improves cache efficiency by tailoring data freshness.
+
+### 3.6 Handling TTL in Your Cache
+
+Here is a conceptual example in TypeScript demonstrating how TTL can be tracked with each entry:
+
+```typescript
+interface CacheEntry<V> {
+  value: V;
+  expiryTimestamp: number; // Unix timestamp in ms when entry expires
+}
+
+const cache = new Map<string, CacheEntry<any>>();
+
+// Set cache with TTL
+function set(key: string, value: any, ttlMillis: number) {
+  const expiryTimestamp = Date.now() + ttlMillis;
+  cache.set(key, { value, expiryTimestamp });
+}
+
+// Get cache with expiry check
+function get(key: string) {
+  const entry = cache.get(key);
+  if (!entry) return undefined;
+  if (Date.now() > entry.expiryTimestamp) {
+    cache.delete(key);
+    return undefined;
+  }
+  return entry.value;
+}
+```
+
+
+### 3.7 Manual Cleanup for Expired Entries
+
+Because lazy expiry only removes entries when accessed, periodically **cleaning up** expired keys can prevent memory waste:
+
+```typescript
+function cleanup() {
+  const now = Date.now();
+  for (const [key, entry] of cache.entries()) {
+    if (entry.expiryTimestamp <= now) {
+      cache.delete(key);
+    }
+  }
+}
+```
+
+Scheduling this cleanup with `setInterval` or running it at convenient application events keeps memory footprint controlled.
+
+### 3.8 Impact of TTL on Performance \& Consistency
+
+- **Too short:** You might get excessive cache misses and miss out on caching benefits.
+- **Too long:** Risk of serving stale data or memory overuse.
+- **No TTL:** Data can become dangerously stale and cache size can grow indefinitely.
+
+Finding the right TTL balances performance and accuracy.
+
+That finishes our deep look at TTL and expiry. Next up, we’ll explore how to **use your runtime-memory-cache package in practice** — through installation, API walkthroughs, and common usage patterns.
+
+## 4. Getting Started with runtime-memory-cache: Installation and Practical Usage
+
+Now that we've covered the key caching concepts like eviction policies and TTLs, it's time to get hands-on with the package itself. I built **runtime-memory-cache** to be as simple and intuitive as possible, while still providing flexibility and control.
+
+In this section, I'll walk you through how to install the package, create a cache instance, and use its core methods to cache data efficiently.
+
+### 4.1 Installation
+
+Getting started is as easy as running:
+
+```bash
+npm install runtime-memory-cache
+```
+
+The package is published on npm, fully typed with TypeScript support, and designed for zero dependencies, so it won’t bloat your project or add security concerns.
+
+### 4.2 Creating a Cache Instance
+
+To create a cache, you import the class and instantiate it with optional configuration options. Here's a basic example with typical settings:
+
+```typescript
+import RuntimeMemoryCache from 'runtime-memory-cache';
+
+const cache = new RuntimeMemoryCache({
+  ttl: 60000,            // Entries expire 1 minute after being set by default
+  maxSize: 1000,         // Cache holds up to 1,000 entries
+  evictionPolicy: 'LRU', // Can be 'FIFO' or 'LRU' depending on your preference
+  enableStats: true      // Collect cache hit, miss, and eviction statistics
+});
+```
+
+The options above are all optional and have sensible defaults (`ttl` and `maxSize` are undefined by default, meaning no expiry or size limit):
+
+
+| Option | Type | Description |
+| :-- | :-- | :-- |
+| `ttl` | number | Default Time-to-Live (TTL) in milliseconds for cached items. |
+| `maxSize` | number | Maximum number of entries before eviction occurs. |
+| `evictionPolicy` | 'FIFO' \| 'LRU' | Defines eviction strategy to use when full. |
+| `enableStats` | boolean | Set to `true` to track cache hits, misses, and evictions. |
+
+### 4.3 Core Methods Explained with Examples
+
+Once you have a cache instance, the API revolves around the familiar key-value store operations — `set`, `get`, `has`, `del`, and a few utilities for stats and cleanup.
+
+#### `set(key, value, ttl?)`
+
+Insert or update a cache entry. Optionally override the configured global TTL for this particular item.
+
+```typescript
+cache.set('user:42', { name: 'Arya Stark', location: 'Winterfell' }); // Uses default TTL
+
+cache.set('session:abc', { token: 'XYZ' }, 120000); // Custom TTL of 2 minutes
+```
+
+If the cache size exceeds `maxSize`, the cache will evict an entry automatically using your chosen eviction policy.
+
+#### `get(key)`
+
+Retrieve a value by its key. Returns `undefined` if the key is not present or the entry has expired.
+
+```typescript
+const user = cache.get('user:42');
+if (user) {
+  console.log('User found:', user);
+} else {
+  console.log('Cache miss');
+}
+```
+
+This method also counts as an access in LRU eviction, updating the recency of the entry.
+
+#### `has(key)`
+
+Checks if the key exists and hasn’t expired. Useful for conditionally acting on cache presence.
+
+```typescript
+if (cache.has('session:abc')) {
+  console.log('Session active');
+} else {
+  console.log('No active session found');
+}
+```
+
+
+#### `del(key)`
+
+Removes a specific entry from the cache immediately.
+
+```typescript
+cache.del('user:42'); // Manually invalidate cache
+```
+
+
+#### `cleanup()`
+
+Manually remove all expired entries from the cache. This is helpful if your application doesn't access these entries frequently, ensuring memory doesn’t hold onto stale data.
+
+```typescript
+cache.cleanup();
+```
+
+You might schedule this periodically for long-running services.
+
+### 4.4 Viewing Cache Contents
+
+You can introspect cache’s contents and size with:
+
+- `cache.keys()` – returns an iterable of all current keys.
+- `cache.size()` – returns the number of valid entries currently stored.
+
+Example:
+
+```typescript
+console.log([...cache.keys()]); // Prints all cache keys
+
+console.log('Cache size:', cache.size()); // Shows current number of entries
+```
+
+
+### 4.5 Cache Statistics
+
+When you enable `enableStats`, you can measure how well cache is performing by calling:
+
+```typescript
+const stats = cache.getStats();
+console.log(`Hits: ${stats.hits}, Misses: ${stats.misses}, Evictions: ${stats.evictions}`);
+```
+
+Useful statistics include:
+
+
+| Stat Type | Meaning |
+| :-- | :-- |
+| Hits | Number of successful cache retrievals |
+| Misses | Number of lookups that found no entry |
+| Evictions | Number of entries removed due to capacity |
+
+You can also reset stats if needed:
+
+```typescript
+cache.resetStats();
+```
+
+
+### 4.6 Estimating Memory Usage
+
+To monitor cache’s footprint, you can call:
+
+```typescript
+const memUsage = cache.getMemoryUsage();
+console.log(`Approximate memory usage: ${memUsage.estimatedBytes} bytes`);
+```
+
+This estimate is based on stringifying cached entries and summing their sizes, providing an "order of magnitude" rather than exact memory usage.
+
+### 4.7 Full Example: Simple API Response Caching
+
+Combining these methods, here’s a snippet showing how you can cache API results for better performance:
+
+```typescript
+async function fetchUserData(userId: string) {
+  const cacheKey = `user:${userId}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;  // Return cached data if present
+
+  // Else fetch from external API or DB
+  const userData = await fetchFromDatabase(userId);
+
+  // Store result in cache, rely on default TTL
+  cache.set(cacheKey, userData);
+
+  return userData;
+}
+```
+
+
+### 4.8 Summary
+
+- The cache API is straightforward and familiar.
+- Supports optional per-entry TTL overrides.
+- Provides stats and memory-awareness for observability.
+- Eviction handling is automatic once `maxSize` is reached.
+
+This minimal but powerful API surface strikes a balance between beginner-friendliness and production readiness.
+
+In the next section, we'll go behind the scenes to understand **how eviction and TTL work together internally to keep cache performant and healthy**, helping you grasp the power behind these simple APIs.
+
+## 5. How Eviction and TTL Work Under the Hood in runtime-memory-cache
+
+Understanding what happens behind the scenes when you call `get`, `set`, or when the cache removes entries automatically is essential for mastering caching strategies and tuning your cache for your application.
+
+In this section, I’ll take you through the mechanics of eviction and TTL management in an in-memory cache, especially as it applies to runtime-memory-cache’s approach.
+
+### 5.1 Overview: The Challenge of Space \& Freshness
+
+Your cache has two main responsibilities:
+
+- **Prevent memory overflow:** Keep the cache size under the configured `maxSize` by evicting entries thoughtfully.
+- **Ensure data freshness:** Remove expired entries either proactively or lazily, based on TTL per entry.
+
+Balancing these goals while maintaining fast, O(1) operations is what a great cache achieves.
+
+### 5.2 Eviction Mechanism: Handling the Maximum Size
+
+When you insert a new cache entry via `set()`:
+
+1. **Check capacity:**
+If the current cache size has reached or exceeded `maxSize`, the cache must evict one or more entries before inserting.
+2. **Evict an entry based on the eviction policy:**
+    - For **FIFO**, remove the oldest inserted key.
+    - For **LRU**, remove the least recently used key.
+3. **Insert the new entry:**
+Place the new key at the “most recent” position, either at the end of the `Map` or logically equivalent.
+
+This eviction is done synchronously as part of the `set`, ensuring the cache size always respects your `maxSize`.
+
+### 5.3 TTL Enforcement: Keeping Cache Data Fresh
+
+Each cache entry is tagged with an expiry timestamp, calculated when the entry is created or updated:
+
+```text
+expiry = current_time + TTL_for_this_entry
+```
+
+- The TTL can be a global default or overridden per entry via the optional third argument to `set`.
+
+**Expiry checks happen lazily:**
+
+- When you call `get(key)` or `has(key)`:
+    - The cache checks if the current time is past the expiry timestamp.
+    - If expired, the entry is immediately removed and the request responds as a cache miss (`undefined`).
+
+**Expired entries may also be cleaned up proactively:**
+
+- You can call `cleanup()` to scan and remove expired entries regardless of access.
+- This is useful for reducing memory footprint especially when many entries have expired but remain in the cache because they’re not being accessed.
+
+
+### 5.4 Efficiency: Why Lazy Expiry is a Good Tradeoff
+
+Lazy expiry avoids the overhead of constant background scanning or timers, which can be complex and resource-heavy.
+
+Instead, expiry is checked on-demand — only when clients ask for entries.
+
+Most workloads naturally touch popular entries frequently, so stale entries tend to be detected and removed rather quickly.
+
+Periodic manual cleanup covers the corner cases of long-forgotten expired entries.
+
+### 5.5 How Eviction and TTL Interact
+
+Consider insertions and expirations together:
+
+- When you insert an entry, if the cache is full, eviction precedes insertion.
+- Expired entries behave like they don't exist during `get` and `has`, but they still occupy space until removed.
+- Therefore, **eviction is triggered based on the size counting actual entries present**, some of which may have expired but not yet cleaned up.
+
+This means cache might evict live entries even if expired entries exist but haven’t been cleaned. Calling `cleanup()` regularly helps reclaim space from expired data and reduces unnecessary live evictions.
+
+### 5.6 Recency Tracking for LRU: How Order is Maintained
+
+For eviction policies like LRU:
+
+- Every time an entry is accessed or updated, it is removed and re-inserted into the `Map`, pushing it to the most recent position in Map's iteration order.
+- This makes it straightforward to find the least recently used (the first key in the `Map`) and evict that entry when necessary.
+- This approach achieves O(1) amortized complexity for lookups and reordering without needing a custom linked list.
+
+
+### 5.7 Practical Advice
+
+- **Keep TTLs balanced:** Not too short or too long — this affects how often expired data builds up, causing evictions.
+- **Call `cleanup()` in long-running processes:** Helps clear expired entries and reduce cache size.
+- **Choose eviction policy aligned with your workload:** For example, LRU for usage-based caching, FIFO for simple eviction needs.
+- **Enable stats:** Monitor hits, misses, and evictions to tune cache configuration.
+
+
+### 5.8 Summary
+
+The pairing of TTL and eviction creates a *self-managing cache* that maintains freshness and memory limits without manual intervention.
+
+By leveraging JavaScript’s native `Map` iteration order and timestamp comparison, these mechanisms stay elegant, fast, and predictable.
+
+Next up, I’ll show you real-world examples of how to integrate **runtime-memory-cache** into your applications to maximize benefit.
+
+
+
