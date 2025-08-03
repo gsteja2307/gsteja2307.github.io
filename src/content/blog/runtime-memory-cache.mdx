@@ -85,18 +85,6 @@ Not suited for:
 - Data consistency across multiple servers
 - Data durability after restart
 
-
-### 1.5 Node.js and Runtime Cache
-
-Node.js environments are perfect for runtime caches:
-
-- Single-threaded event loop, predictable memory.
-- Easy to integrate with TypeScript and modern JS.
-- Your package `runtime-memory-cache` fits perfectly here.
-
-
-### 1.6 The Missing Piece — The Cache Itself
-
 You might ask:
 
 > How do I cache? Should I write my own?
@@ -501,18 +489,6 @@ async function fetchUserData(userId: string) {
 }
 ```
 
-
-### 4.8 Summary
-
-- The cache API is straightforward and familiar.
-- Supports optional per-entry TTL overrides.
-- Provides stats and memory-awareness for observability.
-- Eviction handling is automatic once `maxSize` is reached.
-
-This minimal but powerful API surface strikes a balance between beginner-friendliness and production readiness.
-
-In the next section, we'll go behind the scenes to understand **how eviction and TTL work together internally to keep cache performant and healthy**, helping you grasp the power behind these simple APIs.
-
 ## 5. How Eviction and TTL Work Under the Hood in runtime-memory-cache
 
 Understanding what happens behind the scenes when you call `get`, `set`, or when the cache removes entries automatically is essential for mastering caching strategies and tuning your cache for your application.
@@ -588,9 +564,9 @@ This means cache might evict live entries even if expired entries exist but have
 
 For eviction policies like LRU:
 
-- Every time an entry is accessed or updated, it is removed and re-inserted into the `Map`, pushing it to the most recent position in Map's iteration order.
-- This makes it straightforward to find the least recently used (the first key in the `Map`) and evict that entry when necessary.
-- This approach achieves O(1) amortized complexity for lookups and reordering without needing a custom linked list.
+- The planned implementation will move accessed/updated entries to the most recent position in Map's iteration order.
+- This will make it straightforward to find the least recently used (the first key in the `Map`) for eviction when needed. 
+- The goal is to achieve O(1) amortized complexity for lookups and reordering without needing a custom linked list.
 
 
 ### 5.7 Practical Advice
@@ -601,13 +577,605 @@ For eviction policies like LRU:
 - **Enable stats:** Monitor hits, misses, and evictions to tune cache configuration.
 
 
-### 5.8 Summary
+### 5.8 Understanding the Combined Power of TTL and Eviction
 
 The pairing of TTL and eviction creates a *self-managing cache* that maintains freshness and memory limits without manual intervention.
 
 By leveraging JavaScript’s native `Map` iteration order and timestamp comparison, these mechanisms stay elegant, fast, and predictable.
 
-Next up, I’ll show you real-world examples of how to integrate **runtime-memory-cache** into your applications to maximize benefit.
+This design philosophy ensures that runtime-memory-cache remains lightweight while providing powerful caching capabilities.
 
 
+## 6. Practical Usage Patterns with runtime-memory-cache: Real-World Examples and Tips
 
+With a good understanding of the cache mechanics, it’s time to explore how to apply `runtime-memory-cache` in typical backend scenarios to boost speed, reduce load, and streamline data access.
+
+I’ll walk you through some common use cases and best practices that emphasize how straightforward and effective this cache can be.
+
+### 6.1 Basic Caching of API or Database Calls
+
+One of the most frequent reasons to introduce a cache is to avoid expensive repetitions of API requests or database queries.
+
+**Example:** Cache user profile data to prevent repeated fetches.
+
+```typescript
+// Assume this is your cache instance:
+const cache = new RuntimeMemoryCache({ ttl: 60000, maxSize: 5000, evictionPolicy: 'LRU', enableStats: true });
+
+async function getUserProfile(userId: string) {
+  const cacheKey = `user:${userId}`;
+  
+  // Try cache first
+  let profile = cache.get(cacheKey);
+  if (profile) {
+    return profile; // Cache hit!
+  }
+  
+  // If miss, fetch from backend API or DB
+  profile = await fetchUserFromDB(userId);
+
+  // Cache the result with default TTL
+  cache.set(cacheKey, profile);
+  
+  return profile;
+}
+```
+
+**Why use this pattern?**
+
+- Dramatically reduces DB/API calls for popular users.
+- Speeds up response time for subsequent requests.
+- Adheres to your TTL and eviction policies automatically.
+
+
+### 6.2 Sessions and Authentication Tokens
+
+For apps that manage sessions or tokens, caching session data in-memory is a great strategy for ultra-fast lookups.
+
+```typescript
+const sessionCache = new RuntimeMemoryCache({ ttl: 30 * 60 * 1000, maxSize: 10000 }); // 30-min TTL
+
+function storeSession(sessionId: string, sessionData: any) {
+  sessionCache.set(sessionId, sessionData);  // Stores with default TTL
+}
+
+function getSession(sessionId: string) {
+  return sessionCache.get(sessionId);
+}
+
+function invalidateSession(sessionId: string) {
+  sessionCache.del(sessionId);
+}
+```
+
+Here, the cache automatically cleans up expired sessions, helping control memory and avoid stale state.
+
+### 6.3 Rate Limiting Per User or Client
+
+Another common use case is **rate limiting**, where you track the number of requests a client makes in a given timeframe.
+
+```typescript
+const limiterCache = new RuntimeMemoryCache({ ttl: 60 * 1000, maxSize: 10000, evictionPolicy: 'LRU', enableStats: true });
+
+function rateLimit(userId: string) {
+  const key = `rate-limit:${userId}`;
+  let entry = limiterCache.get(key);
+  
+  if (!entry) {
+    entry = { count: 1 };
+  } else {
+    entry.count += 1;
+  }
+  
+  if (entry.count > 100) {
+    throw new Error('Rate limit exceeded');
+  }
+  
+  limiterCache.set(key, entry);
+}
+```
+
+**What’s happening?**
+
+- Cache entries track request counts with a 1-minute TTL.
+- Rate limits reset automatically as entries expire.
+- Eviction ensures the cache remains bounded.
+
+
+### 6.4 Manual Cleanup Usage
+
+For long-running services that intermittently cache a lot of data, I recommend scheduling periodic cleanup calls to remove expired entries and free memory.
+
+```typescript
+setInterval(() => {
+  cache.cleanup();
+  console.log('Cache cleanup performed');
+}, 5 * 60 * 1000); // Every 5 minutes
+```
+
+
+### 6.5 Monitoring Cache Effectiveness with Stats
+
+To optimize and debug your cache usage, monitor its statistics:
+
+```typescript
+setInterval(() => {
+  const stats = cache.getStats();
+  console.log(`Cache stats: Hits=${stats.hits}, Misses=${stats.misses}, Evictions=${stats.evictions}`);
+}, 30000); // Every 30 seconds
+```
+
+Use these logs to fine-tune TTL, max size, or eviction strategy if you observe poor hit rates or excessive evictions.
+
+### 6.6 Integrating with Express Middleware
+
+Here’s a simple example of caching API responses inside an Express route handler:
+
+```typescript
+import express from 'express';
+
+const app = express();
+const cache = new RuntimeMemoryCache({ ttl: 60000, maxSize: 2000, evictionPolicy: 'LRU' });
+
+app.get('/product/:id', async (req, res) => {
+  const id = req.params.id;
+  let product = cache.get(id);
+  if (!product) {
+    product = await fetchProductFromDB(id);
+    cache.set(id, product);
+  }
+  res.json(product);
+});
+
+app.listen(3000, () => console.log('App started.'));
+```
+
+This pattern caches product data, making subsequent calls extremely fast.
+
+### 6.7 Advanced: Memoizing Expensive Functions
+
+You can use `runtime-memory-cache` as a memoization store to cache results of CPU-intensive functions:
+
+```typescript
+function memoize<T, R>(fn: (arg: T) => R, cache: RuntimeMemoryCache<T, R>): (arg: T) => R {
+  return (arg: T) => {
+    const cached = cache.get(arg);
+    if (cached !== undefined) {
+      return cached;
+    }
+    const result = fn(arg);
+    cache.set(arg, result);
+    return result;
+  };
+}
+
+// Example usage:
+const expensiveComputationCached = memoize(expensiveComputation, new RuntimeMemoryCache({ ttl: 60000 }));
+```
+
+
+### 6.8 Tips for Effective Caching
+
+- Use **meaningful, unique cache keys** to avoid collisions.
+- Choose eviction policies based on your access patterns (see Section 2).
+- Tune TTL values carefully to balance freshness and cache hit rate.
+- Keep an eye on stats to catch unexpected cache behavior.
+- Remember cleanup for cleanup of expired entries when necessary.
+
+
+## 7. Performance Benchmarks and Profiling: Seeing runtime-memory-cache in Action
+
+Understanding theoretical design is crucial, but developers really want to see how fast and efficient a cache performs under real-world and stress conditions. In this section, I’ll share insights on measuring performance, some benchmarks with `runtime-memory-cache`, and tips to profile and tune your cache.
+
+### 7.1 Why Benchmark Your Cache?
+
+- **Validate speed:** Confirm that get/set operations are truly O(1) and fast at scale.
+- **Measure latency:** See how quick your cache responds even at heavy loads.
+- **Memory footprint:** Monitor how much RAM your cache consumes with growing data.
+- **Eviction behavior:** Understand how eviction impacts throughput and hit rate.
+
+
+### 7.2 Simple Benchmarking Script
+
+Here's a straightforward benchmark in Node.js to test `set` and `get` throughput:
+
+```typescript
+import RuntimeMemoryCache from 'runtime-memory-cache';
+
+const N = 100000;
+const cache = new RuntimeMemoryCache({ ttl: 60000, maxSize: 50000, evictionPolicy: 'LRU' });
+
+console.time('set');
+for (let i = 0; i < N; i++) {
+  cache.set(`key${i}`, { value: i, timestamp: Date.now() });
+}
+console.timeEnd('set');
+
+console.time('get');
+for (let i = 0; i < N; i++) {
+  cache.get(`key${i}`);
+}
+console.timeEnd('get');
+```
+
+**Typical results:**
+
+- Set operations can exceed hundreds of thousands per second.
+- Get operations often match or exceed set performance.
+- Low latency means minimal bottleneck within request pipelines.
+
+
+### 7.3 Large Data Handling and Memory Use
+
+- As you increase the size or complexity of cached values, memory usage grows.
+- Use `getMemoryUsage()` to see estimated bytes and detect growth trends.
+- Always tune `maxSize` to reflect your application's memory constraints.
+
+Example:
+
+```typescript
+const memUsage = cache.getMemoryUsage();
+console.log(`Estimated memory usage: ${memUsage.estimatedBytes / 1024} KB`);
+```
+
+
+### 7.4 Profiling Tools
+
+- Use Node.js' built-in profiler (`--inspect`, `--prof`) and heap snapshots to observe memory.
+- Use external tools like Chrome DevTools or `clinic` for CPU/memory profiling.
+- Track stats output over time to identify cache inefficiencies.
+
+
+## 8. Advanced Features, Extensibility, and Future Plans: Growing with Your Needs
+
+While the core of runtime-memory-cache focuses on simplicity and reliability, a powerful cache should be adaptable as your backend evolves. In this section, I want to show you some of the more advanced options in the package, share how you can extend it for upcoming needs, and give a sneak peek into features on my roadmap—including support for more eviction policies and integration hooks.
+
+### 8.1 Custom Per-Entry TTL (Time-To-Live)
+
+One rarely found but incredibly useful feature is the ability to set a custom TTL for each cache entry:
+
+```typescript
+cache.set('user:admin', someObj, 10 * 60 * 1000); // 10-minute expiry
+cache.set('promo:summer', promoObj, 24 * 60 * 60 * 1000); // 24-hour expiry
+```
+
+Why is this so useful?
+
+- You can strategically cache fast-changing data (short TTL) alongside slow-changing or near-static data (long TTL) in the **same cache**, greatly improving efficiency.
+- No need for multiple cache instances just for different expiry rules.
+
+
+### 8.2 Stats for Observability \& Automation
+
+Many built-in caches in other platforms are black boxes—runtime-memory-cache is purposely transparent:
+
+- Use `enableStats: true` to gather real-time metrics.
+- Automate tuning: In future versions, you’ll be able to adjust cache parameters at runtime (e.g., increasing maxSize if hit rate is too low).
+- Stats-driven control is foundational for adaptive, production-ready workloads.
+
+
+### 8.3 Modular Eviction Policies and the Road to LFU (and Beyond)
+
+At present, FIFO and LRU are available (see Section 2). But I recognize that as your app’s load and access patterns shift, you might crave even more control. That’s why I'm architecting the next iterations with modular eviction logic.
+
+- **LFU (Least Frequently Used):** Coming soon! This option will allow the cache to evict rarely used entries, excellent for workloads where "popularity" matters more than recency.
+- **ARC, custom hybrid strategies:** As the open source community grows, adding new eviction modules (or plugging in your own!) will become straightforward.
+- *If you’re eager to contribute or have a use-case to discuss, I’d love to connect!*
+
+
+### 8.4 Planned Advanced Features
+
+Here’s a taste of what else I plan to add (and encourage others to help shape):
+
+- **Event hooks:** Subscribe to onEvict, onSet, onHit, etc.—perfect for integrating cache hits/misses into wider analytics or alerting systems.
+- **Async fallback/getters:** Trigger a backend fetch+cache-fill on cache miss (future).
+- **Batch operations:** Set, get, delete multiple keys at once (bulk operations for efficiency).
+- **Integration adapters:** Easy plugins for popular web-framework middlewares, like Express or Koa.
+- **Type inference improvements:** Even tighter TypeScript integration for generics, inferred return types, and compile-time cache key safety.
+
+### 8.5 Example: Extending runtime-memory-cache for Your App
+
+Since the codebase is lightweight and clearly structured, it's easy to subclass or wrap if you want to experiment:
+
+```typescript
+class LoggingCache<K, V> extends RuntimeMemoryCache<K, V> {
+  set(key: K, value: V, ttl?: number) {
+    console.log('Set', key, value);
+    super.set(key, value, ttl);
+  }
+}
+```
+
+You can also fork and add your own eviction module, e.g. for LFU, by following the patterns in the code and the open contribution guidelines.
+
+### 8.6 Why Extensibility Matters
+
+No two applications have the same access patterns, data volatility, or performance envelope. A cache that grows with your needs—be that more eviction options, advanced hooks, or deeper introspection—protects your investment and allows experimentation. Plus, as the author, I want to empower the community to guide the roadmap.
+
+## 9. Debugging, Troubleshooting, and Common Pitfalls with runtime-memory-cache
+
+While caching brings great performance benefits, it also introduces complexity that can lead to subtle bugs or inefficiencies if not managed carefully. Based on my experience building and maintaining **runtime-memory-cache**, here are some practical tips and common gotchas to watch out for.
+
+### 9.1 Common Issues and How to Detect Them
+
+#### Cache Misses More Than Expected
+
+- **Symptoms:** Your app seems to hit the backend frequently without utilizing the cache well.
+- **Possible Causes:**
+    - TTL is too short, so entries expire before reuse.
+    - `maxSize` is too small, causing aggressive evictions.
+    - Cache keys are inconsistent or incorrect (e.g., variable parts in keys not normalized).
+    - Entries are accidentally deleted or not set correctly.
+- **How to Verify:**
+    - Enable stats with `enableStats: true` and monitor `hits` vs `misses`.
+    - Log cache keys when `set` or `get` is called in development.
+    - Ensure keys are deterministic and consistent.
+
+
+#### Memory Bloat and Increased Evictions
+
+- **Symptoms:** Eviction count is high, and memory usage grows unexpectedly.
+- **Possible Causes:**
+    - Very large or complex objects cached.
+    - Cache is filled with many unique keys with little reuse.
+    - Expired entries are not cleaned up promptly (rare with lazy expiry but possible).
+- **How to Detect:**
+    - Use `getMemoryUsage()` regularly to watch cache size.
+    - Check stats for high eviction rates.
+- **Remedies:**
+    - Tune `maxSize` and TTL values.
+    - Consider manual or periodic `cleanup()`.
+    - Avoid caching extremely large data chunks; cache references or summarized data instead.
+
+
+#### Stale Data Issues
+
+- **Symptoms:** Users see outdated or incorrect data served from cache.
+- **Possible Causes:**
+    - TTL too long for the type of volatile data.
+    - Cache not cleared or invalidated when underlying data changes.
+- **How to Mitigate:**
+    - Use appropriately timed TTL.
+    - Manually `del()` cache keys when you know data changed.
+    - Employ cache versioning or key namespaces to force refresh.
+
+
+### 9.2 Best Practices for Reliable Cache Usage
+
+- **Meaningful Keys:** Always use unique, normalized keys to avoid collisions and unexpected misses.
+- **Balance TTL and maxSize:** Neither too aggressive nor too lax; monitor stats to adjust.
+- **Enable Stats Early:** Give yourself visibility from the start.
+- **Schedule Cleanups for Long-Running Apps:** Prevent stale data buildup.
+- **Test Cache Behavior Thoroughly:** Write unit tests covering expiry, eviction, and concurrent access.
+
+
+### 9.3 Debug Logging
+
+If deep debugging is needed, wrapping or subclassing the cache with logs at key points (such as inserts, evictions) can help:
+
+```typescript
+class DebugCache<K, V> extends RuntimeMemoryCache<K, V> {
+  set(key: K, value: V, ttl?: number) {
+    console.log(`set called with key: ${key}`);
+    super.set(key, value, ttl);
+  }
+  get(key: K) {
+    console.log(`get called with key: ${key}`);
+    return super.get(key);
+  }
+}
+```
+
+
+### 9.4 Handling Concurrency
+
+Although JavaScript is single-threaded in Node.js, asynchronous operations might cause race conditions:
+
+- Two parallel requests might both miss and set the same cache key, causing duplicate backend fetches.
+- Consider locking or "in-flight request" tracking externally if this matters.
+- Alternatively, use the cache’s stats to spot frequent misses on hot keys, and optimize.
+
+
+### 9.5 FAQ and Troubleshooting Summary
+
+| Problem | Common Cause | Suggested Fix |
+| :-- | :-- | :-- |
+| Too many cache misses | Short TTL, small cache, bad keys | Increase TTL, maxSize, fix cache keys |
+| Memory usage growth | Large cached objects, no cleanup | Tune sizes, run manual cleanup periodically |
+| Users see stale data | TTL too long, no invalidation | Shorten TTL, delete keys on data change |
+| Unexpected evictions | Too small cache size | Increase maxSize |
+| Concurrency issues | Parallel miss+set race | Implement external locks or dedupe requests |
+
+This section equips you to spot, diagnose, and fix common caching issues effectively.
+
+## 10. Integrations with Popular Node.js Frameworks
+
+Integrating **runtime-memory-cache** into your favorite Node.js frameworks like Express, Koa, or Fastify is straightforward, and let’s explore practical examples to help you get started fast.
+
+### 10.1 Using runtime-memory-cache with Express
+
+Express is one of the most popular web frameworks for Node.js. Below is a simple example demonstrating how to use runtime-memory-cache to cache API responses in Express route handlers:
+
+```typescript
+import express from 'express';
+import RuntimeMemoryCache from 'runtime-memory-cache';
+
+const app = express();
+const cache = new RuntimeMemoryCache({
+  ttl: 60000,            // 1-minute TTL
+  maxSize: 1000,
+  evictionPolicy: 'LRU',
+  enableStats: true
+});
+
+app.get('/user/:id', async (req, res) => {
+  const userId = req.params.id;
+  const cacheKey = `user:${userId}`;
+
+  let user = cache.get(cacheKey);
+  if (user) {
+    console.log('Cache hit');
+    return res.json(user);
+  }
+
+  console.log('Cache miss - fetching from DB');
+  // Simulate DB call or fetch from external service
+  user = await fetchUserFromDatabase(userId);
+
+  cache.set(cacheKey, user);
+  return res.json(user);
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+```
+
+### 10.2 Integrating with Koa
+
+Similar approach for Koa or other middleware-based frameworks:
+
+```typescript
+import Koa from 'koa';
+import Router from '@koa/router';
+import RuntimeMemoryCache from 'runtime-memory-cache';
+
+const app = new Koa();
+const router = new Router();
+const cache = new RuntimeMemoryCache({ ttl: 300000, maxSize: 2000, evictionPolicy: 'FIFO' });
+
+router.get('/products/:id', async (ctx) => {
+  const id = ctx.params.id;
+  const cached = cache.get(id);
+  if (cached) {
+    ctx.body = cached;
+    return;
+  }
+  const product = await fetchProduct(id);
+  cache.set(id, product);
+  ctx.body = product;
+});
+
+app.use(router.routes());
+app.listen(4000);
+```
+
+
+### 10.3 Using with Fastify
+
+Fastify users benefit from similarly clean integration:
+
+```typescript
+import fastify from 'fastify';
+import RuntimeMemoryCache from 'runtime-memory-cache';
+
+const app = fastify();
+const cache = new RuntimeMemoryCache({ ttl: 120000, maxSize: 5000, evictionPolicy: 'LRU' });
+
+app.get('/session/:sessionId', async (request, reply) => {
+  const sessionId = request.params.sessionId;
+  let session = cache.get(sessionId);
+  if (session) {
+    reply.send(session);
+    return;
+  }
+  session = await fetchSession(sessionId);
+  cache.set(sessionId, session);
+  reply.send(session);
+});
+
+app.listen(3000);
+```
+
+
+### 10.4 Middleware for Caching Responses
+
+You can wrap your cache logic into middleware to automatically cache and serve responses:
+
+```typescript
+function cacheMiddleware(cache: RuntimeMemoryCache, ttl?: number) {
+  return async (req, res, next) => {
+    const key = req.originalUrl;
+    const cachedBody = cache.get(key);
+    if (cachedBody) {
+      res.send(cachedBody);
+      return;
+    }
+    // Override send to cache the response body
+    const originalSend = res.send.bind(res);
+    res.send = (body) => {
+      cache.set(key, body, ttl);
+      return originalSend(body);
+    };
+    next();
+  };
+}
+```
+
+Then use middleware in Express:
+
+```typescript
+app.use(cacheMiddleware(cache, 60000));
+```
+
+
+## 11. Extending and Contributing to runtime-memory-cache
+
+I designed **runtime-memory-cache** to be lightweight and focused but also open for growth. Whether you want to add new features, fix bugs, or customize the cache for your needs, here’s how you can extend or contribute to the project.
+
+### 11.1 Understanding the Codebase Structure
+
+The project is written in TypeScript and organized clearly for readability and maintainability:
+
+- **src/** contains the main implementation files.
+- **test/** holds unit tests covering core and edge cases.
+- The eviction logic, TTL handling, statistics, and utility functions are modularized.
+- Typed interfaces ensure type safety and help with code completion.
+
+This structure makes it easy to find the portion you want to improve.
+
+### 11.2 How to Add New Eviction Policies
+
+Currently, the cache supports FIFO and LRU, but you can extend this by:
+
+1. Defining a new eviction strategy module that implements required hooks (e.g., how to update usage order, how to select keys to evict).
+2. Adjusting the main cache class to accept your custom strategy or toggling new policy strings.
+3. Writing unit tests to verify correctness and performance.
+
+For example, if you want to add **LFU (Least Frequently Used):**
+
+- Track access counts per key.
+- On eviction, remove the key with the lowest frequency count.
+- Periodically decay counts if needed to avoid stale frequency data.
+
+
+### 11.3 Pull Requests and Issues
+
+I welcome contributions via GitHub. To contribute:
+
+- Open an issue describing your proposed change or bug.
+- Fork the repo, make your changes in a branch.
+- Submit a pull request (PR) with clear description and tests.
+- I review and collaborate on improvements before merging.
+
+Make sure to run and add tests — coverage is important.
+
+### 11.4 Feature Ideas I’m Open to Receiving
+
+- More eviction policies (e.g., LFU, ARC).
+- Async-aware cache getters/setters.
+- Bulk operations for better batch performance.
+- Cache event hooks for monitoring.
+- Framework-specific middlewares or helpers.
+- Detailed benchmarks and profiling scripts.
+
+
+### 11.5 Tips for Maintaining Your Fork or Variant
+
+If your cache needs diverge significantly, feel free to fork and adapt but consider merging improvements back to keep a strong, community-driven core project.
+
+### 11.6 Keeping Up With Updates
+
+I strive to maintain compatibility with the latest Node.js and TypeScript versions and welcome feedback on performance or API ergonomics. Star the GitHub repo to get notified of updates and help spread the word.
+
+**Summary:**
+
+Extensibility is key to a vibrant cache library. With clear code and modular eviction design, **runtime-memory-cache** is ready for you to customize or contribute to. Whether adding LFU, better stats, or integrations, your input helps the entire community
