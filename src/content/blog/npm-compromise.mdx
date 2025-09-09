@@ -14,7 +14,7 @@ draft: false
 
 # Largest npm Supply Chain Attack Ever: How Aikido Security Detected It and What Developers Must Do Now
 
-*A massive, rapid npm supply chain compromise hit the JavaScript ecosystem in September 2025, affecting 18 core packages—including `chalk`, `debug`, and others—with over 2.6 billion combined weekly downloads. This article offers a step-by-step account of how Aikido Security first discovered the incident, the underlying malware techniques, how it spread via transitive dependencies, and actionable steps for audit, detection, and cleanup. For ongoing updates, Aikido’s live incident log is referenced, and I’ll continuously maintain my own findings and tips here.*
+*A massive, rapid npm supply chain compromise hit the JavaScript ecosystem in September 2025, affecting 18 core packages including `chalk`, `debug`, and others with over 2.6 billion combined weekly downloads. This article offers a step-by-step account of how Aikido Security first discovered the incident, the underlying malware techniques, how it spread via transitive dependencies, and actionable steps for audit, detection, and cleanup. For ongoing updates, Aikido’s live incident log is referenced, and I’ll continuously maintain my own findings and tips here.*
 
 ---
 
@@ -24,7 +24,7 @@ On September 8, 2025, Aikido Security threat researchers spotted suspicious npm 
 
 **Key Points:**
 - A phishing email from `npmjs.help` enabled attackers to breach the trusted maintainer’s npm account by collecting credentials and bypassing 2FA.
-- Malicious versions of **18 widely consumed npm packages** were released and live for roughly two hours—just long enough to infiltrate potentially millions of projects.
+- Malicious versions of **18 widely consumed npm packages** were released and live for roughly two hours, just long enough to infiltrate potentially millions of projects.
 - Aikido immediately published their findings and initiated coordinated takedowns.
 
 ### The Full List of Compromised Packages:
