@@ -1,0 +1,90 @@
+---
+import recommendationsData from '../data/recommendations.json';
+
+const { recommendations, totalCount, displayCount, lastUpdated } = recommendationsData;
+---
+
+<section
+	data-testid="recommendations"
+	id="recommendations"
+	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen"
+>
+	<div class="mb-10 flex w-full flex-col items-center justify-center">
+		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">LinkedIn Recommendations</h2>
+		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+		<p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+			Showing {displayCount} of {totalCount} recommendations • Last updated: {new Date(lastUpdated).toLocaleDateString()}
+		</p>
+	</div>
+
+	<div class="w-full max-w-6xl">
+		<!-- Recommendations Grid -->
+		<div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+			{recommendations.map((rec) => (
+				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow bg-white dark:bg-gray-800">
+					<!-- Header with Avatar and Info -->
+					<div class="flex items-start mb-4">
+						<div class="w-12 h-12 bg-orange rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">
+							{rec.name.split(' ').map(n => n[0]).join('')}
+						</div>
+						<div class="flex-1 min-w-0">
+							<h3 class="font-semibold text-black dark:text-white text-sm leading-tight">{rec.name}</h3>
+							<p class="text-xs text-gray-600 dark:text-gray-400 leading-tight">{rec.position}</p>
+							<p class="text-xs text-orange font-medium">{rec.company}</p>
+							<p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{rec.relationship}</p>
+						</div>
+						<div class="text-xs text-gray-400 flex-shrink-0">
+							{rec.date}
+						</div>
+					</div>
+
+					<!-- Recommendation Text -->
+					<div class="mb-4">
+						<blockquote class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+							"{rec.text}"
+						</blockquote>
+					</div>
+
+					<!-- Skills Tags -->
+					<div class="flex flex-wrap gap-1">
+						{rec.skills.map((skill) => (
+							<span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full text-xs">
+								{skill}
+							</span>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+
+		<!-- View More Link -->
+		<div class="text-center">
+			<a
+				href="https://www.linkedin.com/in/surya-teja-gollamudi/"
+				target="_blank"
+				class="inline-flex items-center px-6 py-3 bg-transparent border-2 border-orange text-orange hover:bg-orange hover:text-white transition-colors rounded-lg font-semibold"
+			>
+				View All {totalCount} Recommendations on LinkedIn
+				<span class="ml-2">→</span>
+			</a>
+		</div>
+
+	</div>
+</section>
+
+<style>
+	blockquote {
+		position: relative;
+	}
+
+	blockquote::before {
+		content: '"';
+		font-size: 2rem;
+		color: #E06330;
+		position: absolute;
+		left: -8px;
+		top: -8px;
+		font-family: serif;
+		opacity: 0.3;
+	}
+</style>

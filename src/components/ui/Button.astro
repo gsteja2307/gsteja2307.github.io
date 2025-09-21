@@ -2,7 +2,7 @@
 interface Props {
 	size?: 'sm' | 'md' | 'lg';
 	block?: boolean;
-	style?: 'primary';
+	style?: 'primary' | 'secondary';
 	class?: string;
 	[x: string]: any;
 }
@@ -16,7 +16,8 @@ const sizes = {
 };
 
 const styles = {
-	primary: 'bg-black text-white hover:bg-orange  border-2',
+	primary: 'bg-black text-white hover:bg-orange border-2',
+	secondary: 'bg-transparent text-black dark:text-white border-2 border-orange hover:bg-orange hover:text-white',
 };
 ---
 

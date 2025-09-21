@@ -10,18 +10,47 @@ import Button from '../components/ui/Button.astro';
 >
 	<div class="mb-10 flex flex-col items-center lg:mb-0 lg:w-1/2">
 		<div>
-			<h1 class="mb-10 font-monospace text-3xl text-black dark:text-white lg:text-5xl">
-				Hi! My name is <span class="text-orange">Surya Teja</span> and I am a full stack developer based in Hyderabad.
+			<h1 class="mb-6 font-monospace text-3xl text-black dark:text-white lg:text-5xl">
+				Hi! I'm <span class="text-orange">Surya Teja</span>, Senior Full-Stack Engineer
 			</h1>
+			<h2 class="mb-8 font-sans text-lg text-gray-600 dark:text-gray-300 lg:text-xl">
+				MERN Stack Expert | Data Scientist | AI Enthusiast exploring MCP
+			</h2>
+			<p class="mb-8 text-base text-gray-700 dark:text-gray-400 lg:text-lg">
+				6+ years building scalable fintech solutions at Lloyds, DBS Bank, and Arcserve
+			</p>
+			<div class="mb-8 flex flex-wrap justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+				<span class="flex items-center">
+					<span class="mr-1 text-orange">•</span>
+					45+ repositories
+				</span>
+				<span class="flex items-center">
+					<span class="mr-1 text-orange">•</span>
+					2x recognition awards
+				</span>
+				<span class="flex items-center">
+					<span class="mr-1 text-orange">•</span>
+					80% test coverage advocate
+				</span>
+			</div>
 		</div>
-		<div class="mb-10">
-			<Button style={'primary'} size={'lg'} class={'flex'} name="learn more"><a target="_blank" href="https://www.linkedin.com/in/surya-teja-gollamudi/">Connect with me in @Linkedin</a></Button>
+		<div class="mb-10 flex flex-wrap gap-4 justify-center">
+			<Button style={'primary'} size={'lg'} class={'flex'} name="linkedin">
+				<a target="_blank" href="https://www.linkedin.com/in/surya-teja-gollamudi/">
+					Connect on LinkedIn
+				</a>
+			</Button>
+			<Button style={'secondary'} size={'lg'} class={'flex'} name="github">
+				<a target="_blank" href="https://github.com/gsteja2307">
+					View GitHub
+				</a>
+			</Button>
 		</div>
 	</div>
 	<div data-testid="hero-img" class="ml-2 mb-10 flex w-1/2 items-center justify-center">
 		<Image
 			src={heroImage}
-			alt="Coding girl"
+			alt="Coding illustration"
 			format="png"
 			width={600}
 			height={600}
@@ -29,7 +58,3 @@ import Button from '../components/ui/Button.astro';
 		/>
 	</div>
 </section>
-
-<script>
-
-</script>

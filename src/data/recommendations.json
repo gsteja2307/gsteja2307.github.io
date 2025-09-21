@@ -1,0 +1,56 @@
+{
+  "recommendations": [
+    {
+      "id": 1,
+      "name": "Sahita M.",
+      "position": "Software Engineer",
+      "company": "Lloyds Technology Centre",
+      "relationship": "Worked together in the same team",
+      "date": "2024",
+      "text": "I had the pleasure of working with Surya Teja in the same team at Lloyds, and it's been a great experience. He is a highly skilled full stack developer with strong technical and domain knowledge. Surya consistently delivers high-quality work and has resolved several complex issues that others in the team couldn't. His code is clean, well-structured, and aligned with best practices. Surya played a key role in impact analysis for the v4 upgrade, IPM, and several Open Banking components—handling everything with ease and precision. He also fixed critical build errors that no one else in the team was able to resolve. Beyond his technical skills, Surya is always approachable and willing to help others, explaining things clearly and patiently. We've worked closely on multiple initiatives, and collaborating with him has always made me feel confident and well-supported. Surya is a true asset to any team, and I highly recommend him.",
+      "skills": [
+        "Full Stack Development",
+        "Open Banking",
+        "Problem Solving",
+        "Mentoring",
+        "Technical Leadership"
+      ],
+      "avatar": "/images/avatars/placeholder-1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Vamsi Krishna",
+      "position": "Software Engineer",
+      "company": "Lloyds Technology Centre",
+      "relationship": "Worked together on International Payment Modernisation",
+      "date": "2024",
+      "text": "I had the chance to work with Surya at Lloyd's, and he proved to be a very reliable and skilled developer. He worked mainly with Node.js and React, delivering several critical features and moving them into production with very few issues. While working on International Payments modernization, Surya showed great teamwork and coordination, which helped the whole team work better together. It was a pleasure working with him.",
+      "skills": [
+        "Node.js",
+        "React",
+        "International Payments Modernization",
+        "Teamwork",
+        "Production Delivery"
+      ],
+      "avatar": "/images/avatars/placeholder-2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Sahil Gupta",
+      "position": "SDE 2",
+      "company": "IBM",
+      "relationship": "Worked together on Branch Connect",
+      "date": "2022",
+      "text": "Surya Teja is technically sound person. he likes to take challenges head on and complete them on time he is great team player. I recommend him.",
+      "skills": [
+        "React.JS",
+        "Micro Front Ends",
+        "Team Collaboration"
+      ],
+      "avatar": "/images/avatars/placeholder-3.jpg"
+    }
+  ],
+  "lastUpdated": "2024-12-21",
+  "totalCount": 9,
+  "displayCount": 3
+}

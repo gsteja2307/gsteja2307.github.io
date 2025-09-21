@@ -2,11 +2,15 @@
 import BaseLayout from '@/layouts/BaseLayout';
 import About from '../components/About.astro';
 import Hero from '../components/Hero.astro';
+import ProfessionalJourney from '../components/ProfessionalJourney.astro';
+import TechnicalExpertise from '../components/TechnicalExpertise.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import Recommendations from '../components/Recommendations.astro';
+import Achievements from '../components/Achievements.astro';
 import BackToTop from '../components/ui/BackToTop.astro';
-import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout title="Surya Teja | Web Developer">
+<BaseLayout title="Surya Teja | Senior Full-Stack Engineer | MERN Stack Expert">
 	<div id="splashScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
 		<h1 id="splashText" class="font-monospace text-4xl font-bold text-orange"></h1>
 	</div>
@@ -14,6 +18,11 @@ import Layout from '../layouts/Layout.astro';
 	<main class="hidden" id="mainContent">
 		<Hero />
 		<About />
+		<ProfessionalJourney />
+		<TechnicalExpertise />
+		<FeaturedProjects />
+		<Recommendations />
+		<Achievements />
 		<BackToTop />
 	</main>
 
