@@ -32,6 +32,24 @@ export const getTags = async () => {
 	return Array.from(tags)
 }
 
+export const getTagsWithCount = async () => {
+	const posts = await getCollection('blog')
+	const tagCounts = new Map()
+
+	posts
+		.filter((post) => !post.data.draft)
+		.forEach((post) => {
+			post.data.tags.forEach((tag) => {
+				const lowerTag = tag.toLowerCase()
+				tagCounts.set(lowerTag, (tagCounts.get(lowerTag) || 0) + 1)
+			})
+		})
+
+	return Array.from(tagCounts.entries())
+		.map(([tag, count]) => ({ tag, count }))
+		.sort((a, b) => b.count - a.count)
+}
+
 export const getPostByTag = async (tag: string) => {
 	const posts = await getPosts()
 	const lowercaseTag = tag.toLowerCase()
