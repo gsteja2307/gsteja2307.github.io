@@ -43,7 +43,7 @@ const { recommendations, totalCount, displayCount, lastUpdated } = recommendatio
 
 						<!-- Header -->
 						<div class="flex items-start mb-6">
-							<div class={`w-16 h-16 bg-gradient-to-r ${index === 0 ? 'from-slate-800 to-slate-900 dark:from-orange-500 dark:to-red-500' : index === 1 ? 'from-slate-800 to-slate-900 dark:from-blue-500 dark:to-cyan-500' : 'from-slate-800 to-slate-900 dark:from-purple-500 dark:to-violet-500'} rounded-full flex items-center justify-center text-white font-bold text-xl mr-4 flex-shrink-0 shadow-lg border-2 ${index === 0 ? 'border-slate-200 dark:border-orange-400' : index === 1 ? 'border-slate-200 dark:border-blue-400' : 'border-slate-200 dark:border-purple-400'}`}>
+							<div class={`w-16 h-16 bg-gradient-to-r ${index === 0 ? 'from-orange-500 to-red-500 dark:from-orange-500 dark:to-red-500' : index === 1 ? 'from-blue-500 to-cyan-500 dark:from-blue-500 dark:to-cyan-500' : 'from-purple-500 to-violet-500 dark:from-purple-500 dark:to-violet-500'} rounded-full flex items-center justify-center text-white font-bold text-xl mr-4 flex-shrink-0 shadow-lg border-2 ${index === 0 ? 'border-slate-200 dark:border-orange-400' : index === 1 ? 'border-slate-200 dark:border-blue-400' : 'border-slate-200 dark:border-purple-400'}`}>
 								{rec.name.split(' ').map(n => n[0]).join('')}
 							</div>
 							<div class="flex-1 min-w-0">

@@ -3,6 +3,8 @@ import HeaderLink from '@/components/HeaderLink';
 import MenuIcon from './icons/MenuIcon.astro';
 import Search from '@/components/Search';
 import TagIcon from './icons/TagIcon.astro';
+import BlogIcon from './icons/BlogIcon.astro';
+import HomeIcon from './icons/HomeIcon.astro';
 import ToggleTheme from './ToggleTheme.astro';
 import { SOCIALNETWORKS } from '@/data/links';
 // Get the current path
@@ -12,77 +14,183 @@ console.log(currentPage);
 const isHomePage = currentPage === '/';
 ---
 
-<header class="relative flex h-12 items-center font-semibold">
-	<a class="mr-auto text-lg" href="/blog" onclick="window.location.href='/blog'; return false;"
-		>Blog</a
-	>
-	<a class="mr-auto text-lg" href="/" onclick="window.location.href='/'; return false;">About</a>
+<header
+	class="sticky top-0 z-50 w-full border-b border-gray-200/10 bg-white/80 backdrop-blur-md transition-all duration-300 dark:border-gray-800/50 dark:bg-gray-900/80"
+>
+	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+		<!-- Logo/Brand Section -->
+		<div class="flex items-center space-x-8">
+			<a
+				href="/"
+				rel="noopener noreferrer "
+				onclick="window.location.href='/'; return false;"
+				class="group flex items-center space-x-2 text-xl font-bold text-gray-900 transition-colors duration-200 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+			>
+				<div
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg transition-transform duration-200 group-hover:scale-110"
+				>
+					<span class="text-sm font-bold">ST</span>
+				</div>
+				<span class="hidden sm:block">Surya Teja</span>
+			</a>
 
-	<div
-		id="astro-header-drawer"
-		class="absolute -right-5 top-12 z-50 h-[200px] w-[200px] translate-x-96 rounded-l-lg bg-white pb-4 pl-4 pt-6 shadow transition-transform duration-300 ease-in dark:bg-[#0a0910] md:static md:h-auto md:translate-x-0 md:rounded-none md:border-none md:bg-transparent md:p-0 md:shadow-none dark:md:bg-transparent"
-	>
-		<nav
-			class="flex h-full flex-col justify-between gap-12 text-left md:w-full md:flex-row md:gap-5"
-		>
-			{
-				!isHomePage && (
-					<div class="flex flex-col gap-4 border-black pr-4 dark:border-white md:flex-row md:border-r-2">
-						<HeaderLink href="/tags" class="flex items-center gap-1 text-2xl md:text-base">
-							<TagIcon /> Tags
+			<!-- Desktop Navigation -->
+			<nav class="hidden items-center space-x-8 md:flex">
+				{
+					!isHomePage && (
+						<HeaderLink
+							href="/"
+							onclick="window.location.href='/'; return false;"
+							class="group flex items-center space-x-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+						>
+							<HomeIcon />
+							<span>About</span>
 						</HeaderLink>
-					</div>
-				)
-			}
-			{isHomePage && <div class="flex flex-col gap-4 md:flex-row" />}
+					)
+				}
+				<HeaderLink
+					href="/blog"
+					onclick="window.location.href='/blog'; return false;"
+					class="group flex items-center space-x-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+				>
+					<BlogIcon />
+					<span>Blog</span>
+				</HeaderLink>
+				{
+					!isHomePage && (
+						<HeaderLink
+							href="/tags"
+							class="group flex items-center space-x-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+						>
+							<TagIcon />
+							<span>Tags</span>
+						</HeaderLink>
+					)
+				}
+			</nav>
+		</div>
 
-			<div class="flex items-center justify-center gap-3 md:justify-end md:p-0">
+		<!-- Right Section -->
+		<div class="flex items-center space-x-4">
+			<!-- Social Links (Desktop) -->
+			<div class="hidden items-center space-x-3 md:flex">
 				{
 					SOCIALNETWORKS.map((network) => (
-						<HeaderLink class="" href={network.url} target="_blank" aria-label={network.name}>
-							<span>{<network.icon />} </span>
+						<HeaderLink
+							href={network.url}
+							target="_blank"
+							aria-label={network.name}
+							class="group flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all duration-200 hover:scale-110 hover:bg-blue-500 hover:text-white hover:shadow-lg dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-blue-600"
+						>
+							<network.icon />
 						</HeaderLink>
 					))
 				}
 			</div>
-		</nav>
-	</div>
-	{
-		!isHomePage && (
-			<div class="flex items-center gap-3 md:pl-3" transition:persist="navbar">
-				<div>
-					<Search />
-				</div>
-				<ToggleTheme />
-				<button id="astro-header-drawer-button" type="button" class="md:ml-6 md:hidden">
-					<MenuIcon />
-					<span class="sr-only">Show Menu</span>
-				</button>
-			</div>
-		)
-	}
-	{
-		isHomePage && (
-			<div class="flex items-center gap-3 md:pl-3" transition:persist="navbar">
-				<div />
-				<ToggleTheme />
-				<div />
-			</div>
-		)
-	}
-</header>
-<script>
-	document.addEventListener('click', (event) => {
-		const menu = document.getElementById('astro-header-drawer');
-		const menuButton = document.getElementById('astro-header-drawer-button');
-		const isClickInside =
-			menu?.contains(event.target as HTMLDivElement) ||
-			menuButton?.contains(event.target as HTMLButtonElement);
 
-		if (isClickInside) {
-			menu?.classList.toggle('translate-x-96');
-		} else {
-			menu?.classList.add('translate-x-96');
+			<!-- Theme Toggle -->
+			<div class="flex h-9 w-9 items-center justify-center">
+				<ToggleTheme />
+			</div>
+
+			<!-- Mobile Menu Button -->
+			<button
+				id="mobile-menu-button"
+				type="button"
+				class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 md:hidden"
+			>
+				<MenuIcon />
+				<span class="sr-only">Open menu</span>
+			</button>
+		</div>
+	</div>
+
+	<!-- Mobile Menu -->
+	<div
+		id="mobile-menu"
+		class="absolute left-0 right-0 top-full hidden border-b border-gray-200/10 bg-white/95 backdrop-blur-md dark:border-gray-800/50 dark:bg-gray-900/95 md:hidden"
+	>
+		<div class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+			<nav class="flex flex-col space-y-4">
+				<HeaderLink
+					href="/"
+					onclick="window.location.href='/'; return false;"
+					class="group flex items-center space-x-3 rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+				>
+					<HomeIcon />
+					<span>About</span>
+				</HeaderLink>
+				<HeaderLink
+					href="/blog"
+					onclick="window.location.href='/blog'; return false;"
+					class="group flex items-center space-x-3 rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+				>
+					<BlogIcon />
+					<span>Blog</span>
+				</HeaderLink>
+				{
+					!isHomePage && (
+						<HeaderLink
+							href="/tags"
+							class="group flex items-center space-x-3 rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+						>
+							<TagIcon />
+							<span>Tags</span>
+						</HeaderLink>
+					)
+				}
+
+				<!-- Mobile Social Links -->
+				<div class="flex items-center justify-center space-x-4 pt-4">
+					{
+						SOCIALNETWORKS.map((network) => (
+							<HeaderLink
+								href={network.url}
+								target="_blank"
+								aria-label={network.name}
+								class="group flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all duration-200 hover:scale-110 hover:bg-blue-500 hover:text-white hover:shadow-lg dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-blue-600"
+							>
+								<network.icon />
+							</HeaderLink>
+						))
+					}
+				</div>
+			</nav>
+		</div>
+	</div>
+</header>
+
+<script>
+	// Mobile menu toggle
+	const mobileMenuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+
+	mobileMenuButton?.addEventListener('click', () => {
+		mobileMenu?.classList.toggle('hidden');
+	});
+
+	// Close mobile menu when clicking outside
+	document.addEventListener('click', (event) => {
+		const isClickInsideMenu = mobileMenu?.contains(event.target as Node);
+		const isClickOnButton = mobileMenuButton?.contains(event.target as Node);
+
+		if (!isClickInsideMenu && !isClickOnButton && !mobileMenu?.classList.contains('hidden')) {
+			mobileMenu?.classList.add('hidden');
 		}
+	});
+
+	// Close mobile menu on escape key
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+			mobileMenu?.classList.add('hidden');
+		}
+	});
+
+	// Close mobile menu when navigating
+	const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+	mobileMenuLinks?.forEach((link) => {
+		link.addEventListener('click', () => {
+			mobileMenu?.classList.add('hidden');
+		});
 	});
 </script>
