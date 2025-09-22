@@ -113,7 +113,6 @@ Here are some of the most common eviction strategies you'll encounter:
 - However, FIFO doesn’t consider the value or usage frequency of entries—an item frequently accessed early can still be evicted just because it’s old.
 - Good for workloads where access patterns are uniform or time order matters.
 
-
 #### LRU — Least Recently Used
 
 - LRU evicts the entry that was **accessed the longest time ago**.
@@ -121,7 +120,6 @@ Here are some of the most common eviction strategies you'll encounter:
 - LRU typically leads to better hit rates in real-world applications because it adapts to temporal locality of references.
 - Implementing LRU requires tracking when entries were last used, which can add complexity and overhead.
 - Suitable for session stores, caches for queries, API responses, or UI state.
-
 
 #### LFU — Least Frequently Used
 
@@ -131,18 +129,15 @@ Here are some of the most common eviction strategies you'll encounter:
 - Implementation is more complex, involving counters and often requires approximate or amortized methods for performance.
 - Favored in recommendation engines, analytics, or places with highly skewed hot keys.
 
-
 #### Other Eviction Policies
 
 - **Random Eviction:** Remove a random cache entry when space is needed. Very simple, but generally less effective.
 - **TTL-Based Eviction:** Entries are evicted based on a time-to-live expiration rather than usage patterns.
 - **ARC (Adaptive Replacement Cache):** A hybrid strategy combining recency and frequency for more finely tuned eviction.
 
-
 ### 2.3 Choosing the Right Eviction Policy
 
-Picking an eviction policy depends on your application’s data and access patterns:
-
+Picking an eviction policy depends on your application's data and access patterns:
 
 | Policy | Description | When to Use |
 | :-- | :-- | :-- |

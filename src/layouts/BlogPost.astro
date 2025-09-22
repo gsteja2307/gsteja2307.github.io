@@ -72,54 +72,93 @@ const articleDate = pubDate.toISOString();
 </BaseLayout>
 
 <script>
-	const fnObserver = () => {
-		function handleIntersection(
-			entries: IntersectionObserverEntry[],
-			observer: IntersectionObserver
-		) {
-			entries.forEach((entry) => {
-				const index = document.querySelector(`aside a[href="#${entry.target.id}"]`);
+	const initTOC = () => {
+		let currentActive = null;
 
-				if (entry.isIntersecting) {
-					index?.classList.remove('bg-slate-200', 'dark:bg-slate-800'); // remove bg
-					index?.classList.add(
-						'bg-indigo-600',
-						'dark:bg-indigo-700',
-						'text-white',
-						'font-bold',
-						'transition-colors',
-						'duration-200'
-					);
-				} else {
-					index?.classList.add('bg-slate-200', 'dark:bg-slate-800'); // add bg
-					index?.classList.remove(
-						'bg-indigo-600',
-						'dark:bg-indigo-700',
-						'text-white',
-						'font-bold',
-						'transition-colors',
-						'duration-200'
-					);
-				}
-			});
+		function scrollTOCToActive(activeLink) {
+			if (!activeLink) return;
+
+			const tocContainer = document.querySelector('aside nav div');
+			if (!tocContainer) return;
+
+			const containerRect = tocContainer.getBoundingClientRect();
+			const linkRect = activeLink.getBoundingClientRect();
+
+			// Check if link is outside visible area
+			const isAbove = linkRect.top < containerRect.top;
+			const isBelow = linkRect.bottom > containerRect.bottom;
+
+			if (isAbove || isBelow) {
+				// Calculate position to center the active item with some offset for context
+				const linkTop = activeLink.offsetTop;
+				const containerHeight = tocContainer.clientHeight;
+				const targetScroll = linkTop - (containerHeight / 2) + (activeLink.offsetHeight / 2);
+
+				// Smooth scroll to position
+				tocContainer.scrollTo({
+					top: Math.max(0, targetScroll),
+					behavior: 'smooth'
+				});
+			}
 		}
 
-		const headings = document.querySelectorAll(
-			'div.prose h1, div.prose h2, div.prose h3, div.prose h4, div.prose h5, div.prose h6'
-		);
+		function updateActiveLink(activeHeading) {
+			// Remove previous active
+			if (currentActive) {
+				currentActive.classList.remove('bg-indigo-600', 'dark:bg-indigo-700', 'text-white', 'font-bold');
+				currentActive.classList.add('bg-slate-200', 'dark:bg-slate-800');
+			}
 
-		const options = {
-			root: null,
-			rootMargin: ' 15% 0px 0% 0px ',
-			threshold: 1,
-		};
+			// Set new active
+			const newActive = document.querySelector(`aside a[href="#${activeHeading.id}"]`);
+			if (newActive) {
+				newActive.classList.remove('bg-slate-200', 'dark:bg-slate-800');
+				newActive.classList.add('bg-indigo-600', 'dark:bg-indigo-700', 'text-white', 'font-bold');
+				currentActive = newActive;
 
-		const observer = new IntersectionObserver(handleIntersection, options);
+				// Scroll TOC to keep active item visible
+				scrollTOCToActive(newActive);
+			}
+		}
 
-		headings.forEach((heading) => {
-			observer.observe(heading);
-		});
+		function findActiveHeading() {
+			const headings = document.querySelectorAll('article h1, article h2, article h3, article h4, article h5, article h6');
+			let activeHeading = null;
+
+			// Find the heading closest to the top of the viewport
+			for (const heading of headings) {
+				const rect = heading.getBoundingClientRect();
+				if (rect.top <= window.innerHeight * 0.3) { // Consider headings in top 30% of viewport
+					activeHeading = heading;
+				} else {
+					break;
+				}
+			}
+
+			return activeHeading || headings[0]; // Default to first heading
+		}
+
+		function handleScroll() {
+			const activeHeading = findActiveHeading();
+			if (activeHeading && (!currentActive || !currentActive.href.includes(activeHeading.id))) {
+				updateActiveLink(activeHeading);
+			}
+		}
+
+		// Initialize
+		handleScroll();
+
+		// Listen to scroll with throttling
+		let scrollTimeout;
+		window.addEventListener('scroll', () => {
+			if (scrollTimeout) return;
+			scrollTimeout = setTimeout(() => {
+				handleScroll();
+				scrollTimeout = null;
+			}, 50);
+		}, { passive: true });
 	};
-	fnObserver();
-	document.addEventListener('astro:after-swap', fnObserver);
+
+	initTOC();
+	document.addEventListener('astro:after-swap', initTOC);
 </script>

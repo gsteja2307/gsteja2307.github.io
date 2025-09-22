@@ -18,14 +18,15 @@ export interface Props {
 	<a
 		href={'#' + heading.slug}
 		class={cn(
-			`bg-slate-200 dark:bg-slate-800 dark:hover:bg-indigo-400 hover:bg-indigo-300 hover:text-white  py-1 px-4 dark:text-white rounded-full mb-2 first-letter:uppercase w-fit line-clamp-2`
+			`bg-slate-200 dark:bg-slate-800 dark:hover:bg-indigo-400 hover:bg-indigo-300 hover:text-white py-1 px-3 dark:text-white rounded-full mb-1 first-letter:uppercase w-fit line-clamp-2 text-sm transition-all duration-200`,
+			heading.depth > 2 && 'px-2 py-0.5 text-xs' // Smaller styling for subheadings
 		)}
 	>
 		{heading.text}
 	</a>
 	{
 		heading.subheadings.length > 0 && (
-			<ul class='ml-3'>
+			<ul class='ml-4 mt-1'>
 				{heading.subheadings.map((subheading) => (
 					<Astro.self heading={subheading} />
 				))}

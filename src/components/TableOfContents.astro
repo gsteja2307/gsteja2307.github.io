@@ -28,9 +28,21 @@ function buildToc(headings: TableOfContent[]) {
 }
 ---
 
-<nav class='max-w-xs dark:text-black'>
-	<p class='font-bold mb-3 text-2xl dark:text-white'>Index</p>
-	<ul class='[text-wrap:balance] flex flex-col gap-1'>
-		{toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
-	</ul>
+<nav class='max-w-xs dark:text-black h-[70vh] flex flex-col'>
+	<p class='font-bold mb-4 text-xl dark:text-white sticky top-0 bg-white dark:bg-gray-900 pb-2 z-10'>Index</p>
+	<div class='flex-1 overflow-y-auto scrollbar-hide'>
+		<ul class='[text-wrap:balance] flex flex-col gap-2 pb-4'>
+			{toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
+		</ul>
+	</div>
 </nav>
+
+<style>
+	.scrollbar-hide {
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+		scrollbar-width: none;  /* Firefox */
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;  /* Safari and Chrome */
+	}
+</style>
