@@ -5,147 +5,334 @@
 <section
 	data-testid="achievements"
 	id="achievements"
-	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen"
+	class="relative overflow-hidden bg-slate-50 py-20 dark:bg-slate-800"
 >
-	<div class="mb-10 flex w-full flex-col items-center justify-center">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Achievements & Recognition</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	<!-- Background Elements -->
+	<div class="absolute inset-0">
+		<div
+			class="from-yellow/5 to-green/5 absolute left-0 top-0 h-full w-full bg-gradient-to-br via-transparent"
+		>
+		</div>
+		<div class="absolute right-20 top-20 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
+		<div class="absolute bottom-20 left-20 h-80 w-80 rounded-full bg-green-500/10 blur-3xl"></div>
 	</div>
 
-	<div class="w-full max-w-6xl">
-		<!-- Recognition Awards -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Professional Recognition</h3>
-			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- Section Header -->
+		<div class="mb-16 text-center">
+			<h2 class="mb-6 text-4xl font-bold sm:text-5xl lg:text-6xl">
+				<span
+					class="bg-gradient-to-r from-slate-900 via-yellow-600 to-slate-900 bg-clip-text text-transparent dark:from-white dark:via-yellow-400 dark:to-white"
+				>
+					Achievements & Recognition
+				</span>
+			</h2>
+			<div class="mx-auto mb-6 h-1 w-24 bg-gradient-to-r from-yellow-500 to-green-600"></div>
+			<p class="mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-400">
+				Awards, recognition, and milestones throughout my professional journey
+			</p>
+		</div>
+
+		<!-- Professional Recognition -->
+		<div class="mb-20">
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Professional Recognition
+			</h3>
+			<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 				<!-- Lloyds Recognition -->
-				<div class="p-6 rounded-lg bg-orange text-white text-center">
-					<div class="text-2xl font-bold mb-2">3x</div>
-					<div class="text-sm font-semibold mb-2">Show & Tell Recognition</div>
-					<div class="text-xs opacity-90">Lloyds Technology Center</div>
-					<div class="text-xs opacity-75 mt-1">Open Banking</div>
+				<div class="group relative">
+					<div
+						class="from-orange-500 absolute inset-0 rounded-3xl bg-gradient-to-r to-red-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
+					</div>
+					<div
+						class="dark:from-orange-500 dark:border-orange-400 relative rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-slate-800 to-slate-900 p-8 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:to-red-600"
+					>
+						<div class="text-center">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm"
+							>
+								<span class="text-3xl font-bold">2x</span>
+							</div>
+							<h4 class="mb-2 text-lg font-bold">Show & Tell Recognition</h4>
+							<p class="text-orange-100 mb-2 text-sm">Lloyds Technology Centre</p>
+							<div class="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+								<p class="text-xs font-semibold">Open Banking</p>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- DBS Award -->
-				<div class="p-6 rounded-lg border border-orange text-center">
-					<div class="text-2xl font-bold text-orange mb-2">🏆</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Special Recognition Award</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">DBS Tech India</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500 mt-1">Branch Connect Initiative</div>
+				<div class="group relative">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
+					</div>
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="text-center">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg"
+							>
+								<span class="text-2xl">🏆</span>
+							</div>
+							<h4 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+								Special Recognition
+							</h4>
+							<p class="mb-2 text-sm text-blue-600">DBS Tech India</p>
+							<div class="rounded-lg bg-blue-50 p-2 dark:bg-blue-900/20">
+								<p class="text-xs font-semibold text-blue-800 dark:text-blue-300">
+									Branch Connect Initiative
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- Arcserve Award -->
-				<div class="p-6 rounded-lg border border-orange text-center">
-					<div class="text-2xl font-bold text-orange mb-2">⭐</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Best Performer Award</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Arcserve</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500 mt-1">First 6 months</div>
+				<div class="group relative">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-green-500 to-emerald-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
+					</div>
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="text-center">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-emerald-500 shadow-lg"
+							>
+								<span class="text-2xl">⭐</span>
+							</div>
+							<h4 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">Best Performer</h4>
+							<p class="mb-2 text-sm text-green-600">Arcserve</p>
+							<div class="rounded-lg bg-green-50 p-2 dark:bg-green-900/20">
+								<p class="text-xs font-semibold text-green-800 dark:text-green-300">
+									First 6 months
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- Google Scholarship -->
-				<div class="p-6 rounded-lg border border-orange text-center">
-					<div class="text-2xl font-bold text-orange mb-2">🎓</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Google India Scholarship</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Top Performer</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500 mt-1">Among 10,000 students</div>
+				<div class="group relative">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 to-violet-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
+					</div>
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="text-center">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-violet-500 shadow-lg"
+							>
+								<span class="text-2xl">🎓</span>
+							</div>
+							<h4 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+								Google Scholarship
+							</h4>
+							<p class="mb-2 text-sm text-purple-600">Top Performer</p>
+							<div class="rounded-lg bg-purple-50 p-2 dark:bg-purple-900/20">
+								<p class="text-xs font-semibold text-purple-800 dark:text-purple-300">
+									Among 10,000 students
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- Performance Metrics -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Performance Impact</h3>
-			<div class="grid md:grid-cols-3 gap-6">
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-					<div class="text-3xl font-bold text-orange mb-2">30%</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Performance Improvement</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Application loading times reduced at DBS Bank</div>
+		<!-- Performance Impact -->
+		<div class="mb-20">
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Performance Impact
+			</h3>
+			<div class="grid gap-8 md:grid-cols-3">
+				<div
+					class="group relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div class="text-center">
+						<div
+							class="from-orange-500 to-orange-600 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r shadow-lg transition-transform group-hover:scale-110"
+						>
+							<span class="text-3xl font-bold text-white">30%</span>
+						</div>
+						<h4 class="mb-3 text-xl font-bold text-slate-900 dark:text-white">
+							Performance Improvement
+						</h4>
+						<p class="text-sm text-slate-600 dark:text-slate-400">
+							Application loading times reduced at DBS Bank through optimization techniques
+						</p>
+					</div>
 				</div>
 
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-					<div class="text-3xl font-bold text-orange mb-2">20%</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Latency Reduction</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">API request optimization for teller-facing services</div>
+				<div
+					class="group relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div class="text-center">
+						<div
+							class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg transition-transform group-hover:scale-110"
+						>
+							<span class="text-3xl font-bold text-white">20%</span>
+						</div>
+						<h4 class="mb-3 text-xl font-bold text-slate-900 dark:text-white">Latency Reduction</h4>
+						<p class="text-sm text-slate-600 dark:text-slate-400">
+							API request optimization for teller-facing services across India
+						</p>
+					</div>
 				</div>
 
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-					<div class="text-3xl font-bold text-orange mb-2">80%</div>
-					<div class="text-sm font-semibold text-black dark:text-white mb-2">Test Coverage</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Comprehensive testing standards achieved</div>
+				<div
+					class="group relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div class="text-center">
+						<div
+							class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-green-600 shadow-lg transition-transform group-hover:scale-110"
+						>
+							<span class="text-3xl font-bold text-white">80%</span>
+						</div>
+						<h4 class="mb-3 text-xl font-bold text-slate-900 dark:text-white">Test Coverage</h4>
+						<p class="text-sm text-slate-600 dark:text-slate-400">
+							Industry-leading testing standards achieved across multiple projects
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- GitHub Achievements -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Open Source Achievements</h3>
-			<div class="flex flex-wrap justify-center gap-4">
-				<div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg text-center">
-					<div class="text-sm font-semibold text-black dark:text-white">Arctic Code Vault Contributor</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">GitHub Achievement</div>
-				</div>
-				<div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg text-center">
-					<div class="text-sm font-semibold text-black dark:text-white">Pull Shark (x2)</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">GitHub Achievement</div>
-				</div>
-				<div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg text-center">
-					<div class="text-sm font-semibold text-black dark:text-white">Pair Extraordinaire</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">GitHub Achievement</div>
-				</div>
-				<div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg text-center">
-					<div class="text-sm font-semibold text-black dark:text-white">Quickdraw</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">GitHub Achievement</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Leadership & Mentorship -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Leadership & Mentorship</h3>
-			<div class="grid md:grid-cols-2 gap-6">
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-					<h4 class="font-semibold text-lg mb-3 text-orange">Team Leadership</h4>
-					<ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
-						<li>• Led development team at Lloyds for International Payment Modernisation</li>
-						<li>• Informally led front-end team at DBS Bank</li>
-						<li>• Handled code reviews and architectural decisions</li>
-						<li>• Initiated and executed proof of concepts</li>
-					</ul>
+		<div class="mb-20">
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Open Source Recognition
+			</h3>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div
+						class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30"
+					>
+						<span class="text-2xl">🔒</span>
+					</div>
+					<h4 class="mb-2 font-bold text-slate-900 dark:text-white">Arctic Code Vault</h4>
+					<p class="text-xs text-slate-600 dark:text-slate-400">Contributor</p>
 				</div>
 
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-					<h4 class="font-semibold text-lg mb-3 text-orange">Developer Mentorship</h4>
-					<ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
-						<li>• Mentored junior developers across multiple companies</li>
-						<li>• Conducted comprehensive code reviews</li>
-						<li>• Guided team members on best practices</li>
-					</ul>
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div
+						class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-900/30"
+					>
+						<span class="text-2xl">🦈</span>
+					</div>
+					<h4 class="mb-2 font-bold text-slate-900 dark:text-white">Pull Shark</h4>
+					<p class="text-xs text-slate-600 dark:text-slate-400">x2 Achievement</p>
+				</div>
+
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div
+						class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30"
+					>
+						<span class="text-2xl">👥</span>
+					</div>
+					<h4 class="mb-2 font-bold text-slate-900 dark:text-white">Pair Extraordinaire</h4>
+					<p class="text-xs text-slate-600 dark:text-slate-400">Collaboration</p>
+				</div>
+
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+				>
+					<div
+						class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-100 dark:bg-yellow-900/30"
+					>
+						<span class="text-2xl">⚡</span>
+					</div>
+					<h4 class="mb-2 font-bold text-slate-900 dark:text-white">Quickdraw</h4>
+					<p class="text-xs text-slate-600 dark:text-slate-400">Fast Response</p>
 				</div>
 			</div>
 		</div>
 
 		<!-- Education & Certifications -->
-		<div class="text-center">
-			<h3 class="mb-6 text-xl font-semibold text-black dark:text-white">Education & Certifications</h3>
-			<div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-				<div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-					<div class="text-sm font-semibold text-black dark:text-white">M.TECH Data Science</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">BITS Pilani (2020-2022)</div>
+		<div
+			class="rounded-3xl bg-gradient-to-r from-slate-100 to-slate-200 p-12 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Education & Certifications
+			</h3>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+				<!-- M.Tech (Featured) -->
+				<div
+					class="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl lg:col-span-2"
+				>
+					<div class="mb-4 flex items-center">
+						<div
+							class="mr-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm"
+						>
+							<span class="text-2xl">🎓</span>
+						</div>
+						<div>
+							<h4 class="text-lg font-bold">M.Tech Data Science</h4>
+							<p class="text-sm text-blue-100">BITS Pilani (2020-2022)</p>
+						</div>
+					</div>
+					<p class="text-sm text-blue-100">
+						Theoretical foundation for intelligent systems and data-driven solutions
+					</p>
 				</div>
-				<div class="p-4 rounded-lg bg-orange text-white">
-					<div class="text-sm font-semibold">Google Cloud Associate</div>
-					<div class="text-xs opacity-90">Cloud Engineer</div>
+
+				<!-- Google Cloud (Featured) -->
+				<div
+					class="from-orange-500 to-orange-600 rounded-2xl bg-gradient-to-br p-6 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+				>
+					<div class="text-center">
+						<div
+							class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm"
+						>
+							<span class="text-2xl">☁️</span>
+						</div>
+						<h4 class="mb-2 font-bold">Google Cloud Associate</h4>
+						<p class="text-orange-100 text-xs">Cloud Engineer</p>
+					</div>
 				</div>
-				<div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-					<div class="text-sm font-semibold text-black dark:text-white">Frontend Developer Nanodegree</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Udacity</div>
+
+				<!-- Other Certifications -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="text-center">
+						<div
+							class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-700"
+						>
+							<span class="text-lg">📚</span>
+						</div>
+						<h4 class="mb-1 text-sm font-bold text-slate-900 dark:text-white">
+							Frontend Nanodegree
+						</h4>
+						<p class="text-xs text-slate-600 dark:text-slate-400">Udacity</p>
+					</div>
 				</div>
-				<div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-					<div class="text-sm font-semibold text-black dark:text-white">Joy of React</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Advanced React Course</div>
-				</div>
-				<div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-					<div class="text-sm font-semibold text-black dark:text-white">CSS for JS Developers</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Specialized CSS Course</div>
+
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="text-center">
+						<div
+							class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-700"
+						>
+							<span class="text-lg">⚛️</span>
+						</div>
+						<h4 class="mb-1 text-sm font-bold text-slate-900 dark:text-white">Joy of React</h4>
+						<p class="text-xs text-slate-600 dark:text-slate-400">Advanced Course</p>
+					</div>
 				</div>
 			</div>
 		</div>

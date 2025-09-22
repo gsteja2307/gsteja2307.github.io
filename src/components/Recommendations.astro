@@ -7,84 +7,140 @@ const { recommendations, totalCount, displayCount, lastUpdated } = recommendatio
 <section
 	data-testid="recommendations"
 	id="recommendations"
-	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen"
+	class="py-20 bg-white dark:bg-slate-900 relative overflow-hidden"
 >
-	<div class="mb-10 flex w-full flex-col items-center justify-center">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">LinkedIn Recommendations</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
-		<p class="text-sm text-gray-600 dark:text-gray-400 text-center">
-			Showing {displayCount} of {totalCount} recommendations • Last updated: {new Date(lastUpdated).toLocaleDateString()}
-		</p>
+	<!-- Background Elements -->
+	<div class="absolute inset-0">
+		<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-green/5 via-transparent to-blue/5"></div>
+		<div class="absolute top-20 left-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"></div>
+		<div class="absolute bottom-20 right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
 	</div>
 
-	<div class="w-full max-w-6xl">
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+		<!-- Section Header -->
+		<div class="text-center mb-16">
+			<h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+				<span class="bg-gradient-to-r from-slate-900 via-green-600 to-slate-900 dark:from-white dark:via-green-400 dark:to-white bg-clip-text text-transparent">
+					Professional Recommendations
+				</span>
+			</h2>
+			<div class="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-600 mx-auto mb-6"></div>
+			<p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-4">
+				Testimonials from colleagues and industry professionals
+			</p>
+			<p class="text-sm text-slate-500 dark:text-slate-500">
+				Showing {displayCount} of {totalCount} recommendations • Last updated: {new Date(lastUpdated).toLocaleDateString()}
+			</p>
+		</div>
+
 		<!-- Recommendations Grid -->
-		<div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
-			{recommendations.map((rec) => (
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow bg-white dark:bg-gray-800">
-					<!-- Header with Avatar and Info -->
-					<div class="flex items-start mb-4">
-						<div class="w-12 h-12 bg-orange rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">
-							{rec.name.split(' ').map(n => n[0]).join('')}
-						</div>
-						<div class="flex-1 min-w-0">
-							<h3 class="font-semibold text-black dark:text-white text-sm leading-tight">{rec.name}</h3>
-							<p class="text-xs text-gray-600 dark:text-gray-400 leading-tight">{rec.position}</p>
-							<p class="text-xs text-orange font-medium">{rec.company}</p>
-							<p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{rec.relationship}</p>
-						</div>
-						<div class="text-xs text-gray-400 flex-shrink-0">
-							{rec.date}
-						</div>
-					</div>
+		<div class="grid lg:grid-cols-2 gap-8 mb-16">
+			{recommendations.map((rec, index) => (
+				<div class="group relative">
+					<div class={`absolute inset-0 bg-gradient-to-r ${index === 0 ? 'from-orange-500 to-red-500' : index === 1 ? 'from-blue-500 to-cyan-500' : 'from-purple-500 to-violet-500'} rounded-3xl blur-xl opacity-10 group-hover:opacity-20 transition-opacity`}></div>
+					<div class="relative bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
 
-					<!-- Recommendation Text -->
-					<div class="mb-4">
-						<blockquote class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
-							"{rec.text}"
-						</blockquote>
-					</div>
+						<!-- Header -->
+						<div class="flex items-start mb-6">
+							<div class={`w-16 h-16 bg-gradient-to-r ${index === 0 ? 'from-slate-800 to-slate-900 dark:from-orange-500 dark:to-red-500' : index === 1 ? 'from-slate-800 to-slate-900 dark:from-blue-500 dark:to-cyan-500' : 'from-slate-800 to-slate-900 dark:from-purple-500 dark:to-violet-500'} rounded-full flex items-center justify-center text-white font-bold text-xl mr-4 flex-shrink-0 shadow-lg border-2 ${index === 0 ? 'border-slate-200 dark:border-orange-400' : index === 1 ? 'border-slate-200 dark:border-blue-400' : 'border-slate-200 dark:border-purple-400'}`}>
+								{rec.name.split(' ').map(n => n[0]).join('')}
+							</div>
+							<div class="flex-1 min-w-0">
+								<h3 class="font-bold text-lg text-slate-900 dark:text-white leading-tight">{rec.name}</h3>
+								<p class="text-sm text-slate-600 dark:text-slate-400 leading-tight">{rec.position}</p>
+								<p class={`text-sm font-semibold ${index === 0 ? 'text-orange-600' : index === 1 ? 'text-blue-600' : 'text-purple-600'}`}>{rec.company}</p>
+								<p class="text-xs text-slate-500 dark:text-slate-500 mt-1">{rec.relationship}</p>
+							</div>
+							<div class={`px-3 py-1 ${index === 0 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' : index === 1 ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' : 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'} rounded-full text-xs font-semibold`}>
+								{rec.date}
+							</div>
+						</div>
 
-					<!-- Skills Tags -->
-					<div class="flex flex-wrap gap-1">
-						{rec.skills.map((skill) => (
-							<span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full text-xs">
-								{skill}
-							</span>
-						))}
+						<!-- Quote -->
+						<div class="mb-6 relative">
+							<div class={`absolute -top-2 -left-2 text-4xl ${index === 0 ? 'text-orange-500' : index === 1 ? 'text-blue-500' : 'text-purple-500'} opacity-20 font-serif`}>"</div>
+							<blockquote class={`text-slate-700 dark:text-slate-300 leading-relaxed italic pl-6 relative z-10 p-4 ${index === 0 ? 'bg-orange-50 dark:bg-orange-900/10 border-l-4 border-orange-500' : index === 1 ? 'bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500' : 'bg-purple-50 dark:bg-purple-900/10 border-l-4 border-purple-500'} rounded-r-xl`}>
+								{rec.text}
+							</blockquote>
+						</div>
+
+						<!-- Skills Tags -->
+						<div class="flex flex-wrap gap-2">
+							{rec.skills.map((skill, skillIndex) => (
+								<span class={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+									skillIndex < 2
+										? `${index === 0 ? 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-700' : index === 1 ? 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700' : 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-700'}`
+										: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600'
+								}`}>
+									{skill}
+								</span>
+							))}
+						</div>
+
+						<!-- LinkedIn Badge -->
+						<div class="absolute top-4 right-4">
+							<div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+								<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/>
+								</svg>
+							</div>
+						</div>
 					</div>
 				</div>
 			))}
 		</div>
 
-		<!-- View More Link -->
-		<div class="text-center">
-			<a
-				href="https://www.linkedin.com/in/surya-teja-gollamudi/"
-				target="_blank"
-				class="inline-flex items-center px-6 py-3 bg-transparent border-2 border-orange text-orange hover:bg-orange hover:text-white transition-colors rounded-lg font-semibold"
-			>
-				View All {totalCount} Recommendations on LinkedIn
-				<span class="ml-2">→</span>
-			</a>
+		<!-- Stats Section -->
+		<div class="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-12 mb-16">
+			<div class="grid md:grid-cols-3 gap-8 text-center">
+				<div class="group">
+					<div class="w-20 h-20 mx-auto bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+						<span class="text-2xl font-bold text-white">{totalCount}</span>
+					</div>
+					<h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Total Recommendations</h4>
+					<p class="text-slate-600 dark:text-slate-400 text-sm">Professional endorsements</p>
+				</div>
+
+				<div class="group">
+					<div class="w-20 h-20 mx-auto bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+						<span class="text-2xl font-bold text-white">100%</span>
+					</div>
+					<h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Positive Reviews</h4>
+					<p class="text-slate-600 dark:text-slate-400 text-sm">Colleague satisfaction</p>
+				</div>
+
+				<div class="group">
+					<div class="w-20 h-20 mx-auto bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+						<span class="text-2xl font-bold text-white">4+</span>
+					</div>
+					<h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Companies</h4>
+					<p class="text-slate-600 dark:text-slate-400 text-sm">Cross-industry recognition</p>
+				</div>
+			</div>
 		</div>
 
+		<!-- Call to Action -->
+		<div class="text-center">
+			<div class="bg-gradient-to-r from-green-500 to-blue-600 rounded-3xl p-8 text-white">
+				<h3 class="text-2xl font-bold mb-4">See All Professional Recommendations</h3>
+				<p class="text-green-100 mb-6 max-w-2xl mx-auto">
+					Connect with me on LinkedIn to view all {totalCount} professional recommendations and endorsements
+				</p>
+				<a
+					href="https://www.linkedin.com/in/surya-teja-gollamudi/"
+					target="_blank"
+					class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+				>
+					<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/>
+					</svg>
+					View LinkedIn Profile
+					<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+					</svg>
+				</a>
+			</div>
+		</div>
 	</div>
 </section>
-
-<style>
-	blockquote {
-		position: relative;
-	}
-
-	blockquote::before {
-		content: '"';
-		font-size: 2rem;
-		color: #E06330;
-		position: absolute;
-		left: -8px;
-		top: -8px;
-		font-family: serif;
-		opacity: 0.3;
-	}
-</style>

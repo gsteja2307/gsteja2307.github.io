@@ -5,78 +5,283 @@
 <section
 	data-testid="about"
 	id="about"
-	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen lg:flex-row"
+	class="relative overflow-hidden bg-white py-20 dark:bg-slate-900"
 >
-	<div class="mb-10 flex w-full flex-col items-center justify-center lg:mb-0 lg:w-1/2">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">About me</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	<!-- Background Elements -->
+	<div class="absolute inset-0">
+		<div
+			class="to-blue/5 absolute left-0 top-0 h-full w-full bg-gradient-to-br from-orange/5 via-transparent"
+		>
+		</div>
+		<div class="absolute right-20 top-20 h-72 w-72 rounded-full bg-orange/10 blur-3xl"></div>
+		<div class="absolute bottom-20 left-20 h-80 w-80 rounded-full bg-blue-500/5 blur-3xl"></div>
 	</div>
 
-	<div class="w-full text-justify text-black lg:w-1/2 dark:text-white">
-		<p class="mb-4 text-lg">
-			I'm a <strong>Senior Full-Stack Engineer</strong>, <strong>Data Scientist</strong>, and <strong>AI enthusiast</strong> with over 6 years of hands-on experience crafting scalable, enterprise-grade solutions in the financial technology sector. My passion lies at the intersection of robust software engineering, data-driven insights, and cutting-edge AI technologies.
-		</p>
-
-		<div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-orange">
-			<h4 class="font-semibold text-orange mb-2">🚀 Current Role & Impact</h4>
-			<p class="text-sm mb-2">
-				At <strong>Lloyds Technology Centre</strong>, I lead development teams on the <strong>International Payment Modernisation</strong> initiative, architecting next-generation payment systems that handle millions of transactions. My work spans Open Banking v4 compliance, PSD2 regulations, and real-time payment processing infrastructure.
+	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- Section Header -->
+		<div class="mb-16 text-center">
+			<h2 class="mb-6 text-4xl font-bold sm:text-5xl lg:text-6xl">
+				<span
+					class="via-orange-600 dark:via-orange-400 bg-gradient-to-r from-slate-900 to-slate-900 bg-clip-text text-transparent dark:from-white dark:to-white"
+				>
+					About Me
+				</span>
+			</h2>
+			<div class="from-orange-500 to-orange-600 mx-auto mb-6 h-1 w-24 bg-gradient-to-r"></div>
+			<p class="mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-400">
+				Passionate about building the future of fintech through innovative technology
 			</p>
 		</div>
 
-		<p class="mb-4 text-base">
-			My engineering journey began at <strong>Fission Infotech</strong>, where I discovered my love for full-stack development through React Native and MERN stack projects. This foundation led me to <strong>Arcserve</strong>, where I contributed to their flagship SaaS data backup platform, achieving remarkable milestones like 80% test coverage and complete module rewrites that enhanced user experience for thousands of customers.
-		</p>
+		<div class="grid items-start gap-16 lg:grid-cols-2">
+			<!-- Story Column -->
+			<div class="space-y-8">
+				<!-- Introduction Card -->
+				<div
+					class="rounded-3xl border border-slate-200/50 bg-gradient-to-br from-white to-slate-50 p-8 shadow-lg dark:border-slate-700/50 dark:from-slate-800 dark:to-slate-900"
+				>
+					<div class="mb-6 flex items-center">
+						<div
+							class="from-orange-500 to-orange-600 mr-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r"
+						>
+							<span class="text-lg font-bold text-white">ST</span>
+						</div>
+						<div>
+							<h3 class="text-2xl font-bold text-slate-900 dark:text-white">
+								Senior Full-Stack Engineer
+							</h3>
+							<p class="font-semibold text-orange">Data Scientist & AI Enthusiast</p>
+						</div>
+					</div>
+					<p class="leading-relaxed text-slate-700 dark:text-slate-300">
+						With over <strong>6 years of hands-on experience</strong> crafting scalable, enterprise-grade
+						solutions in the financial technology sector, I'm passionate about the intersection of robust
+						software engineering, data-driven insights, and cutting-edge AI technologies.
+					</p>
+				</div>
 
-		<p class="mb-4 text-base">
-			The pivotal chapter of my career unfolded at <strong>DBS Bank</strong>, where I evolved from an Associate to an informal front-end team leader on the Branch Connect project. Here, I spearheaded performance optimization initiatives that delivered 30% load time improvements and 20% latency reductions, directly impacting the daily operations of bank branches across Southeast Asia.
-		</p>
+				<!-- Current Role -->
+				<div
+					class="from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border-orange-200/50 dark:border-orange-700/50 rounded-3xl border bg-gradient-to-br p-8"
+				>
+					<div class="mb-4 flex items-center">
+						<div class="bg-orange-500 mr-3 flex h-10 w-10 items-center justify-center rounded-full">
+							<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"
+								></path>
+							</svg>
+						</div>
+						<h4 class="text-orange-800 dark:text-orange-300 text-xl font-bold">
+							🚀 Current Impact
+						</h4>
+					</div>
+					<p class="text-orange-900 dark:text-orange-200 leading-relaxed">
+						At <strong>Lloyds Technology Centre</strong>, I work as a <strong
+							>Senior Full-Stack Developer</strong
+						> specializing in <strong>Open Banking</strong> solutions, where I contributed to the <strong
+							>Open Banking v4 migration</strong
+						> and developed enhancements to existing <strong>PISP endpoints</strong>. I'm currently <strong
+							>leading the International Payment Modernisation initiative</strong
+						> within the PISP domain, overseeing development of next-generation payment systems that
+						handle millions of transactions with Open Banking v4 compliance.
+					</p>
+				</div>
 
-		<div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-orange">
-			<h4 class="font-semibold text-orange mb-2">🎓 Academic Foundation</h4>
-			<p class="text-sm">
-				My <strong>M.Tech in Data Science & Engineering from BITS Pilani</strong> provides the theoretical backbone for my practical innovations. This dual expertise in software engineering and data science enables me to build not just functional applications, but intelligent systems that learn, adapt, and optimize themselves.
-			</p>
+				<!-- Journey Timeline -->
+				<div class="space-y-6">
+					<h4 class="text-2xl font-bold text-slate-900 dark:text-white">Professional Journey</h4>
+
+					<div class="space-y-4">
+						{/* Lloyds */}
+						<div class="flex items-start">
+							<div class="bg-orange-500 mr-4 mt-2 h-4 w-4 flex-shrink-0 rounded-full"></div>
+							<div>
+								<h5 class="font-bold text-slate-900 dark:text-white">Lloyds Technology Centre</h5>
+								<p class="text-sm font-semibold text-orange">
+									2024 - Present | Senior Software Engineer
+								</p>
+								<!-- <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+									Leading International Payment Modernisation initiative and contributing to Open
+									Banking v4 migration within PISP solutions
+								</p> -->
+							</div>
+						</div>
+
+						{/* DBS */}
+						<div class="flex items-start">
+							<div class="mr-4 mt-2 h-4 w-4 flex-shrink-0 rounded-full bg-slate-400"></div>
+							<div>
+								<h5 class="font-bold text-slate-900 dark:text-white">DBS Bank</h5>
+								<p class="text-sm text-slate-600 dark:text-slate-400">
+									2022 - 2024 | Analyst → Associate
+								</p>
+								<!-- <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+									30% performance improvements on Branch Connect platform
+								</p> -->
+							</div>
+						</div>
+
+						{/* Arcserve */}
+						<div class="flex items-start">
+							<div class="mr-4 mt-2 h-4 w-4 flex-shrink-0 rounded-full bg-slate-400"></div>
+							<div>
+								<h5 class="font-bold text-slate-900 dark:text-white">Arcserve</h5>
+								<p class="text-sm text-slate-600 dark:text-slate-400">
+									2020 - 2022 | Associate Software Engineer → Software Engineer
+								</p>
+								<!-- <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+									Achieved 80% test coverage on Cloud Console SaaS platform
+								</p> -->
+							</div>
+						</div>
+						<div class="flex items-start">
+							<div class="mr-4 mt-2 h-4 w-4 flex-shrink-0 rounded-full bg-slate-400"></div>
+							<div>
+								<h5 class="font-bold text-slate-900 dark:text-white">Fission Infotech</h5>
+								<p class="text-sm text-slate-600 dark:text-slate-400">
+									2019 - 2020 | Associate Software Engineer
+								</p>
+								<!-- <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+									Achieved 80% test coverage on Cloud Console SaaS platform
+								</p> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Skills & Highlights Column -->
+			<div class="space-y-8">
+				<!-- Education -->
+				<div
+					class="rounded-3xl border border-blue-200/50 bg-gradient-to-br from-blue-50 to-blue-100 p-8 dark:border-blue-700/50 dark:from-blue-900/20 dark:to-blue-800/20"
+				>
+					<div class="mb-4 flex items-center">
+						<div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500">
+							<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
+								></path>
+							</svg>
+						</div>
+						<h4 class="text-xl font-bold text-blue-800 dark:text-blue-300">
+							🎓 Academic Foundation
+						</h4>
+					</div>
+					<div class="space-y-2">
+						<p class="font-semibold text-blue-900 dark:text-blue-200">
+							M.Tech in Data Science & Engineering
+						</p>
+						<p class="text-blue-700 dark:text-blue-300">BITS Pilani (2020-2022)</p>
+						<p class="text-sm text-blue-800 dark:text-blue-200">
+							Theoretical backbone for building intelligent, adaptive systems
+						</p>
+					</div>
+				</div>
+
+				<!-- Current Exploration -->
+				<div
+					class="rounded-3xl border border-purple-200/50 bg-gradient-to-br from-purple-50 to-purple-100 p-8 dark:border-purple-700/50 dark:from-purple-900/20 dark:to-purple-800/20"
+				>
+					<div class="mb-4 flex items-center">
+						<div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-purple-500">
+							<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+									clip-rule="evenodd"></path>
+							</svg>
+						</div>
+						<h4 class="text-xl font-bold text-purple-800 dark:text-purple-300">
+							⚡ Current Exploration
+						</h4>
+					</div>
+					<div class="space-y-3">
+						<p class="font-semibold text-purple-900 dark:text-purple-200">
+							Model Context Protocol (MCP)
+						</p>
+						<p class="text-sm text-purple-800 dark:text-purple-200">
+							Exploring the convergence of traditional software engineering with intelligent,
+							context-aware applications
+						</p>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="rounded-full bg-purple-200 px-3 py-1 text-xs text-purple-800 dark:bg-purple-800 dark:text-purple-200"
+								>Agentic AI</span
+							>
+							<span
+								class="rounded-full bg-purple-200 px-3 py-1 text-xs text-purple-800 dark:bg-purple-800 dark:text-purple-200"
+								>Context-Aware Systems</span
+							>
+						</div>
+					</div>
+				</div>
+
+				<!-- Skills Grid -->
+				<div
+					class="rounded-3xl border border-slate-200/50 bg-gradient-to-br from-white to-slate-50 p-8 shadow-lg dark:border-slate-700/50 dark:from-slate-800 dark:to-slate-900"
+				>
+					<h4 class="mb-6 text-xl font-bold text-slate-900 dark:text-white">Core Expertise</h4>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-4 text-center">
+							<div class="text-orange-600 text-2xl font-bold">MERN</div>
+							<div class="text-xs text-slate-600 dark:text-slate-400">Stack Expert</div>
+						</div>
+						<div class="rounded-xl bg-blue-50 p-4 text-center dark:bg-blue-900/20">
+							<div class="text-2xl font-bold text-blue-600">Data</div>
+							<div class="text-xs text-slate-600 dark:text-slate-400">Science</div>
+						</div>
+						<div class="rounded-xl bg-purple-50 p-4 text-center dark:bg-purple-900/20">
+							<div class="text-2xl font-bold text-purple-600">AI/MCP</div>
+							<div class="text-xs text-slate-600 dark:text-slate-400">Explorer</div>
+						</div>
+						<div class="rounded-xl bg-green-50 p-4 text-center dark:bg-green-900/20">
+							<div class="text-2xl font-bold text-green-600">Cloud</div>
+							<div class="text-xs text-slate-600 dark:text-slate-400">Engineer</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Philosophy -->
+				<div
+					class="rounded-3xl border border-slate-300/50 bg-gradient-to-br from-slate-100 to-slate-200 p-8 dark:border-slate-600/50 dark:from-slate-700 dark:to-slate-800"
+				>
+					<h4 class="mb-4 text-xl font-bold text-slate-900 dark:text-white">💡 Philosophy</h4>
+					<blockquote class="italic leading-relaxed text-slate-700 dark:text-slate-300">
+						"I believe in writing code that not only solves today's problems but anticipates
+						tomorrow's challenges. Every line of code should be a step toward a more intelligent,
+						efficient future."
+					</blockquote>
+					<p class="mt-4 text-right text-sm font-semibold text-orange">"Trust Your OWN INSTINCT"</p>
+				</div>
+			</div>
 		</div>
 
-		<p class="mb-4 text-base">
-			As a <strong>Google Cloud Associate Cloud Engineer</strong>, I bring cloud-native architecture expertise to every project. My open-source contributions, including the popular <strong>runtime-memory-cache</strong> npm package, reflect my commitment to giving back to the developer community and exploring innovative performance optimization techniques.
-		</p>
-
-		<p class="mb-4 text-base">
-			Currently, I'm diving deep into the fascinating world of <strong>Model Context Protocol (MCP)</strong> and agentic AI systems. This exploration represents the future convergence of traditional software engineering with intelligent, context-aware applications that can understand, reason, and act autonomously.
-		</p>
-
-		<div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-orange">
-			<h4 class="font-semibold text-orange mb-2">💡 Philosophy & Approach</h4>
-			<p class="text-sm">
-				I believe in writing code that not only solves today's problems but anticipates tomorrow's challenges. Whether it's implementing micro-frontends for scalability, optimizing memory caching for performance, or exploring AI integration possibilities, I approach every project with curiosity, precision, and a commitment to excellence.
-			</p>
+		<!-- CTA Section -->
+		<div class="mt-16 text-center">
+			<div class="from-orange-500 to-orange-600 rounded-3xl bg-gradient-to-r p-8 text-white">
+				<h3 class="mb-4 text-2xl font-bold">Let's Build the Future Together</h3>
+				<p class="text-orange-100 mx-auto mb-6 max-w-2xl">
+					Ready to collaborate on transformative projects in fintech innovation, MERN stack
+					development, data science applications, or the revolutionary world of agentic AI and MCP
+					development?
+				</p>
+				<a
+					href="https://www.linkedin.com/in/surya-teja-gollamudi/"
+					target="_blank"
+					class="hover:shadow-3xl inline-flex items-center rounded-full border-2 border-white/50 bg-white px-8 py-4 font-bold text-blue-600 shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:text-blue-700"
+				>
+					Let's Connect
+					<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+					</svg>
+				</a>
+			</div>
 		</div>
-
-		<p class="mb-6 text-base">
-			Beyond coding, I'm passionate about <strong>mentoring emerging developers</strong> and sharing knowledge through technical presentations. My three Show & Tell recognitions at Lloyds specifically focused on Open Banking innovations demonstrate my ability to communicate complex technical concepts effectively.
-		</p>
-
-		<div class="flex flex-wrap gap-3 mb-6">
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">MERN Stack Expert</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Data Scientist</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">AI Enthusiast</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">MCP Explorer</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Cloud Engineer</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Team Leadership</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Performance Engineering</span>
-			<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Open Source</span>
-		</div>
-
-		<div class="mb-4 p-4 bg-orange text-white rounded-lg">
-			<p class="text-base font-medium">
-				🤝 Let's collaborate on transformative projects in fintech innovation, MERN stack architecture, data science applications, cloud-native solutions, or the revolutionary world of agentic AI and MCP development!
-			</p>
-		</div>
-
-		<p class="text-sm text-gray-600 dark:text-gray-400 italic">
-			"Trust Your OWN INSTINCT" - My GitHub motto that guides every line of code I write and every technical decision I make.
-		</p>
 	</div>
 </section>

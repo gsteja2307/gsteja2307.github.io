@@ -5,71 +5,297 @@
 <section
 	data-testid="professional-journey"
 	id="journey"
-	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen"
+	class="relative overflow-hidden bg-slate-50 py-20 dark:bg-slate-800"
 >
-	<div class="mb-10 flex w-full flex-col items-center justify-center">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Professional Journey</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	<!-- Background Elements -->
+	<div class="absolute inset-0">
+		<div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-orange/10 blur-3xl"></div>
+		<div class="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"></div>
 	</div>
 
-	<div class="w-full max-w-4xl">
-		<!-- Career Timeline -->
-		<div class="mb-12 flex flex-col lg:flex-row items-center justify-center">
-			<div class="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-8 text-center">
-				<div class="flex flex-col items-center">
-					<div class="bg-orange text-white px-3 py-1 rounded-full text-sm font-bold">2024-Present</div>
-					<div class="mt-2 text-sm font-semibold text-black dark:text-white">Lloyds Technology Center</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Senior Software Engineer</div>
+	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- Section Header -->
+		<div class="mb-16 text-center">
+			<h2 class="mb-6 text-4xl font-bold sm:text-5xl lg:text-6xl">
+				<span
+					class="via-orange-600 dark:via-orange-400 bg-gradient-to-r from-slate-900 to-slate-900 bg-clip-text text-transparent dark:from-white dark:to-white"
+				>
+					Professional Journey
+				</span>
+			</h2>
+			<div class="from-orange-500 to-orange-600 mx-auto mb-6 h-1 w-24 bg-gradient-to-r"></div>
+			<p class="mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-400">
+				6+ years of innovation across leading fintech companies
+			</p>
+		</div>
+
+		<!-- Timeline -->
+		<div class="mb-20">
+			<div class="relative">
+				<!-- Timeline line -->
+				<div
+					class="from-orange-500 via-orange-400 to-orange-500 absolute left-1/2 h-full w-1 -translate-x-1/2 transform bg-gradient-to-b"
+				>
 				</div>
-				<div class="hidden lg:block text-orange">→</div>
-				<div class="flex flex-col items-center">
-					<div class="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">2022-2024</div>
-					<div class="mt-2 text-sm font-semibold text-black dark:text-white">DBS Bank</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Associate</div>
-				</div>
-				<div class="hidden lg:block text-orange">→</div>
-				<div class="flex flex-col items-center">
-					<div class="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">2020-2022</div>
-					<div class="mt-2 text-sm font-semibold text-black dark:text-white">Arcserve</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Software Engineer</div>
-				</div>
-				<div class="hidden lg:block text-orange">→</div>
-				<div class="flex flex-col items-center">
-					<div class="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">2019-2020</div>
-					<div class="mt-2 text-sm font-semibold text-black dark:text-white">Fission Infotech</div>
-					<div class="text-xs text-gray-600 dark:text-gray-400">Associate Software Engineer</div>
+
+				<div class="space-y-16">
+					<!-- Lloyds Technology Centre -->
+					<div class="relative flex items-center">
+						<div class="flex-1 pr-8 text-right">
+							<div
+								class="transform rounded-2xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 dark:border-slate-700 dark:bg-slate-900"
+							>
+								<div class="mb-4 flex items-center justify-end">
+									<div class="mr-4">
+										<h3 class="text-2xl font-bold text-slate-900 dark:text-white">
+											Lloyds Technology Centre
+										</h3>
+										<p class="font-semibold text-orange">Senior Software Engineer</p>
+										<p class="text-sm text-slate-600 dark:text-slate-400">2024 - Present</p>
+									</div>
+									<div
+										class="dark:from-orange-500 dark:to-orange-600 dark:border-orange-400 flex h-16 w-16 items-center justify-center rounded-xl border-2 border-slate-200 bg-gradient-to-r from-slate-800 to-slate-900 shadow-lg"
+									>
+										<span class="text-lg font-bold text-white">LL</span>
+									</div>
+								</div>
+								<div class="space-y-3 text-right">
+									<p class="text-slate-700 dark:text-slate-300">
+										Leading <strong>International Payment Modernisation</strong> initiative
+									</p>
+									<div class="flex flex-wrap justify-end gap-2">
+										<span
+											class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded-full px-3 py-1 text-sm"
+											>Open Banking v4</span
+										>
+										<span
+											class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded-full px-3 py-1 text-sm"
+											>Team Leadership</span
+										>
+										<span
+											class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded-full px-3 py-1 text-sm"
+											>Show & Tell (2x)</span
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Timeline dot -->
+						<div
+							class="bg-orange-500 absolute left-1/2 z-10 h-6 w-6 -translate-x-1/2 transform rounded-full border-4 border-white shadow-lg dark:border-slate-800"
+						>
+						</div>
+						<div class="flex-1 pl-8"></div>
+					</div>
+
+					<!-- DBS Bank -->
+					<div class="relative flex items-center">
+						<div class="flex-1 pr-8"></div>
+						<!-- Timeline dot -->
+						<div
+							class="absolute left-1/2 z-10 h-6 w-6 -translate-x-1/2 transform rounded-full border-4 border-white bg-blue-500 shadow-lg dark:border-slate-800"
+						>
+						</div>
+						<div class="flex-1 pl-8">
+							<div
+								class="transform rounded-2xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 dark:border-slate-700 dark:bg-slate-900"
+							>
+								<div class="mb-4 flex items-center">
+									<div
+										class="mr-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
+									>
+										<span class="text-lg font-bold text-white">DB</span>
+									</div>
+									<div>
+										<h3 class="text-2xl font-bold text-slate-900 dark:text-white">DBS Bank</h3>
+										<p class="font-semibold text-blue-600">Analyst → Associate</p>
+										<p class="text-sm text-slate-600 dark:text-slate-400">2022 - 2024</p>
+									</div>
+								</div>
+								<div class="space-y-3">
+									<p class="text-slate-700 dark:text-slate-300">
+										<strong>Frontend engineer</strong> at <strong>DBS Bank</strong> on <strong
+											>Branch Connect</strong
+										> retail banking solution, achieving <strong
+											>30% performance improvements</strong
+										> and receiving <strong>Special Recognition award</strong> for outstanding technical
+										contributions.
+									</p>
+									<div class="rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
+										<div class="grid grid-cols-2 gap-4 text-center">
+											<div>
+												<div class="text-2xl font-bold text-blue-600">30%</div>
+												<div class="text-xs text-slate-600 dark:text-slate-400">
+													Performance Boost
+												</div>
+											</div>
+											<div>
+												<div class="text-2xl font-bold text-blue-600">20%</div>
+												<div class="text-xs text-slate-600 dark:text-slate-400">
+													Latency Reduction
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="flex flex-wrap gap-2">
+										<span
+											class="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+											>React</span
+										>
+										<span
+											class="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+											>Micro-frontends</span
+										>
+										<span
+											class="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+										>
+											Recognition Award (3x)
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Arcserve -->
+					<div class="relative flex items-center">
+						<div class="flex-1 pr-8 text-right">
+							<div
+								class="transform rounded-2xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 dark:border-slate-700 dark:bg-slate-900"
+							>
+								<div class="mb-4 flex items-center justify-end">
+									<div class="mr-4">
+										<h3 class="text-2xl font-bold text-slate-900 dark:text-white">Arcserve</h3>
+										<p class="font-semibold text-green-600">
+											Assoc Software Engineer → Software Engineer
+										</p>
+										<p class="text-sm text-slate-600 dark:text-slate-400">2020 - 2022</p>
+									</div>
+									<div
+										class="flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-r from-green-500 to-green-600 shadow-lg"
+									>
+										<span class="text-lg font-bold text-white">AS</span>
+									</div>
+								</div>
+								<div class="space-y-3 text-right">
+									<p class="text-slate-700 dark:text-slate-300">
+										<strong>Cloud Console</strong> SaaS platform development
+									</p>
+									<div class="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
+										<div class="text-center">
+											<div class="text-3xl font-bold text-green-600">80%</div>
+											<div class="text-sm text-slate-600 dark:text-slate-400">
+												Test Coverage Achievement
+											</div>
+										</div>
+									</div>
+									<div class="flex flex-wrap justify-end gap-2">
+										<span
+											class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 dark:bg-green-900/30 dark:text-green-300"
+											>React</span
+										>
+										<span
+											class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 dark:bg-green-900/30 dark:text-green-300"
+											>Redux</span
+										>
+										<span
+											class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 dark:bg-green-900/30 dark:text-green-300"
+											>Best Performer</span
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Timeline dot -->
+						<div
+							class="absolute left-1/2 z-10 h-6 w-6 -translate-x-1/2 transform rounded-full border-4 border-white bg-green-500 shadow-lg dark:border-slate-800"
+						>
+						</div>
+						<div class="flex-1 pl-8"></div>
+					</div>
+
+					<!-- Fission Infotech -->
+					<div class="relative flex items-center">
+						<div class="flex-1 pr-8"></div>
+						<!-- Timeline dot -->
+						<div
+							class="absolute left-1/2 z-10 h-6 w-6 -translate-x-1/2 transform rounded-full border-4 border-white bg-purple-500 shadow-lg dark:border-slate-800"
+						>
+						</div>
+						<div class="flex-1 pl-8">
+							<div
+								class="transform rounded-2xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 dark:border-slate-700 dark:bg-slate-900"
+							>
+								<div class="mb-4 flex items-center">
+									<div
+										class="mr-4 flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 shadow-lg"
+									>
+										<span class="text-lg font-bold text-white">FI</span>
+									</div>
+									<div>
+										<h3 class="text-2xl font-bold text-slate-900 dark:text-white">
+											Fission Infotech
+										</h3>
+										<p class="font-semibold text-purple-600">Associate Software Engineer</p>
+										<p class="text-sm text-slate-600 dark:text-slate-400">2019 - 2020</p>
+									</div>
+								</div>
+								<div class="space-y-3">
+									<p class="text-slate-700 dark:text-slate-300">
+										Started my <strong>MERN stack journey</strong>
+									</p>
+									<div class="flex flex-wrap gap-2">
+										<span
+											class="rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
+											>React Native</span
+										>
+										<span
+											class="rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
+											>MERN Stack</span
+										>
+										<span
+											class="rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
+											>Foundation</span
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- Current Focus -->
-		<div class="mb-12 text-center">
-			<h3 class="mb-4 text-xl font-semibold text-black dark:text-white">Current Focus</h3>
-			<div class="flex flex-wrap justify-center gap-3 mb-6">
-				<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">International Payment Modernization</span>
-				<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Open Banking v4</span>
-				<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">MCP & AI Exploration</span>
-				<span class="bg-orange text-white px-3 py-1 rounded-full text-sm">Data Science</span>
+		<div
+			class="from-orange-500 to-orange-600 rounded-3xl bg-gradient-to-r p-12 text-center text-white"
+		>
+			<h3 class="mb-6 text-3xl font-bold">Current Focus & Future Vision</h3>
+			<div class="mb-8 grid gap-6 md:grid-cols-4">
+				<div class="rounded-2xl bg-white/20 p-6 backdrop-blur-sm">
+					<div class="mb-2 text-2xl">🏦</div>
+					<h4 class="mb-2 font-bold">International Payments</h4>
+					<p class="text-orange-100 text-sm">Modernizing global payment infrastructure</p>
+				</div>
+				<div class="rounded-2xl bg-white/20 p-6 backdrop-blur-sm">
+					<div class="mb-2 text-2xl">🔐</div>
+					<h4 class="mb-2 font-bold">Open Banking v4</h4>
+					<p class="text-orange-100 text-sm">Next-gen banking compliance</p>
+				</div>
+				<div class="rounded-2xl bg-white/20 p-6 backdrop-blur-sm">
+					<div class="mb-2 text-2xl">🤖</div>
+					<h4 class="mb-2 font-bold">AI & MCP</h4>
+					<p class="text-orange-100 text-sm">Exploring agentic AI systems</p>
+				</div>
+				<div class="rounded-2xl bg-white/20 p-6 backdrop-blur-sm">
+					<div class="mb-2 text-2xl">📊</div>
+					<h4 class="mb-2 font-bold">Data Science</h4>
+					<p class="text-orange-100 text-sm">Intelligent data-driven solutions</p>
+				</div>
 			</div>
-		</div>
-
-		<!-- Key Achievements -->
-		<div class="grid md:grid-cols-3 gap-6 text-center">
-			<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-				<div class="text-2xl font-bold text-orange mb-2">30%</div>
-				<div class="text-sm text-gray-600 dark:text-gray-400">Performance Improvement</div>
-				<div class="text-xs mt-1 text-gray-500 dark:text-gray-500">Load time reduction at DBS</div>
-			</div>
-			<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-				<div class="text-2xl font-bold text-orange mb-2">80%</div>
-				<div class="text-sm text-gray-600 dark:text-gray-400">Test Coverage</div>
-				<div class="text-xs mt-1 text-gray-500 dark:text-gray-500">Comprehensive testing advocate</div>
-			</div>
-			<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-				<div class="text-2xl font-bold text-orange mb-2">6+</div>
-				<div class="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
-				<div class="text-xs mt-1 text-gray-500 dark:text-gray-500">Full-stack & Data Science</div>
-			</div>
+			<p class="text-orange-100 text-lg">
+				Leading the convergence of traditional fintech with cutting-edge AI technologies
+			</p>
 		</div>
 	</div>
 </section>

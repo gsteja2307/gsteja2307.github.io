@@ -9,7 +9,19 @@ module.exports = {
 			colors: {
 				black: '#000',
 				white: '#f8f9fa',
-				orange: '#E06330',
+				orange: {
+					DEFAULT: '#E06330', // Your existing orange as default
+					50: '#fff7ed',
+					100: '#ffedd5',
+					200: '#fed7aa',
+					300: '#fdba74',
+					400: '#fb923c',
+					500: '#f97316',
+					600: '#ea580c',
+					700: '#c2410c',
+					800: '#9a3412',
+					900: '#7c2d12',
+				},
 				zinc: require('tailwindcss/colors').zinc,
 			},
 			fontFamily: {

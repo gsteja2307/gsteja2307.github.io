@@ -5,156 +5,376 @@
 <section
 	data-testid="featured-projects"
 	id="projects"
-	class="mb-10 flex flex-col items-center justify-center lg:mb-0 lg:min-h-screen"
+	class="relative overflow-hidden bg-slate-50 py-20 dark:bg-slate-800"
 >
-	<div class="mb-10 flex w-full flex-col items-center justify-center">
-		<h2 class="font-monospace text-2xl text-orange lg:text-4xl">Featured Projects</h2>
-		<span class="mb-6 ml-2 h-1 w-10 bg-orange"></span>
+	<!-- Background Elements -->
+	<div class="absolute inset-0">
+		<div
+			class="from-purple/5 absolute left-0 top-0 h-full w-full bg-gradient-to-br via-transparent to-orange/5"
+		>
+		</div>
+		<div class="absolute right-20 top-20 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl"></div>
+		<div class="bg-orange-500/10 absolute bottom-20 left-20 h-80 w-80 rounded-full blur-3xl"></div>
 	</div>
 
-	<div class="w-full max-w-6xl">
+	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- Section Header -->
+		<div class="mb-16 text-center">
+			<h2 class="mb-6 text-4xl font-bold sm:text-5xl lg:text-6xl">
+				<span
+					class="bg-gradient-to-r from-slate-900 via-purple-600 to-slate-900 bg-clip-text text-transparent dark:from-white dark:via-purple-400 dark:to-white"
+				>
+					Featured Projects
+				</span>
+			</h2>
+			<div class="to-orange-600 mx-auto mb-6 h-1 w-24 bg-gradient-to-r from-purple-500"></div>
+			<p class="mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-400">
+				Enterprise solutions and open source contributions that drive innovation
+			</p>
+		</div>
+
 		<!-- Enterprise Projects -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Enterprise Projects</h3>
-			<div class="grid md:grid-cols-3 gap-6">
+		<div class="mb-20">
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Enterprise Impact
+			</h3>
+			<div class="grid gap-8 lg:grid-cols-3">
 				<!-- International Payment Modernisation -->
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-					<h4 class="font-semibold text-lg mb-3 text-orange">International Payment Modernisation</h4>
-					<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-						Lloyds Banking Group's comprehensive Open Banking v4 compliance and international payment infrastructure project
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Node.js</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">React</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Open Banking v4</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">PISP</span>
+				<div class="group relative">
+					<div
+						class="from-orange-500 absolute inset-0 rounded-3xl bg-gradient-to-r to-red-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
 					</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500">
-						• International payment infrastructure modernization<br>
-						• Third-party integrations and PISP compliance<br>
-						• End-to-end migration to modernized architecture
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="mb-6 flex items-center">
+							<div
+								class="dark:from-orange-500 dark:border-orange-400 mr-4 flex h-12 w-12 items-center justify-center rounded-xl border-2 border-slate-200 bg-gradient-to-r from-slate-800 to-slate-900 shadow-lg dark:to-red-500"
+							>
+								<span class="text-lg font-bold text-white">LL</span>
+							</div>
+							<div>
+								<h4 class="text-xl font-bold text-slate-900 dark:text-white">
+									International Payment Modernisation
+								</h4>
+								<p class="text-orange-600 text-sm font-semibold">Lloyds Banking Group</p>
+							</div>
+						</div>
+						<p class="mb-6 leading-relaxed text-slate-700 dark:text-slate-300">
+							Comprehensive Open Banking v4 compliance and international paymentmodernisation.
+						</p>
+						<div class="bg-orange-50 dark:bg-orange-900/20 mb-6 rounded-xl p-4">
+							<h5 class="text-orange-800 dark:text-orange-300 mb-2 font-semibold">
+								Key Achievements:
+							</h5>
+							<ul class="text-orange-700 dark:text-orange-200 space-y-1 text-sm">
+								<li>• International payment modernization</li>
+								<li>• Third-party integrations and PISP compliance</li>
+								<li>• End-to-end migration to modernized architecture</li>
+							</ul>
+						</div>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Node.js</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>React</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Open Banking v4</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>PISP</span
+							>
+						</div>
 					</div>
 				</div>
 
 				<!-- Branch Connect -->
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-					<h4 class="font-semibold text-lg mb-3 text-orange">Branch Connect</h4>
-					<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-						Core banking solution empowering DBS Bank branches with retail banking functionalities
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">React</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Redux</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Micro-frontends</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Java Spring</span>
+				<div class="group relative">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
 					</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500">
-						• 30% performance improvement<br>
-						• Modular and reusable components<br>
-						• 20% latency reduction for teller services
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="mb-6 flex items-center">
+							<div
+								class="mr-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg"
+							>
+								<span class="text-lg font-bold text-white">DB</span>
+							</div>
+							<div>
+								<h4 class="text-xl font-bold text-slate-900 dark:text-white">Branch Connect</h4>
+								<p class="text-sm font-semibold text-blue-600">DBS Bank</p>
+							</div>
+						</div>
+						<p class="mb-6 leading-relaxed text-slate-700 dark:text-slate-300">
+							Retail banking solution empowering DBS Bank branches with cutting-edge retail banking
+							functionalities across India.
+						</p>
+						<div class="mb-6 rounded-xl bg-blue-50 p-4 dark:bg-blue-900/20">
+							<div class="grid grid-cols-2 gap-4 text-center">
+								<div>
+									<div class="text-2xl font-bold text-blue-600">30%</div>
+									<div class="text-xs text-slate-600 dark:text-slate-400">Performance Boost</div>
+								</div>
+								<div>
+									<div class="text-2xl font-bold text-blue-600">20%</div>
+									<div class="text-xs text-slate-600 dark:text-slate-400">Latency Reduction</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>React</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Redux</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Micro-frontends</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Java Spring</span
+							>
+						</div>
 					</div>
 				</div>
 
 				<!-- Cloud Console -->
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-					<h4 class="font-semibold text-lg mb-3 text-orange">Cloud Console</h4>
-					<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-						Cutting-edge data backup and recovery SaaS platform with single pane of glass management
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">React</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Redux</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Jest</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Storybook</span>
+				<div class="group relative">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-green-500 to-emerald-500 opacity-20 blur-xl transition-opacity group-hover:opacity-30"
+					>
 					</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500">
-						• 80% test coverage achievement<br>
-						• Complete module rewrite from ground up<br>
-						• Cross-functional team collaboration
+					<div
+						class="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+					>
+						<div class="mb-6 flex items-center">
+							<div
+								class="mr-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 shadow-lg"
+							>
+								<span class="text-lg font-bold text-white">AS</span>
+							</div>
+							<div>
+								<h4 class="text-xl font-bold text-slate-900 dark:text-white">Cloud Console</h4>
+								<p class="text-sm font-semibold text-green-600">Arcserve</p>
+							</div>
+						</div>
+						<p class="mb-6 leading-relaxed text-slate-700 dark:text-slate-300">
+							Cutting-edge data backup and recovery SaaS platform providing unified management for
+							all Arcserve products.
+						</p>
+						<div class="mb-6 rounded-xl bg-green-50 p-4 dark:bg-green-900/20">
+							<div class="text-center">
+								<div class="mb-2 text-3xl font-bold text-green-600">80%</div>
+								<div class="text-sm text-slate-600 dark:text-slate-400">
+									Test Coverage Achievement
+								</div>
+								<div class="mt-1 text-xs text-green-600">Industry-leading quality standards</div>
+							</div>
+						</div>
+						<div class="flex flex-wrap gap-2">
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>React</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Redux</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Jest</span
+							>
+							<span
+								class="rounded-full border bg-slate-100 px-3 py-1 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>Storybook</span
+							>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- Open Source Contributions -->
-		<div class="mb-12">
-			<h3 class="mb-6 text-xl font-semibold text-center text-black dark:text-white">Open Source Contributions</h3>
-			<div class="grid md:grid-cols-3 gap-6">
-				<!-- runtime-memory-cache -->
-				<div class="p-6 rounded-lg bg-orange text-white">
-					<h4 class="font-semibold text-lg mb-3">runtime-memory-cache</h4>
-					<p class="text-sm opacity-90 mb-4">
-						Zero-dependency, TypeScript-first in-memory cache for Node.js
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">TypeScript</span>
-						<span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Node.js</span>
-						<span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Performance</span>
+		<div class="mb-16">
+			<h3 class="mb-12 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				Open Source Innovation
+			</h3>
+			<div class="grid gap-8 md:grid-cols-3">
+				<!-- runtime-memory-cache (Featured) -->
+				<div class="group relative md:col-span-3 lg:col-span-1">
+					<div
+						class="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 to-violet-500 opacity-30 blur-xl transition-opacity group-hover:opacity-40"
+					>
 					</div>
-					<div class="text-xs opacity-75">
-						• FIFO and LRU eviction strategies<br>
-						• TTL support with built-in stats<br>
-						• Published on npm
+					<div
+						class="hover:shadow-3xl relative rounded-3xl bg-gradient-to-br from-purple-500 to-violet-600 p-8 text-white shadow-2xl transition-all duration-300 hover:scale-105"
+					>
+						<div class="mb-6 flex items-center">
+							<div
+								class="mr-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm"
+							>
+								<svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
+									></path>
+								</svg>
+							</div>
+							<div>
+								<h4 class="text-xl font-bold">runtime-memory-cache</h4>
+								<p class="text-sm text-purple-100">Featured npm Package</p>
+							</div>
+						</div>
+						<p class="mb-6 leading-relaxed text-purple-100">
+							Zero-dependency, TypeScript-first in-memory cache for Node.js with advanced eviction
+							strategies and built-in analytics.
+						</p>
+						<div class="mb-6 rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+							<h5 class="mb-2 font-semibold">Key Features:</h5>
+							<ul class="space-y-1 text-sm text-purple-100">
+								<li>• FIFO and LRU eviction strategies</li>
+								<li>• TTL support with built-in statistics</li>
+								<li>• TypeScript-first with zero dependencies</li>
+							</ul>
+						</div>
+						<div class="flex items-center justify-between">
+							<div class="flex flex-wrap gap-2">
+								<span class="rounded-full bg-white/20 px-3 py-1 text-xs backdrop-blur-sm"
+									>TypeScript</span
+								>
+								<span class="rounded-full bg-white/20 px-3 py-1 text-xs backdrop-blur-sm"
+									>Performance</span
+								>
+							</div>
+							<a
+								href="https://github.com/gsteja2307/runtime-memory-cache"
+								target="_blank"
+								class="inline-flex items-center text-white transition-colors hover:text-purple-200"
+							>
+								<span class="mr-2 text-sm font-semibold">View Project</span>
+								<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+									></path>
+								</svg>
+							</a>
+						</div>
 					</div>
-					<a href="https://github.com/gsteja2307/runtime-memory-cache" target="_blank" class="inline-block mt-3 text-xs underline">
-						View on GitHub →
-					</a>
 				</div>
 
-				<!-- react-file-upload-button -->
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-					<h4 class="font-semibold text-lg mb-3 text-orange">react-file-upload-button</h4>
-					<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-						Custom React file upload component with advanced features
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">React</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">TypeScript</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">UI Components</span>
-					</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500">
-						• Drag-and-drop functionality<br>
-						• Progress bar with file management<br>
-						• Reusable component design
-					</div>
-					<a href="https://github.com/gsteja2307/react-file-upload-button" target="_blank" class="inline-block mt-3 text-xs text-orange underline">
-						View on GitHub →
-					</a>
-				</div>
+				<!-- Other Projects -->
+				<div class="space-y-8 md:col-span-3 lg:col-span-2">
+					<div class="grid gap-6 md:grid-cols-2">
+						<!-- react-file-upload-button -->
+						<div
+							class="group relative rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+						>
+							<h4 class="mb-3 text-lg font-bold text-slate-900 dark:text-white">
+								react-file-upload-button
+							</h4>
+							<p class="mb-4 text-sm text-slate-600 dark:text-slate-400">
+								Advanced React component with drag-and-drop functionality and progress tracking.
+							</p>
+							<div class="mb-4 flex flex-wrap gap-2">
+								<span
+									class="rounded bg-blue-100 px-2 py-1 text-xs text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+									>React</span
+								>
+								<span
+									class="rounded bg-blue-100 px-2 py-1 text-xs text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+									>UI Components</span
+								>
+							</div>
+							<a
+								href="https://github.com/gsteja2307/react-file-upload-button"
+								target="_blank"
+								class="hover:text-orange-600 text-sm font-semibold text-orange"
+							>
+								View on GitHub →
+							</a>
+						</div>
 
-				<!-- to-indian-currency -->
-				<div class="p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-					<h4 class="font-semibold text-lg mb-3 text-orange">to-indian-currency</h4>
-					<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-						JavaScript utility for Indian Rupee format conversion
-					</p>
-					<div class="flex flex-wrap gap-2 mb-4">
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">JavaScript</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Utilities</span>
-						<span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">Localization</span>
+						<!-- to-indian-currency -->
+						<div
+							class="group relative rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900"
+						>
+							<h4 class="mb-3 text-lg font-bold text-slate-900 dark:text-white">
+								to-indian-currency
+							</h4>
+							<p class="mb-4 text-sm text-slate-600 dark:text-slate-400">
+								JavaScript utility for Indian Rupee format conversion and localization.
+							</p>
+							<div class="mb-4 flex flex-wrap gap-2">
+								<span
+									class="rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-300"
+									>JavaScript</span
+								>
+								<span
+									class="rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-300"
+									>Localization</span
+								>
+							</div>
+							<a
+								href="https://github.com/gsteja2307/to-indian-currency"
+								target="_blank"
+								class="hover:text-orange-600 text-sm font-semibold text-orange"
+							>
+								View on GitHub →
+							</a>
+						</div>
 					</div>
-					<div class="text-xs text-gray-500 dark:text-gray-500">
-						• Number to Indian Rupee format<br>
-						• Currency value to words conversion<br>
-						• Market-specific localization
-					</div>
-					<a href="https://github.com/gsteja2307/to-indian-currency" target="_blank" class="inline-block mt-3 text-xs text-orange underline">
-						View on GitHub →
-					</a>
 				</div>
 			</div>
 		</div>
 
-		<!-- View More -->
+		<!-- Call to Action -->
 		<div class="text-center">
-			<a
-				href="https://github.com/gsteja2307"
-				target="_blank"
-				class="inline-flex items-center px-6 py-3 bg-transparent border-2 border-orange text-orange hover:bg-orange hover:text-white transition-colors rounded-lg font-semibold"
+			<div
+				class="rounded-3xl bg-gradient-to-r from-slate-100 to-slate-200 p-8 dark:from-slate-800 dark:to-slate-900"
 			>
-				View All Projects on GitHub
-				<span class="ml-2">→</span>
-			</a>
+				<h3 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">
+					Explore More Projects
+				</h3>
+				<p class="mx-auto mb-6 max-w-2xl text-slate-600 dark:text-slate-400">
+					Discover additional projects, experiments, and contributions on my GitHub profile
+				</p>
+				<a
+					href="https://github.com/gsteja2307"
+					target="_blank"
+					class="hover:shadow-3xl inline-flex items-center rounded-full border-2 border-blue-500 bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-blue-800"
+				>
+					<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+						<path
+							fill-rule="evenodd"
+							d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+							clip-rule="evenodd"></path>
+					</svg>
+					View All Projects
+					<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+					</svg>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

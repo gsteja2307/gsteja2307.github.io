@@ -1,60 +1,215 @@
 ---
 import heroImage from '../assets/images/hero.png';
 import { Image } from 'astro:assets';
-import Button from '../components/ui/Button.astro';
 ---
 
 <section
 	data-testid="hero"
-	class="flex flex-col-reverse h-screen items-center justify-center text-center lg:flex-row"
+	class="to-orange-50 relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-800"
 >
-	<div class="mb-10 flex flex-col items-center lg:mb-0 lg:w-1/2">
-		<div>
-			<h1 class="mb-6 font-monospace text-3xl text-black dark:text-white lg:text-5xl">
-				Hi! I'm <span class="text-orange">Surya Teja</span>, Senior Full-Stack Engineer
-			</h1>
-			<h2 class="mb-8 font-sans text-lg text-gray-600 dark:text-gray-300 lg:text-xl">
-				MERN Stack Expert | Data Scientist | AI Enthusiast exploring MCP
-			</h2>
-			<p class="mb-8 text-base text-gray-700 dark:text-gray-400 lg:text-lg">
-				6+ years building scalable fintech solutions at Lloyds, DBS Bank, and Arcserve
-			</p>
-			<div class="mb-8 flex flex-wrap justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-				<span class="flex items-center">
-					<span class="mr-1 text-orange">•</span>
-					45+ repositories
-				</span>
-				<span class="flex items-center">
-					<span class="mr-1 text-orange">•</span>
-					2x recognition awards
-				</span>
-				<span class="flex items-center">
-					<span class="mr-1 text-orange">•</span>
-					80% test coverage advocate
-				</span>
-			</div>
+	<!-- Animated Background Elements -->
+	<div class="absolute inset-0 overflow-hidden">
+		<div
+			class="absolute -right-40 -top-40 h-80 w-80 animate-pulse rounded-full bg-orange/20 blur-3xl"
+		>
 		</div>
-		<div class="mb-10 flex flex-wrap gap-4 justify-center">
-			<Button style={'primary'} size={'lg'} class={'flex'} name="linkedin">
-				<a target="_blank" href="https://www.linkedin.com/in/surya-teja-gollamudi/">
-					Connect on LinkedIn
-				</a>
-			</Button>
-			<Button style={'secondary'} size={'lg'} class={'flex'} name="github">
-				<a target="_blank" href="https://github.com/gsteja2307">
-					View GitHub
-				</a>
-			</Button>
+		<div
+			class="absolute -bottom-40 -left-40 h-96 w-96 animate-pulse rounded-full bg-blue-400/10 blur-3xl delay-1000"
+		>
+		</div>
+		<div
+			class="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 transform animate-pulse rounded-full bg-purple-400/10 blur-3xl delay-500"
+		>
 		</div>
 	</div>
-	<div data-testid="hero-img" class="ml-2 mb-10 flex w-1/2 items-center justify-center">
-		<Image
-			src={heroImage}
-			alt="Coding illustration"
-			format="png"
-			width={600}
-			height={600}
-			loading="eager"
-		/>
+
+	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="flex flex-col-reverse items-center justify-between gap-12 lg:flex-row">
+			<!-- Content Section -->
+			<div class="flex-1 space-y-8 text-center lg:text-left">
+				<!-- Greeting Badge -->
+				<div
+					class="inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 backdrop-blur-sm"
+				>
+					<span class="mr-3 h-2 w-2 animate-pulse rounded-full bg-green-500"></span>
+					<span class="text-sm font-medium text-blue-600 dark:text-blue-400"
+						>Available for opportunities</span
+					>
+				</div>
+
+				<!-- Main Heading -->
+				<div class="space-y-4">
+					<h1 class="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+						<span
+							class="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent dark:from-white dark:via-gray-200 dark:to-white"
+						>
+							Hi, I'm
+						</span>
+						<br />
+						<span
+							class="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-blue-300"
+						>
+							Surya Teja
+						</span>
+					</h1>
+
+					<div class="space-y-2">
+						<h2
+							class="text-xl font-semibold text-slate-700 dark:text-slate-300 sm:text-2xl lg:text-3xl"
+						>
+							Senior Full-Stack Developer
+						</h2>
+						<p class="max-w-2xl text-lg text-slate-600 dark:text-slate-400 sm:text-xl">
+							Building scalable fintech solutions with <span
+								class="font-semibold text-blue-600 dark:text-blue-400">MERN Stack</span
+							> and exploring
+							<span class="font-semibold text-blue-600 dark:text-blue-400">AI/MCP</span> technologies
+						</p>
+					</div>
+				</div>
+
+				<!-- Stats -->
+				<div class="flex flex-wrap justify-center gap-6 lg:justify-start lg:gap-8">
+					<div class="text-center">
+						<div class="text-2xl font-bold text-blue-600 dark:text-blue-400 sm:text-3xl">6+</div>
+						<div class="text-sm text-slate-600 dark:text-slate-400">Years Experience</div>
+					</div>
+					<div class="text-center">
+						<div class="text-2xl font-bold text-blue-600 dark:text-blue-400 sm:text-3xl">45+</div>
+						<div class="text-sm text-slate-600 dark:text-slate-400">GitHub Repos</div>
+					</div>
+					<div class="text-center">
+						<div class="text-2xl font-bold text-blue-600 dark:text-blue-400 sm:text-3xl">9</div>
+						<div class="text-sm text-slate-600 dark:text-slate-400">Recommendations</div>
+					</div>
+					<div class="text-center">
+						<div class="text-2xl font-bold text-blue-600 dark:text-blue-400 sm:text-3xl">3x</div>
+						<div class="text-sm text-slate-600 dark:text-slate-400">Show & Tell</div>
+					</div>
+				</div>
+
+				<!-- Tech Stack Tags -->
+				<div class="flex flex-wrap justify-center gap-3 lg:justify-start">
+					<span
+						class="rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+					>
+						MERN Stack
+					</span>
+					<span
+						class="rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+					>
+						Open Banking APIs
+					</span>
+					<span
+						class="rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+					>
+						Data Science
+					</span>
+					<span
+						class="rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+					>
+						AI/MCP
+					</span>
+				</div>
+
+				<!-- CTA Buttons -->
+				<div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+					<a
+						href="https://www.linkedin.com/in/surya-teja-gollamudi/"
+						target="_blank"
+						class="hover:shadow-3xl group inline-flex items-center justify-center rounded-full border-2 border-blue-500 bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-blue-800"
+					>
+						<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								fill-rule="evenodd"
+								d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
+								clip-rule="evenodd"></path>
+						</svg>
+						Connect on LinkedIn
+						<svg
+							class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+						</svg>
+					</a>
+
+					<a
+						href="https://github.com/gsteja2307"
+						target="_blank"
+						class="group inline-flex items-center justify-center rounded-full border-2 border-blue-600 px-8 py-4 font-bold text-blue-600 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-600 hover:text-white hover:shadow-2xl dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white"
+					>
+						<svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								fill-rule="evenodd"
+								d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+								clip-rule="evenodd"></path>
+						</svg>
+						View GitHub
+						<svg
+							class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+
+			<!-- Image Section -->
+			<div class="flex flex-1 justify-center lg:justify-end">
+				<div class="relative">
+					<!-- Glassmorphism container -->
+					<div
+						class="relative rounded-3xl border border-white/30 bg-white/20 p-8 shadow-2xl backdrop-blur-lg dark:border-white/10 dark:bg-white/5"
+					>
+						<Image
+							src={heroImage}
+							alt="Coding illustration"
+							format="png"
+							width={500}
+							height={500}
+							loading="eager"
+							class="rounded-2xl"
+						/>
+
+						<!-- Floating elements -->
+						<div
+							class="absolute -right-4 -top-4 flex h-20 w-20 animate-bounce items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-lg"
+						>
+							Senior
+						</div>
+						<div
+							class="absolute -bottom-4 -left-4 flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-purple-500 text-xs text-white shadow-lg"
+						>
+							6Y+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scroll indicator -->
+	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce">
+		<svg class="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+		</svg>
 	</div>
 </section>
