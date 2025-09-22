@@ -1,27 +1,28 @@
 <script is:inline>
 	function getTheme() {
-		const storedTheme = typeof localStorage !== 'undefined' && localStorage.getItem('theme')
+		const storedTheme = typeof localStorage !== 'undefined' && localStorage.getItem('theme');
 
 		return (
-			storedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
-		)
+			// storedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+			storedTheme || 'dark'
+		);
 	}
 
 	function setTheme(newTheme) {
-		const html = document.documentElement
-		const isDark = newTheme === 'dark'
+		const html = document.documentElement;
+		const isDark = newTheme === 'dark';
 
-		html.classList.toggle('dark', isDark)
-		html.classList.toggle('light', !isDark)
+		html.classList.toggle('dark', isDark);
+		html.classList.toggle('light', !isDark);
 
-		localStorage.setItem('theme', newTheme)
+		localStorage.setItem('theme', newTheme);
 	}
 
 	// set initial theme
-	setTheme(getTheme())
-	document.addEventListener('astro:after-swap', () => setTheme(getTheme()))
+	setTheme(getTheme());
+	document.addEventListener('astro:after-swap', () => setTheme(getTheme()));
 
 	document.addEventListener('theme-change', (e) => {
-		setTheme(e.detail.theme)
-	})
+		setTheme(e.detail.theme);
+	});
 </script>
