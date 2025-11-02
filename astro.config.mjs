@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap'
+import react from '@astrojs/react';
 import { remarkReadingTime } from './src/utils/readTime.ts'
 import { siteConfig } from './src/data/site.config'
 
@@ -18,7 +19,7 @@ export default defineConfig({
 			wrap: true
 		},
 		drafts: true
-	}), icon(), tailwind(), sitemap(),],
+	}), icon(), tailwind(), react(), sitemap(),],
 	site: siteConfig.site,
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
