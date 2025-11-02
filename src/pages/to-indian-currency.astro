@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout';
-import { siteConfig } from '@/data/site.config';
 ---
 
 <BaseLayout title="Indian Currency Converter Playground | Surya Teja">
@@ -8,7 +7,7 @@ import { siteConfig } from '@/data/site.config';
 		<!-- Header Section -->
 		<div class="mb-12 text-center">
 			<h1 class="mb-4 text-4xl font-bold text-slate-900 dark:text-white md:text-5xl">
-				🪙 Indian Currency Converter
+				🪙 Indian Currency Toolkit
 			</h1>
 			<p class="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-400">
 				Interactive playground for the
@@ -21,12 +20,12 @@ import { siteConfig } from '@/data/site.config';
 					to-indian-currency
 				</a>
 				npm package
-			</p>
+			</h1>
 			<div class="mt-4 flex flex-wrap items-center justify-center gap-3">
 				<span
 					class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
 				>
-					v1.0.1
+					v2.0.2
 				</span>
 				<span
 					class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300"
@@ -36,191 +35,356 @@ import { siteConfig } from '@/data/site.config';
 			</div>
 		</div>
 
-		<!-- Playground Section -->
-		<div class="w-full space-y-8">
-			<!-- Input Section -->
+		<!-- Tab Navigation -->
+		<div class="mb-8">
 			<div
-				class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+				class="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-white p-2 dark:border-slate-700 dark:bg-slate-900"
 			>
-				<label
-					for="amount-input"
-					class="mb-3 block text-lg font-semibold text-slate-900 dark:text-white"
+				<button
+					class="tab-btn active rounded-xl px-4 py-2 text-sm font-semibold transition-all"
+					data-tab="format"
 				>
-					Enter Amount
-				</label>
-				<input
-					type="number"
-					id="amount-input"
-					placeholder="Enter a number (e.g., 205030.75)"
-					autocomplete="off"
-					class="w-full rounded-xl border-2 border-slate-300 bg-white px-6 py-4 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
-				/>
+					💰 Format
+				</button>
+				<button
+					class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition-all"
+					data-tab="parse"
+				>
+					🔍 Parse
+				</button>
+				<button
+					class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition-all"
+					data-tab="words"
+				>
+					📝 Words
+				</button>
+				<button
+					class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition-all"
+					data-tab="breakdown"
+				>
+					📊 Breakdown
+				</button>
+				<button class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition-all" data-tab="gst">
+					🧾 GST & Tax
+				</button>
 			</div>
+		</div>
 
-			<!-- Results Section -->
-			<div class="grid gap-6 md:grid-cols-2 md:min-h-[250px]">
-				<!-- Currency Format Result -->
+		<!-- Tab Content -->
+		<div class="w-full space-y-8">
+			<!-- Format Tab -->
+			<div id="tab-format" class="tab-content">
 				<div
-					class="flex h-full flex-col rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 to-blue-100 p-8 shadow-lg dark:border-blue-800/30 dark:from-blue-900/20 dark:to-blue-800/20"
+					class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
 				>
-					<div class="mb-3 flex items-center">
-						<div
-							class="mr-3 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white shadow-md"
-						>
-							₹
+					<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">Format Currency</h2>
+					<div class="space-y-4">
+						<div>
+							<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+								Amount
+							</label>
+							<input
+								type="number"
+								id="format-input"
+								autocomplete="off"
+								placeholder="e.g., 205030.75"
+								class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
+							/>
 						</div>
-						<h3 class="text-lg font-bold text-slate-900 dark:text-white">Currency Format</h3>
+						<div class="grid gap-4 md:grid-cols-2">
+							<div>
+								<label class="mb-2 flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300">
+									<input type="checkbox" id="format-compact" class="mr-2" />
+									Compact Notation
+								</label>
+							</div>
+							<div>
+								<label class="mb-2 flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300">
+									<input type="checkbox" id="format-round" class="mr-2" />
+									Enable Rounding
+								</label>
+							</div>
+						</div>
+						<div class="grid gap-4 md:grid-cols-3">
+							<div>
+								<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									Style
+								</label>
+								<select
+									id="format-style"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								>
+									<option value="short">Short (K, L, Cr)</option>
+									<option value="long">Long (Thousand, Lakh, Crore)</option>
+								</select>
+							</div>
+							<div>
+								<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									Round Digits
+								</label>
+								<input
+									type="number"
+									id="format-digits"
+									value="1"
+									min="0"
+									max="5"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								/>
+							</div>
+							<div>
+								<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									Rounding Mode
+								</label>
+								<select
+									id="format-mode"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								>
+									<option value="nearest">Nearest</option>
+									<option value="down">Down</option>
+									<option value="up">Up</option>
+									<option value="none">None (truncate)</option>
+								</select>
+							</div>
+						</div>
 					</div>
-					<p class="mb-2 text-sm text-slate-600 dark:text-slate-400">toINR(amount)</p>
 					<div
-						id="currency-result"
-						class="flex min-h-[4rem] flex-1 items-center overflow-x-auto rounded-xl bg-white/80 p-4 text-2xl font-bold text-blue-600 backdrop-blur-sm dark:bg-slate-800/80 dark:text-blue-400"
+						class="mt-6 flex min-h-[4rem] items-center overflow-x-auto rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 p-4 text-2xl font-bold text-blue-600 dark:from-blue-900/20 dark:to-blue-800/20 dark:text-blue-400"
+						id="format-result"
 					>
 						₹2,05,030.75
 					</div>
 				</div>
+			</div>
 
-				<!-- Words Format Result -->
+			<!-- Parse Tab -->
+			<div id="tab-parse" class="tab-content hidden">
 				<div
-					class="flex h-full flex-col rounded-3xl border border-slate-200 bg-gradient-to-br from-green-50 to-green-100 p-8 shadow-lg dark:border-green-800/30 dark:from-green-900/20 dark:to-green-800/20"
+					class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
 				>
-					<div class="mb-3 flex items-center">
-						<div
-							class="mr-3 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-green-500 text-white shadow-md"
-						>
-							📝
+					<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">Parse Currency Strings</h2>
+					<div class="space-y-4">
+						<div>
+							<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+								Currency String
+							</label>
+							<input
+								type="text"
+								id="parse-input"
+								autocomplete="off"
+								placeholder="e.g., ₹12,34,567.50 or Rs. 1,23,000/-"
+								class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
+							/>
 						</div>
-						<h3 class="text-lg font-bold text-slate-900 dark:text-white">Words Format</h3>
+						<div>
+							<label class="mb-2 flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300">
+								<input type="checkbox" id="parse-tolerant" class="mr-2" />
+								Tolerant Mode (ignores junk text)
+							</label>
+						</div>
+						<div class="mb-4 flex flex-wrap gap-2">
+							<button class="parse-example rounded-lg bg-slate-200 px-3 py-1 text-sm dark:bg-slate-700" data-value="₹12,34,567.50">₹12,34,567.50</button>
+							<button class="parse-example rounded-lg bg-slate-200 px-3 py-1 text-sm dark:bg-slate-700" data-value="INR 1,23,000/-">INR 1,23,000/-</button>
+							<button class="parse-example rounded-lg bg-slate-200 px-3 py-1 text-sm dark:bg-slate-700" data-value="(₹1,234.00)">(₹1,234.00)</button>
+							<button class="parse-example rounded-lg bg-slate-200 px-3 py-1 text-sm dark:bg-slate-700" data-value="12.3L">12.3L</button>
+							<button class="parse-example rounded-lg bg-slate-200 px-3 py-1 text-sm dark:bg-slate-700" data-value="2.5Cr">2.5Cr</button>
+						</div>
 					</div>
-					<p class="mb-2 text-sm text-slate-600 dark:text-slate-400">toINRWords(amount)</p>
 					<div
-						id="words-result"
-						class="flex min-h-[4rem] flex-1 items-center overflow-x-auto rounded-xl bg-white/80 p-4 leading-relaxed text-green-700 backdrop-blur-sm dark:bg-slate-800/80 dark:text-green-400"
+						class="mt-6 flex min-h-[4rem] items-center overflow-x-auto rounded-xl bg-gradient-to-r from-green-50 to-green-100 p-4 text-2xl font-bold text-green-600 dark:from-green-900/20 dark:to-green-800/20 dark:text-green-400"
+						id="parse-result"
 					>
-						Two Lakh Five Thousand Thirty Rupees and Seventy-Five Paise
+						1234567.50
 					</div>
 				</div>
 			</div>
 
-			<!-- Example Buttons -->
-			<div
-				class="rounded-3xl border border-slate-200 bg-gradient-to-br from-orange-50 to-orange-100 p-8 shadow-lg dark:border-orange-800/30 dark:from-orange-900/20 dark:to-orange-800/20"
-			>
-				<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">Try Examples</h3>
-				<div class="flex flex-wrap gap-3">
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="1000"
-					>
-						₹1,000
-					</button>
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="50000"
-					>
-						₹50,000
-					</button>
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="100000"
-					>
-						₹1 Lakh
-					</button>
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="1000000"
-					>
-						₹10 Lakhs
-					</button>
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="10000000"
-					>
-						₹1 Crore
-					</button>
-					<button
-						class="example-btn rounded-lg bg-white px-4 py-2 font-semibold text-slate-700 shadow-md transition-all hover:scale-105 hover:bg-orange-500 hover:text-white hover:shadow-lg dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-orange-600"
-						data-value="12345.67"
-					>
-						₹12,345.67
-					</button>
-				</div>
-			</div>
-
-			<!-- Features Section -->
-			<div
-				class="rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-purple-100 p-8 shadow-lg dark:border-purple-800/30 dark:from-purple-900/20 dark:to-purple-800/20"
-			>
-				<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">✨ Features</h3>
-				<ul class="space-y-2 text-slate-700 dark:text-slate-300">
-					<li class="flex items-start">
-						<span class="mr-2 text-purple-500">✓</span>
-						<span>Converts numbers into Indian Rupee format (₹10,00,000.00)</span>
-					</li>
-					<li class="flex items-start">
-						<span class="mr-2 text-purple-500">✓</span>
-						<span>Converts numbers to words in Indian currency format</span>
-					</li>
-					<li class="flex items-start">
-						<span class="mr-2 text-purple-500">✓</span>
-						<span>Handles paise for decimal numbers (Seventy-Five Paise)</span>
-					</li>
-					<li class="flex items-start">
-						<span class="mr-2 text-purple-500">✓</span>
-						<span>Supports lakhs and crores notation</span>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Installation & Usage -->
-			<div
-				class="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-8 shadow-lg dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
-			>
-				<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">📦 Installation</h3>
+			<!-- Words Tab -->
+			<div id="tab-words" class="tab-content hidden">
 				<div
-					class="mb-6 rounded-xl bg-slate-900 p-4 font-mono text-sm text-green-400 dark:bg-black"
+					class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
 				>
-					<code>npm install to-indian-currency</code>
-				</div>
-
-				<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">💻 Usage</h3>
-				<div
-					class="rounded-xl bg-slate-900 p-4 font-mono text-sm text-slate-300 dark:bg-black"
-				>
-					<code class="block">
-						<span class="text-purple-400">const</span>
-						<span class="text-white">{'{'} toINR, toINRWords {'}'}</span>
-						<span class="text-purple-400"> = require</span>
-						<span class="text-white">(</span>
-						<span class="text-green-400">'to-indian-currency'</span>
-						<span class="text-white">);</span>
-						<br />
-						<br />
-						<span class="text-gray-500">// Convert to currency format</span>
-						<br />
-						<span class="text-blue-400">console</span>
-						<span class="text-white">.log(</span>
-						<span class="text-yellow-400">toINR</span>
-						<span class="text-white">(205030.75));</span>
-						<br />
-						<span class="text-gray-500">// Output: "₹2,05,030.75"</span>
-						<br />
-						<br />
-						<span class="text-gray-500">// Convert to words</span>
-						<br />
-						<span class="text-blue-400">console</span>
-						<span class="text-white">.log(</span>
-						<span class="text-yellow-400">toINRWords</span>
-						<span class="text-white">(205030.75));</span>
-						<br />
-						<span class="text-gray-500"
-							>// Output: "Two Lakh Five Thousand Thirty Rupees and Seventy-Five Paise"</span
-						>
-					</code>
+					<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">Convert to Words</h2>
+					<div class="grid gap-6 md:grid-cols-2">
+						<div>
+							<h3 class="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-300">
+								Number to Words
+							</h3>
+							<input
+								type="number"
+								id="words-input"
+								autocomplete="off"
+								placeholder="e.g., 205030.75"
+								class="mb-4 w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
+							/>
+							<div
+								class="flex min-h-[6rem] items-center overflow-x-auto rounded-xl bg-gradient-to-r from-purple-50 to-purple-100 p-4 leading-relaxed text-purple-700 dark:from-purple-900/20 dark:to-purple-800/20 dark:text-purple-400"
+								id="words-result"
+							>
+								Two Lakh Five Thousand Thirty Rupees and Seventy-Five Paise
+							</div>
+						</div>
+						<div>
+							<h3 class="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-300">
+								Words to Number
+							</h3>
+							<input
+								type="text"
+								id="parse-words-input"
+								autocomplete="off"
+								placeholder="e.g., One Crore Two Lakh"
+								class="mb-4 w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
+							/>
+							<div
+								class="flex min-h-[6rem] items-center overflow-x-auto rounded-xl bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 text-2xl font-bold text-indigo-700 dark:from-indigo-900/20 dark:to-indigo-800/20 dark:text-indigo-400"
+								id="parse-words-result"
+							>
+								12050000
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<!-- Links Section -->
+			<!-- Breakdown Tab -->
+			<div id="tab-breakdown" class="tab-content hidden">
+				<div
+					class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+				>
+					<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">Amount Breakdown</h2>
+					<div class="space-y-4">
+						<div>
+							<label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+								Amount
+							</label>
+							<input
+								type="number"
+								id="breakdown-input"
+								autocomplete="off"
+								placeholder="e.g., 123456789"
+								class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-lg font-medium text-slate-900 transition-all placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-orange-400"
+							/>
+						</div>
+					</div>
+					<div
+						class="mt-6 space-y-3 rounded-xl bg-gradient-to-r from-teal-50 to-teal-100 p-6 dark:from-teal-900/20 dark:to-teal-800/20"
+						id="breakdown-result"
+					>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Crore:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">12</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Lakh:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">34</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Thousand:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">56</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Hundred:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">7</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Remainder:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">89</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- GST Tab -->
+			<div id="tab-gst" class="tab-content hidden">
+				<div class="grid gap-6 md:grid-cols-2">
+					<!-- Add GST -->
+					<div
+						class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+					>
+						<h2 class="mb-4 text-xl font-bold text-slate-900 dark:text-white">Add GST</h2>
+						<div class="space-y-3">
+							<div>
+								<label class="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									Base Amount
+								</label>
+								<input
+									type="number"
+									id="gst-add-base"
+									autocomplete="off"
+									placeholder="e.g., 100"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								/>
+							</div>
+							<div>
+								<label class="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									GST Rate (%)
+								</label>
+								<input
+									type="number"
+									id="gst-add-rate"
+									autocomplete="off"
+									placeholder="e.g., 18"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								/>
+							</div>
+						</div>
+						<div class="mt-4 space-y-2 rounded-xl bg-gradient-to-r from-amber-50 to-amber-100 p-4 dark:from-amber-900/20 dark:to-amber-800/20" id="gst-add-result">
+							<div class="flex justify-between">
+								<span class="font-semibold text-amber-700 dark:text-amber-300">Total:</span>
+								<span class="font-bold text-amber-900 dark:text-amber-100">₹118.00</span>
+							</div>
+							<div class="flex justify-between">
+								<span class="font-semibold text-amber-700 dark:text-amber-300">Tax:</span>
+								<span class="font-bold text-amber-900 dark:text-amber-100">₹18.00</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Split GST -->
+					<div
+						class="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+					>
+						<h2 class="mb-4 text-xl font-bold text-slate-900 dark:text-white">Split GST</h2>
+						<div class="space-y-3">
+							<div>
+								<label class="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									Total Amount
+								</label>
+								<input
+									type="number"
+									id="gst-split-total"
+									autocomplete="off"
+									placeholder="e.g., 118"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								/>
+							</div>
+							<div>
+								<label class="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+									GST Rate (%)
+								</label>
+								<input
+									type="number"
+									id="gst-split-rate"
+									autocomplete="off"
+									placeholder="e.g., 18"
+									class="w-full rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-slate-900 transition-all focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+								/>
+							</div>
+						</div>
+						<div class="mt-4 space-y-2 rounded-xl bg-gradient-to-r from-emerald-50 to-emerald-100 p-4 dark:from-emerald-900/20 dark:to-emerald-800/20" id="gst-split-result">
+							<div class="flex justify-between">
+								<span class="font-semibold text-emerald-700 dark:text-emerald-300">Base:</span>
+								<span class="font-bold text-emerald-900 dark:text-emerald-100">₹100.00</span>
+							</div>
+							<div class="flex justify-between">
+								<span class="font-semibold text-emerald-700 dark:text-emerald-300">Tax:</span>
+								<span class="font-bold text-emerald-900 dark:text-emerald-100">₹18.00</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Documentation Links -->
 			<div class="flex flex-wrap justify-center gap-4">
 				<a
 					href="https://www.npmjs.com/package/to-indian-currency"
@@ -245,71 +409,298 @@ import { siteConfig } from '@/data/site.config';
 	</div>
 
 	<script>
-		// Import the package functions (we'll need to install the package first)
-		import { toINR, toINRWords } from 'to-indian-currency';
+		// Import all functions from the package
+		import {
+			toINR,
+			toINRWords,
+			parse,
+			parseWords,
+			expandCompact,
+			breakdown,
+			addGST,
+			splitGST,
+		} from 'to-indian-currency';
 
-		// Get DOM elements
-		const input = document.getElementById('amount-input') as HTMLInputElement;
-		const currencyResult = document.getElementById('currency-result');
-		const wordsResult = document.getElementById('words-result');
-		const exampleButtons = document.querySelectorAll('.example-btn');
+		// Tab Switching
+		const tabButtons = document.querySelectorAll('.tab-btn');
+		const tabContents = document.querySelectorAll('.tab-content');
 
-		// Function to update results
-		function updateResults() {
-			const value = parseFloat(input.value) || 0;
+		tabButtons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const targetTab = btn.dataset.tab;
+
+				// Update buttons
+				tabButtons.forEach((b) => b.classList.remove('active'));
+				btn.classList.add('active');
+
+				// Update content
+				tabContents.forEach((content) => {
+					if (content.id === `tab-${targetTab}`) {
+						content.classList.remove('hidden');
+					} else {
+						content.classList.add('hidden');
+					}
+				});
+			});
+		});
+
+		// Format Tab
+		const formatInput = document.getElementById('format-input') as HTMLInputElement;
+		const formatCompact = document.getElementById('format-compact') as HTMLInputElement;
+		const formatRound = document.getElementById('format-round') as HTMLInputElement;
+		const formatStyle = document.getElementById('format-style') as HTMLSelectElement;
+		const formatDigits = document.getElementById('format-digits') as HTMLInputElement;
+		const formatMode = document.getElementById('format-mode') as HTMLSelectElement;
+		const formatResult = document.getElementById('format-result');
+
+		function updateFormat() {
+			const value = parseFloat(formatInput.value) || 0;
+			const options: any = {};
+
+			if (formatCompact.checked) {
+				options.compact = true;
+				options.compactStyle = formatStyle.value;
+			}
+
+			if (formatRound.checked) {
+				options.round = true;
+				options.roundDigits = parseInt(formatDigits.value) || 1;
+				options.roundingMode = formatMode.value;
+			}
 
 			try {
-				// Update currency format
-				if (currencyResult) {
-					currencyResult.textContent = toINR(value);
+				if (formatResult) {
+					formatResult.textContent = toINR(value, options);
 				}
+			} catch (error) {
+				if (formatResult) formatResult.textContent = 'Error';
+			}
+		}
 
-				// Update words format
+		if (formatInput) {
+			formatInput.value = '205030.75';
+			formatInput.addEventListener('input', updateFormat);
+		}
+		formatCompact?.addEventListener('change', updateFormat);
+		formatRound?.addEventListener('change', updateFormat);
+		formatStyle?.addEventListener('change', updateFormat);
+		formatDigits?.addEventListener('input', updateFormat);
+		formatMode?.addEventListener('change', updateFormat);
+		updateFormat();
+
+		// Parse Tab
+		const parseInput = document.getElementById('parse-input') as HTMLInputElement;
+		const parseTolerant = document.getElementById('parse-tolerant') as HTMLInputElement;
+		const parseResult = document.getElementById('parse-result');
+		const parseExamples = document.querySelectorAll('.parse-example');
+
+		function updateParse() {
+			const value = parseInput.value;
+			const options: any = {};
+
+			if (parseTolerant.checked) {
+				options.tolerant = true;
+			}
+
+			try {
+				if (parseResult) {
+					parseResult.textContent = parse(value, options).toString();
+				}
+			} catch (error) {
+				if (parseResult) parseResult.textContent = 'Error parsing input';
+			}
+		}
+
+		if (parseInput) {
+			parseInput.value = '₹12,34,567.50';
+			parseInput.addEventListener('input', updateParse);
+		}
+		parseTolerant?.addEventListener('change', updateParse);
+		parseExamples.forEach((btn) => {
+			btn.addEventListener('click', (e) => {
+				const target = e.currentTarget as HTMLButtonElement;
+				parseInput.value = target.dataset.value || '';
+				updateParse();
+			});
+		});
+		updateParse();
+
+		// Words Tab
+		const wordsInput = document.getElementById('words-input') as HTMLInputElement;
+		const wordsResult = document.getElementById('words-result');
+		const parseWordsInput = document.getElementById('parse-words-input') as HTMLInputElement;
+		const parseWordsResult = document.getElementById('parse-words-result');
+
+		function updateWords() {
+			const value = parseFloat(wordsInput.value) || 0;
+			try {
 				if (wordsResult) {
 					wordsResult.textContent = toINRWords(value);
 				}
 			} catch (error) {
-				console.error('Error converting currency:', error);
-				if (currencyResult) currencyResult.textContent = 'Error';
-				if (wordsResult) wordsResult.textContent = 'Error converting amount';
+				if (wordsResult) wordsResult.textContent = 'Error';
 			}
 		}
 
-		// Function to reset to default value
-		function resetToDefault() {
-			if (input) {
-				input.value = '205030.75';
-				updateResults();
+		function updateParseWords() {
+			const value = parseWordsInput.value;
+			try {
+				if (parseWordsResult) {
+					parseWordsResult.textContent = parseWords(value).toString();
+				}
+			} catch (error) {
+				if (parseWordsResult) parseWordsResult.textContent = 'Error parsing words';
 			}
 		}
 
-		// Reset on page load (DOMContentLoaded)
-		resetToDefault();
+		if (wordsInput) {
+			wordsInput.value = '205030.75';
+			wordsInput.addEventListener('input', updateWords);
+		}
+		if (parseWordsInput) {
+			parseWordsInput.value = 'One Crore Two Lakh Five Thousand';
+			parseWordsInput.addEventListener('input', updateParseWords);
+		}
+		updateWords();
+		updateParseWords();
 
-		// Reset when page becomes visible (handles back button navigation)
-		document.addEventListener('visibilitychange', () => {
-			if (!document.hidden) {
-				resetToDefault();
+		// Breakdown Tab
+		const breakdownInput = document.getElementById('breakdown-input') as HTMLInputElement;
+		const breakdownResult = document.getElementById('breakdown-result');
+
+		function updateBreakdown() {
+			const value = parseFloat(breakdownInput.value) || 0;
+			try {
+				const result = breakdown(value);
+				if (breakdownResult) {
+					breakdownResult.innerHTML = `
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Crore:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">${result.crore}</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Lakh:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">${result.lakh}</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Thousand:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">${result.thousand}</span>
+						</div>
+						<div class="flex justify-between border-b border-teal-200 pb-2 dark:border-teal-700">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Hundred:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">${result.hundred}</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="font-semibold text-teal-700 dark:text-teal-300">Remainder:</span>
+							<span class="font-bold text-teal-900 dark:text-teal-100">${result.remainder}</span>
+						</div>
+					`;
+				}
+			} catch (error) {
+				if (breakdownResult) breakdownResult.textContent = 'Error';
 			}
-		});
+		}
 
-		// Reset on pageshow event (handles bfcache - back/forward cache)
-		window.addEventListener('pageshow', (event) => {
-			if (event.persisted) {
-				resetToDefault();
+		if (breakdownInput) {
+			breakdownInput.value = '123456789';
+			breakdownInput.addEventListener('input', updateBreakdown);
+		}
+		updateBreakdown();
+
+		// GST Tab
+		const gstAddBase = document.getElementById('gst-add-base') as HTMLInputElement;
+		const gstAddRate = document.getElementById('gst-add-rate') as HTMLInputElement;
+		const gstAddResult = document.getElementById('gst-add-result');
+
+		const gstSplitTotal = document.getElementById('gst-split-total') as HTMLInputElement;
+		const gstSplitRate = document.getElementById('gst-split-rate') as HTMLInputElement;
+		const gstSplitResult = document.getElementById('gst-split-result');
+
+		function updateGSTAdd() {
+			const base = parseFloat(gstAddBase.value) || 0;
+			const rate = parseFloat(gstAddRate.value) || 0;
+
+			try {
+				const result = addGST(base, rate, { precision: 2, roundingMode: 'nearest' });
+				if (gstAddResult) {
+					gstAddResult.innerHTML = `
+						<div class="flex justify-between">
+							<span class="font-semibold text-amber-700 dark:text-amber-300">Total:</span>
+							<span class="font-bold text-amber-900 dark:text-amber-100">₹${result.total.toFixed(2)}</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="font-semibold text-amber-700 dark:text-amber-300">Tax:</span>
+							<span class="font-bold text-amber-900 dark:text-amber-100">₹${result.tax.toFixed(2)}</span>
+						</div>
+					`;
+				}
+			} catch (error) {
+				if (gstAddResult) gstAddResult.textContent = 'Error';
 			}
-		});
+		}
 
-		// Event listeners
-		input?.addEventListener('input', updateResults);
+		function updateGSTSplit() {
+			const total = parseFloat(gstSplitTotal.value) || 0;
+			const rate = parseFloat(gstSplitRate.value) || 0;
 
-		exampleButtons.forEach((button) => {
-			button.addEventListener('click', (e) => {
-				const target = e.currentTarget as HTMLButtonElement;
-				const value = target.dataset.value || '0';
-				input.value = value;
-				updateResults();
-			});
-		});
+			try {
+				const result = splitGST(total, rate, { precision: 2, roundingMode: 'nearest' });
+				if (gstSplitResult) {
+					gstSplitResult.innerHTML = `
+						<div class="flex justify-between">
+							<span class="font-semibold text-emerald-700 dark:text-emerald-300">Base:</span>
+							<span class="font-bold text-emerald-900 dark:text-emerald-100">₹${result.base.toFixed(2)}</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="font-semibold text-emerald-700 dark:text-emerald-300">Tax:</span>
+							<span class="font-bold text-emerald-900 dark:text-emerald-100">₹${result.tax.toFixed(2)}</span>
+						</div>
+					`;
+				}
+			} catch (error) {
+				if (gstSplitResult) gstSplitResult.textContent = 'Error';
+			}
+		}
+
+		if (gstAddBase) {
+			gstAddBase.value = '100';
+			gstAddBase.addEventListener('input', updateGSTAdd);
+		}
+		if (gstAddRate) {
+			gstAddRate.value = '18';
+			gstAddRate.addEventListener('input', updateGSTAdd);
+		}
+		if (gstSplitTotal) {
+			gstSplitTotal.value = '118';
+			gstSplitTotal.addEventListener('input', updateGSTSplit);
+		}
+		if (gstSplitRate) {
+			gstSplitRate.value = '18';
+			gstSplitRate.addEventListener('input', updateGSTSplit);
+		}
+		updateGSTAdd();
+		updateGSTSplit();
 	</script>
+
+	<style>
+		.tab-btn {
+			color: #64748b;
+		}
+
+		.tab-btn:hover {
+			background-color: #f1f5f9;
+			color: #1e293b;
+		}
+
+		.dark .tab-btn:hover {
+			background-color: #334155;
+			color: #f1f5f9;
+		}
+
+		.tab-btn.active {
+			background: linear-gradient(135deg, #e06330 0%, #f97316 100%);
+			color: white;
+			box-shadow: 0 4px 6px -1px rgba(224, 99, 48, 0.3);
+		}
+	</style>
 </BaseLayout>
