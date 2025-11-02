@@ -1,0 +1,830 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CachePlayground from '../components/CachePlayground';
+
+const title = 'Runtime Memory Cache - API Documentation';
+const description =
+	'Complete API reference documentation for runtime-memory-cache - A lightweight, high-performance in-memory cache for Node.js with TTL support, LRU/FIFO eviction, and zero dependencies.';
+---
+
+<Layout title={title} description={description}>
+	<div class="mx-auto max-w-7xl px-4 py-12">
+		<!-- Header -->
+		<div class="mb-12 text-center">
+			<h1
+				class="mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-5xl font-bold text-transparent"
+			>
+				Runtime Memory Cache
+			</h1>
+			<p class="mx-auto mb-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+				A lightweight, high-performance in-memory cache for Node.js with TTL support,
+				automatic cleanup, memory usage tracking, and zero dependencies.
+			</p>
+
+			<!-- Package Links -->
+			<div class="flex flex-wrap items-center justify-center gap-4">
+				<a
+					href="https://www.npmjs.com/package/runtime-memory-cache"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-2 rounded-xl bg-red-500 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-red-600 hover:shadow-xl"
+				>
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+						<path
+							d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z"
+						></path>
+					</svg>
+					NPM Package
+				</a>
+
+				<a
+					href="https://github.com/gsteja2307/runtime-memory-cache"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-2 rounded-xl bg-slate-800 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-slate-900 hover:shadow-xl dark:bg-slate-700 dark:hover:bg-slate-600"
+				>
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+						<path
+							d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+						></path>
+					</svg>
+					GitHub Repo
+				</a>
+
+				<div
+					class="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-6 py-3 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+				>
+					<span class="text-slate-500 dark:text-slate-400">v</span>0.4.0
+				</div>
+			</div>
+		</div>
+
+		<!-- Features Grid -->
+		<div class="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">⚡</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					Fast Performance
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					O(1) lookups using native JavaScript Map with zero dependencies
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">⏰</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					TTL Support
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					Time To Live with automatic expiration and manual cleanup
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">🔄</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					Eviction Policies
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					FIFO or LRU eviction with size limiting and skip touch
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">📊</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					Statistics Tracking
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					Optional stats for hits, misses, evictions, and performance
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">💾</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					Memory Tracking
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					Monitor memory usage with estimated bytes per entry
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+			>
+				<div class="mb-3 text-3xl">🔷</div>
+				<h3 class="mb-2 text-lg font-bold text-slate-900 dark:text-white">
+					TypeScript
+				</h3>
+				<p class="text-sm text-slate-600 dark:text-slate-400">
+					Full type definitions and TypeScript support built-in
+				</p>
+			</div>
+		</div>
+
+		<!-- Interactive Playground -->
+		<div class="mb-12">
+			<h2 class="mb-6 text-center text-3xl font-bold text-slate-900 dark:text-white">
+				🎮 Interactive Playground
+			</h2>
+			<p class="mb-8 text-center text-slate-600 dark:text-slate-400">
+				Try out the cache features live! Set values, test eviction policies, and monitor statistics in real-time.
+			</p>
+			<CachePlayground client:load />
+		</div>
+
+		<!-- Installation -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">
+				Installation
+			</h2>
+			<div
+				class="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-sm text-slate-100"
+			>
+				<code>npm install runtime-memory-cache</code>
+			</div>
+		</div>
+
+		<!-- Quick Start -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-4 text-2xl font-bold text-slate-900 dark:text-white">
+				Quick Start
+			</h2>
+			<pre
+				class="overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+					>{`import RuntimeMemoryCache from 'runtime-memory-cache';
+
+// Create cache with options
+const cache = new RuntimeMemoryCache({
+  ttl: 60000,           // 1 minute default TTL
+  maxSize: 1000,        // Maximum 1000 entries
+  enableStats: true,    // Enable statistics tracking
+  evictionPolicy: 'LRU' // Use LRU eviction policy
+});
+
+// Store data
+cache.set('user:123', { name: 'John', age: 30 });
+
+// Retrieve data
+const user = cache.get('user:123');
+console.log(user); // { name: 'John', age: 30 }
+
+// Check if key exists
+if (cache.has('user:123')) {
+  console.log('User exists!');
+}`}</code
+				></pre>
+		</div>
+
+		<!-- Constructor Options -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-6 text-2xl font-bold text-slate-900 dark:text-white">
+				Constructor Options
+			</h2>
+			<pre
+				class="mb-6 overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+					>{`interface CacheOptions {
+  ttl?: number;              // Default TTL in milliseconds
+  maxSize?: number;          // Maximum cache entries (default: 1000)
+  enableStats?: boolean;     // Enable statistics tracking (default: false)
+  evictionPolicy?: 'FIFO' | 'LRU';  // Eviction policy (default: 'FIFO')
+}`}</code
+				></pre>
+
+			<div class="overflow-x-auto">
+				<table class="w-full text-left">
+					<thead>
+						<tr class="border-b-2 border-slate-300 dark:border-slate-600">
+							<th
+								class="pb-3 pr-6 font-semibold text-slate-900 dark:text-white"
+								>Option</th
+							>
+							<th
+								class="pb-3 pr-6 font-semibold text-slate-900 dark:text-white"
+								>Type</th
+							>
+							<th
+								class="pb-3 pr-6 font-semibold text-slate-900 dark:text-white"
+								>Default</th
+							>
+							<th class="pb-3 font-semibold text-slate-900 dark:text-white"
+								>Description</th
+							>
+						</tr>
+					</thead>
+					<tbody class="text-sm text-slate-600 dark:text-slate-400">
+						<tr class="border-b border-slate-200 dark:border-slate-700">
+							<td class="py-3 pr-6 font-mono">ttl</td>
+							<td class="py-3 pr-6">number</td>
+							<td class="py-3 pr-6">undefined</td>
+							<td class="py-3">Default TTL for cache entries in milliseconds</td
+							>
+						</tr>
+						<tr class="border-b border-slate-200 dark:border-slate-700">
+							<td class="py-3 pr-6 font-mono">maxSize</td>
+							<td class="py-3 pr-6">number</td>
+							<td class="py-3 pr-6">1000</td>
+							<td class="py-3">Maximum number of entries in cache</td>
+						</tr>
+						<tr class="border-b border-slate-200 dark:border-slate-700">
+							<td class="py-3 pr-6 font-mono">enableStats</td>
+							<td class="py-3 pr-6">boolean</td>
+							<td class="py-3 pr-6">false</td>
+							<td class="py-3">Enable statistics tracking</td>
+						</tr>
+						<tr>
+							<td class="py-3 pr-6 font-mono">evictionPolicy</td>
+							<td class="py-3 pr-6">'FIFO' | 'LRU'</td>
+							<td class="py-3 pr-6">'FIFO'</td>
+							<td class="py-3">Cache eviction policy</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- API Methods -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-8 text-3xl font-bold text-slate-900 dark:text-white">
+				API Methods
+			</h2>
+
+			<div class="space-y-8">
+				<!-- set() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						set(key: string, value: any, ttl?: number): void
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Store a value with optional TTL override.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`cache.set('key', 'value');                // Uses default TTL
+cache.set('key', 'value', 30000);          // 30 second TTL
+cache.set('key', 'value', undefined);      // No expiration`}</code
+						></pre>
+				</div>
+
+				<!-- get() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						get(key: string): any
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Retrieve a value. Returns <code
+							class="rounded bg-slate-200 px-1 dark:bg-slate-700"
+							>undefined</code
+						> if key doesn't exist or has expired.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const value = cache.get('key');
+if (value !== undefined) {
+  console.log('Found:', value);
+}`}</code
+						></pre>
+				</div>
+
+				<!-- has() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						has(key: string, skipTouch?: boolean): boolean
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Check if key exists and is not expired. Optionally skip updating access
+						time.
+					</p>
+					<div
+						class="mb-3 rounded-lg bg-blue-50 p-3 text-sm dark:bg-blue-900/20"
+					>
+						<p class="font-semibold text-blue-900 dark:text-blue-200">
+							💡 Skip Touch Feature
+						</p>
+						<p class="text-blue-700 dark:text-blue-300">
+							Set <code
+								class="rounded bg-blue-100 px-1 dark:bg-blue-800"
+								>skipTouch: true</code
+							> to check existence without affecting LRU order.
+						</p>
+					</div>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`// Normal check - updates access time for LRU
+if (cache.has('key')) {
+  console.log('Key exists');
+}
+
+// Skip touch - doesn't affect LRU order
+if (cache.has('key', true)) {
+  console.log('Key exists, LRU order unchanged');
+}`}</code
+						></pre>
+				</div>
+
+				<!-- del() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						del(key: string): boolean
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Delete a specific key. Returns <code
+							class="rounded bg-slate-200 px-1 dark:bg-slate-700">true</code
+						> if key existed.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const wasDeleted = cache.del('key');
+if (wasDeleted) {
+  console.log('Key was deleted');
+}`}</code
+						></pre>
+				</div>
+
+				<!-- size() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						size(): number
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Get current number of entries in cache.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`console.log(\`Cache has \${cache.size()} entries\`);`}</code
+						></pre>
+				</div>
+
+				<!-- clear() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						clear(): void
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Remove all entries from cache.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`cache.clear();
+console.log(cache.size()); // 0`}</code
+						></pre>
+				</div>
+
+				<!-- keys() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						keys(): string[]
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Get array of all keys in cache.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const allKeys = cache.keys();
+console.log('All keys:', allKeys);`}</code
+						></pre>
+				</div>
+
+				<!-- cleanup() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						cleanup(): number
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Manually remove expired entries. Returns number of entries removed.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const removedCount = cache.cleanup();
+console.log(\`Removed \${removedCount} expired entries\`);`}</code
+						></pre>
+				</div>
+
+				<!-- getStats() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						getStats(): CacheStats | null
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Get cache statistics (if enabled).
+					</p>
+					<pre
+						class="mb-3 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`interface CacheStats {
+  hits: number;        // Cache hits
+  misses: number;      // Cache misses  
+  size: number;        // Current cache size
+  maxSize: number;     // Maximum allowed size
+  evictions: number;   // Number of evicted entries
+}`}</code
+						></pre>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const stats = cache.getStats();
+if (stats) {
+  console.log(\`Hits: \${stats.hits}, Misses: \${stats.misses}\`);
+  console.log(\`Hit Rate: \${(stats.hits / (stats.hits + stats.misses) * 100).toFixed(2)}%\`);
+}`}</code
+						></pre>
+				</div>
+
+				<!-- resetStats() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						resetStats(): void
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Reset statistics counters (if enabled).
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`cache.resetStats();
+console.log(cache.getStats()); // All counters reset to 0`}</code
+						></pre>
+				</div>
+
+				<!-- getEvictionPolicy() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						getEvictionPolicy(): 'FIFO' | 'LRU'
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Get the current eviction policy being used.
+					</p>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`console.log(cache.getEvictionPolicy()); // 'FIFO' or 'LRU'`}</code
+						></pre>
+				</div>
+
+				<!-- getMemoryUsage() -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3
+						class="mb-3 font-mono text-xl font-bold text-blue-600 dark:text-blue-400"
+					>
+						getMemoryUsage(): MemoryUsage
+					</h3>
+					<p class="mb-4 text-slate-600 dark:text-slate-400">
+						Get estimated memory usage of the cache.
+					</p>
+					<pre
+						class="mb-3 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`interface MemoryUsage {
+  estimatedBytes: number;        // Total estimated bytes
+  averageBytesPerEntry: number;  // Average bytes per entry
+}`}</code
+						></pre>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const memInfo = cache.getMemoryUsage();
+console.log(\`Cache uses ~\${memInfo.estimatedBytes} bytes\`);
+console.log(\`Average: \${memInfo.averageBytesPerEntry} bytes per entry\`);`}</code
+						></pre>
+				</div>
+			</div>
+		</div>
+
+		<!-- Eviction Policies -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-6 text-3xl font-bold text-slate-900 dark:text-white">
+				Eviction Policies
+			</h2>
+
+			<div class="mb-8 space-y-6">
+				<!-- FIFO -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white">
+						FIFO (First In, First Out) - Default
+					</h3>
+					<ul
+						class="mb-4 list-inside list-disc space-y-2 text-slate-600 dark:text-slate-400"
+					>
+						<li>Removes the oldest inserted entry first</li>
+						<li>Simple and predictable behavior</li>
+						<li>Good for time-based caching scenarios</li>
+						<li>Tracks access time for consistency</li>
+					</ul>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const fifoCache = new RuntimeMemoryCache({ 
+  maxSize: 100, 
+  evictionPolicy: 'FIFO' 
+});`}</code
+						></pre>
+				</div>
+
+				<!-- LRU -->
+				<div
+					class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white">
+						LRU (Least Recently Used)
+					</h3>
+					<ul
+						class="mb-4 list-inside list-disc space-y-2 text-slate-600 dark:text-slate-400"
+					>
+						<li>Removes the entry that hasn't been accessed for the longest time</li>
+						<li>Better cache hit rates for access-pattern-based scenarios</li>
+						<li>Uses access time tracking for eviction decisions</li>
+						<li>
+							Updates on <code
+								class="rounded bg-slate-200 px-1 dark:bg-slate-700">get()</code
+							>, <code class="rounded bg-slate-200 px-1 dark:bg-slate-700"
+								>has()</code
+							>, and <code class="rounded bg-slate-200 px-1 dark:bg-slate-700"
+								>set()</code
+							>
+						</li>
+						<li>
+							Skip Touch: Use <code
+								class="rounded bg-slate-200 px-1 dark:bg-slate-700"
+								>has(key, true)</code
+							> to check without affecting order
+						</li>
+					</ul>
+					<pre
+						class="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100"><code
+							>{`const lruCache = new RuntimeMemoryCache({ 
+  maxSize: 100, 
+  evictionPolicy: 'LRU' 
+});`}</code
+						></pre>
+				</div>
+			</div>
+
+			<div
+				class="rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 p-6 dark:from-blue-900/20 dark:to-cyan-900/20"
+			>
+				<p class="font-semibold text-blue-900 dark:text-blue-200">
+					📝 Both policies:
+				</p>
+				<ul
+					class="mt-2 list-inside list-disc space-y-1 text-blue-700 dark:text-blue-300"
+				>
+					<li>Automatically remove entries when cache is full</li>
+					<li>Track eviction count in statistics</li>
+					<li>Maintain O(1) average performance</li>
+					<li>Update access time for consistency</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Usage Examples -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-6 text-3xl font-bold text-slate-900 dark:text-white">
+				Usage Examples
+			</h2>
+
+			<div class="space-y-8">
+				<!-- API Response Caching -->
+				<div>
+					<h3
+						class="mb-3 text-xl font-bold text-slate-900 dark:text-white"
+					>
+						API Response Caching
+					</h3>
+					<pre
+						class="overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+							>{`const apiCache = new RuntimeMemoryCache({ 
+  ttl: 300000,    // 5 minutes
+  maxSize: 1000,
+  enableStats: true 
+});
+
+async function fetchUser(userId: string) {
+  const cacheKey = \`user:\${userId}\`;
+  
+  // Try cache first
+  let user = apiCache.get(cacheKey);
+  if (user) return user;
+  
+  // Fetch from API and cache
+  user = await fetch(\`/api/users/\${userId}\`).then(r => r.json());
+  apiCache.set(cacheKey, user);
+  
+  return user;
+}`}</code
+						></pre>
+				</div>
+
+				<!-- Session Management -->
+				<div>
+					<h3
+						class="mb-3 text-xl font-bold text-slate-900 dark:text-white"
+					>
+						Session Management
+					</h3>
+					<pre
+						class="overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+							>{`const sessionCache = new RuntimeMemoryCache({ 
+  ttl: 1800000,  // 30 minutes
+  maxSize: 10000 
+});
+
+function createSession(userId: string, data: any): string {
+  const sessionId = generateId();
+  sessionCache.set(\`session:\${sessionId}\`, { userId, ...data });
+  return sessionId;
+}
+
+function getSession(sessionId: string) {
+  return sessionCache.get(\`session:\${sessionId}\`);
+}`}</code
+						></pre>
+				</div>
+
+				<!-- Rate Limiting -->
+				<div>
+					<h3
+						class="mb-3 text-xl font-bold text-slate-900 dark:text-white"
+					>
+						Rate Limiting
+					</h3>
+					<pre
+						class="overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+							>{`const rateLimiter = new RuntimeMemoryCache({ ttl: 60000 }); // 1 minute window
+
+function checkRateLimit(clientId: string, maxRequests: number = 100): boolean {
+  const key = \`rate:\${clientId}\`;
+  const current = rateLimiter.get(key) || 0;
+  
+  if (current >= maxRequests) {
+    return false; // Rate limit exceeded
+  }
+  
+  rateLimiter.set(key, current + 1);
+  return true;
+}`}</code
+						></pre>
+				</div>
+
+				<!-- LRU Skip Touch -->
+				<div>
+					<h3
+						class="mb-3 text-xl font-bold text-slate-900 dark:text-white"
+					>
+						Skip Touch Feature with LRU Cache
+					</h3>
+					<pre
+						class="overflow-x-auto rounded-xl bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code
+							>{`const lruCache = new RuntimeMemoryCache({ 
+  maxSize: 3,
+  evictionPolicy: 'LRU',
+  enableStats: true 
+});
+
+// Fill cache to capacity
+lruCache.set('user:1', 'Alice');
+lruCache.set('user:2', 'Bob');
+lruCache.set('user:3', 'Charlie');
+
+// Check existence without affecting LRU order
+if (lruCache.has('user:1', true)) {
+  console.log('User 1 exists, but LRU order unchanged');
+}
+
+// Normal check that updates LRU order
+if (lruCache.has('user:2')) {
+  console.log('User 2 exists and moved to most recent');
+}
+
+// Add new user - 'user:1' will be evicted (least recently used)
+// because it wasn't "touched" by the skipTouch check
+lruCache.set('user:4', 'David');
+
+console.log(lruCache.has('user:1')); // false - evicted
+console.log(lruCache.has('user:2')); // true - recently accessed`}</code
+						></pre>
+				</div>
+			</div>
+		</div>
+
+		<!-- Performance -->
+		<div
+			class="mb-12 rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-xl dark:border-slate-700 dark:from-slate-800 dark:to-slate-900"
+		>
+			<h2 class="mb-6 text-2xl font-bold text-slate-900 dark:text-white">
+				Performance
+			</h2>
+			<div class="grid gap-4 md:grid-cols-2">
+				<div
+					class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="mb-2 text-2xl">⚡</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400">
+						O(1) average case for get, set, has, and delete operations
+					</p>
+				</div>
+				<div
+					class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="mb-2 text-2xl">💾</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400">
+						Memory efficient with automatic garbage collection
+					</p>
+				</div>
+				<div
+					class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="mb-2 text-2xl">📦</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400">
+						Zero dependencies - no external libraries
+					</p>
+				</div>
+				<div
+					class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+				>
+					<div class="mb-2 text-2xl">🔷</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400">
+						TypeScript optimized with proper type inference
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<div class="mt-12 text-center text-sm text-slate-500 dark:text-slate-400">
+			<p>
+				Built with ❤️ by <a
+					href="https://github.com/gsteja2307"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-blue-500 hover:underline">Surya Teja</a
+				>
+			</p>
+			<p class="mt-2">Licensed under MIT</p>
+		</div>
+	</div>
+</Layout>
