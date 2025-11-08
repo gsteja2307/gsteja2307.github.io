@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '@/layouts/BaseLayout';
 import CachePlayground from '../components/CachePlayground';
 
 const title = 'Runtime Memory Cache - API Documentation';
@@ -7,7 +7,7 @@ const description =
 	'Complete API reference documentation for runtime-memory-cache - A lightweight, high-performance in-memory cache for Node.js with TTL support, LRU/FIFO eviction, and zero dependencies.';
 ---
 
-<Layout title={title} description={description}>
+<BaseLayout title={title} description={description}>
 	<div class="mx-auto max-w-7xl px-4 py-12">
 		<!-- Header -->
 		<div class="mb-12 text-center">
@@ -827,4 +827,4 @@ console.log(lruCache.has('user:2')); // true - recently accessed`}</code
 			<p class="mt-2">Licensed under MIT</p>
 		</div>
 	</div>
-</Layout>
+</BaseLayout>

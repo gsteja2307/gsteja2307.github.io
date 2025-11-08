@@ -5,6 +5,7 @@ import Search from '@/components/Search';
 import TagIcon from './icons/TagIcon.astro';
 import BlogIcon from './icons/BlogIcon.astro';
 import HomeIcon from './icons/HomeIcon.astro';
+import ProjectsIcon from './icons/ProjectsIcon.astro';
 import ToggleTheme from './ToggleTheme.astro';
 import { SOCIALNETWORKS } from '@/data/links';
 // Get the current path
@@ -48,6 +49,85 @@ const isHomePage = currentPage === '/';
 						</HeaderLink>
 					)
 				}
+				
+				<!-- Projects Dropdown -->
+				<div class="relative">
+					<button
+						id="projects-dropdown-button"
+						type="button"
+						class="group flex items-center space-x-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+					>
+						<ProjectsIcon />
+						<span>Projects</span>
+						<svg class="h-4 w-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+						</svg>
+					</button>
+					
+					<!-- Dropdown Menu -->
+					<div
+						id="projects-dropdown"
+						class="absolute left-0 top-full mt-2 hidden w-72 rounded-xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900"
+					>
+						<div class="p-2">
+							<a
+								href="/to-indian-currency"
+								class="flex items-start space-x-3 rounded-lg p-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+							>
+								<div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-emerald-500">
+									<span class="text-lg">₹</span>
+								</div>
+								<div class="flex-1">
+									<div class="font-semibold text-gray-900 dark:text-white">to-indian-currency</div>
+									<div class="text-xs text-gray-600 dark:text-gray-400">Currency formatting & GST</div>
+								</div>
+							</a>
+							
+							<a
+								href="/react-file-upload-button"
+								class="flex items-start space-x-3 rounded-lg p-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+							>
+								<div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-500">
+									<svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+									</svg>
+								</div>
+								<div class="flex-1">
+									<div class="font-semibold text-gray-900 dark:text-white">react-file-upload-button</div>
+									<div class="text-xs text-gray-600 dark:text-gray-400">Drag & drop file uploads</div>
+								</div>
+							</a>
+							
+							<a
+								href="/runtime-memory-cache"
+								class="flex items-start space-x-3 rounded-lg p-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+							>
+								<div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-violet-500">
+									<svg class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+									</svg>
+								</div>
+								<div class="flex-1">
+									<div class="font-semibold text-gray-900 dark:text-white">runtime-memory-cache</div>
+									<div class="text-xs text-gray-600 dark:text-gray-400">In-memory caching solution</div>
+								</div>
+							</a>
+							
+							<div class="mt-2 border-t border-gray-200 pt-2 dark:border-gray-700">
+								<a
+									href="/#projects"
+									class="flex items-center justify-center space-x-2 rounded-lg p-2 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20"
+								>
+									<span>View All Projects</span>
+									<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<HeaderLink
 					href="/blog"
 					onclick="window.location.href='/blog'; return false;"
@@ -121,6 +201,13 @@ const isHomePage = currentPage === '/';
 					<span>About</span>
 				</HeaderLink>
 				<HeaderLink
+					href="/#projects"
+					class="group flex items-center space-x-3 rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+				>
+					<ProjectsIcon />
+					<span>Projects</span>
+				</HeaderLink>
+				<HeaderLink
 					href="/blog"
 					onclick="window.location.href='/blog'; return false;"
 					class="group flex items-center space-x-3 rounded-lg px-3 py-2 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-blue-400"
@@ -161,36 +248,99 @@ const isHomePage = currentPage === '/';
 </header>
 
 <script>
-	// Mobile menu toggle
-	const mobileMenuButton = document.getElementById('mobile-menu-button');
-	const mobileMenu = document.getElementById('mobile-menu');
+	function initializeHeader() {
+		// Ensure dropdown is closed on page load
+		const projectsDropdownButton = document.getElementById('projects-dropdown-button');
+		const projectsDropdown = document.getElementById('projects-dropdown');
+		const projectsDropdownArrow = projectsDropdownButton?.querySelector('svg');
 
-	mobileMenuButton?.addEventListener('click', () => {
-		mobileMenu?.classList.toggle('hidden');
-	});
-
-	// Close mobile menu when clicking outside
-	document.addEventListener('click', (event) => {
-		const isClickInsideMenu = mobileMenu?.contains(event.target as Node);
-		const isClickOnButton = mobileMenuButton?.contains(event.target as Node);
-
-		if (!isClickInsideMenu && !isClickOnButton && !mobileMenu?.classList.contains('hidden')) {
-			mobileMenu?.classList.add('hidden');
+		// Reset dropdown state
+		if (projectsDropdown && projectsDropdownArrow) {
+			projectsDropdown.classList.add('hidden');
+			projectsDropdownArrow.classList.remove('rotate-180');
 		}
-	});
 
-	// Close mobile menu on escape key
-	document.addEventListener('keydown', (event) => {
-		if (event.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
-			mobileMenu?.classList.add('hidden');
+		// Remove old event listeners by cloning and replacing (prevent duplicate listeners)
+		if (projectsDropdownButton) {
+			const newButton = projectsDropdownButton.cloneNode(true) as HTMLElement;
+			projectsDropdownButton.parentNode?.replaceChild(newButton, projectsDropdownButton);
+			
+			const button = document.getElementById('projects-dropdown-button');
+			const dropdown = document.getElementById('projects-dropdown');
+			const arrow = button?.querySelector('svg');
+
+			button?.addEventListener('click', (e) => {
+				e.stopPropagation();
+				dropdown?.classList.toggle('hidden');
+				arrow?.classList.toggle('rotate-180');
+			});
+
+			// Close projects dropdown when clicking outside
+			document.addEventListener('click', (event) => {
+				const isClickInsideDropdown = dropdown?.contains(event.target as Node);
+				const isClickOnButton = button?.contains(event.target as Node);
+
+				if (!isClickInsideDropdown && !isClickOnButton && !dropdown?.classList.contains('hidden')) {
+					dropdown?.classList.add('hidden');
+					arrow?.classList.remove('rotate-180');
+				}
+			});
+
+			// Close projects dropdown on escape key
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape' && !dropdown?.classList.contains('hidden')) {
+					dropdown?.classList.add('hidden');
+					arrow?.classList.remove('rotate-180');
+				}
+			});
+
+			// Close projects dropdown when clicking any link inside
+			const projectsDropdownLinks = dropdown?.querySelectorAll('a');
+			projectsDropdownLinks?.forEach((link) => {
+				link.addEventListener('click', () => {
+					dropdown?.classList.add('hidden');
+					arrow?.classList.remove('rotate-180');
+				});
+			});
 		}
-	});
 
-	// Close mobile menu when navigating
-	const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
-	mobileMenuLinks?.forEach((link) => {
-		link.addEventListener('click', () => {
-			mobileMenu?.classList.add('hidden');
+		// Mobile menu toggle
+		const mobileMenuButton = document.getElementById('mobile-menu-button');
+		const mobileMenu = document.getElementById('mobile-menu');
+
+		mobileMenuButton?.addEventListener('click', () => {
+			mobileMenu?.classList.toggle('hidden');
 		});
-	});
+
+		// Close mobile menu when clicking outside
+		document.addEventListener('click', (event) => {
+			const isClickInsideMenu = mobileMenu?.contains(event.target as Node);
+			const isClickOnButton = mobileMenuButton?.contains(event.target as Node);
+
+			if (!isClickInsideMenu && !isClickOnButton && !mobileMenu?.classList.contains('hidden')) {
+				mobileMenu?.classList.add('hidden');
+			}
+		});
+
+		// Close mobile menu on escape key
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+				mobileMenu?.classList.add('hidden');
+			}
+		});
+
+		// Close mobile menu when navigating
+		const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+		mobileMenuLinks?.forEach((link) => {
+			link.addEventListener('click', () => {
+				mobileMenu?.classList.add('hidden');
+			});
+		});
+	}
+
+	// Run on initial load
+	initializeHeader();
+
+	// Run after Astro page transitions (if view transitions are enabled)
+	document.addEventListener('astro:page-load', initializeHeader);
 </script>

@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '@/layouts/BaseLayout';
 import FileUploadPlayground from '../components/FileUploadPlayground';
 
 const title = 'React File Upload Button Playground';
@@ -7,7 +7,7 @@ const description =
 	'Interactive playground for the react-file-upload-button npm package. Test drag-and-drop file uploads with customizable restrictions, progress bars, and preview options.';
 ---
 
-<Layout title={title} description={description}>
+<BaseLayout title={title} description={description}>
 	<div class="mx-auto max-w-7xl px-4 py-12">
 		<!-- Header -->
 		<div class="mb-12 text-center">
@@ -350,4 +350,4 @@ function App() {
 			</p>
 		</div>
 	</div>
-</Layout>
+</BaseLayout>
