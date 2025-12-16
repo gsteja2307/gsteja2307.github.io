@@ -2,7 +2,7 @@
 title: "Visualize Your Data: Introducing json2map"
 description: "A powerful tool to visualize JSON data as interactive mind maps, making complex data structures easy to understand and navigate."
 pubDate: "2025-11-30"
-heroImage: ../../assets/images/json2map_main.png
+heroImage: ../../assets/images/json2map_editor.png
 category: Technology
 tags:
   - JSON
@@ -14,30 +14,55 @@ draft: false
 
 # Visualize Your Data: Introducing json2map
 
-*JSON is the language of the web, but reading raw JSON files can be a nightmare. Enter json2map ; a tool designed to turn your data into beautiful, interactive mind maps.*
+*JSON is the language of the web, but reading raw JSON files can be a nightmare. Enter json2map—a tool designed to turn your data into beautiful, interactive mind maps.*
 
 As developers, we deal with JSON every day. Whether it's API responses, configuration files, or data dumps, JSON is everywhere. But let's be honest: scrolling through thousands of lines of nested brackets and braces is not the most efficient way to understand the structure of your data.
 
 That's why I built **[json2map.com](https://json2map.com)**.
 
-## The Problem with Raw JSON
+## What's New?
 
-JSON is great for machines, but not always for humans. When you're trying to debug an issue or understand a new API, you often find yourself:
-- Collapsing and expanding sections in your IDE.
-- Losing track of which level of nesting you're in.
-- Struggling to see the "big picture" of the data relationships.
+We've listened to your feedback and just released a massive update packed with requested features to make your workflow even smoother.
+
+### Side-by-Side Graph Diff
+
+The most requested feature is finally here! You can now compare two JSON objects side-by-side visually to spot differences instantly.
+
+![json2map Graph Diff View](../../assets/images/json2map_diff.png)
+
+This is a game-changer for:
+- Debugging API changes (v1 vs v2).
+- Spotting missing fields in configuration files.
+- Visualizing state changes in your application.
+
+### VS Code Style Editor
+
+We've replaced the simple text area with a full-blown **Monaco Editor** (the same editor that powers VS Code).
+
+![json2map Editor](../../assets/images/json2map_editor.png)
+
+Enjoy features you love:
+- Syntax highlighting
+- Code folding
+- Auto-formatting
+- Validation
+- Minification
+
+### High Performance for Big JSONs
+
+We've completely reworked the graph viewer algorithm. It now renders large JSON objects with ease, ensuring smooth panning and zooming even with thousands of nodes.
 
 ## The Solution: Mind Maps
 
 **json2map** takes your JSON data and instantly converts it into an interactive mind map. This visualization allows you to see the hierarchy and relationships of your data at a glance.
 
-![json2map Graph View](../../assets/images/json2map_graph.png)
+![json2map Graph View](../../assets/images/json2map_graph_view.png)
 
 ### Key Features
 
 - **Instant Visualization**: Just paste your JSON, and the map is generated immediately.
 - **Interactive Graph**: Zoom, pan, and drag nodes to explore your data structure.
-- **Dual Views**: Switch between the classic Tree View for a structured look and the Graph View for a spatial representation.
+- **Dual Views**: Switch between the classic Tree View and the spatial Graph View.
 - **Privacy Focused**: Your data is processed locally in your browser. It's never sent to a server.
 
 ## How It Works
@@ -46,9 +71,7 @@ Using json2map is incredibly simple:
 
 1.  **Paste your JSON**: Copy your JSON data and paste it into the editor on the left.
 2.  **Explore**: The tool automatically parses your JSON and renders it.
-3.  **Switch Views**: Click "Graph View" to see the mind map visualization.
-
-![json2map Main Interface](../../assets/images/json2map_main.png)
+3.  **Switch Views**: Click "Graph View" or "Side-by-Side Graph Diff" to see the mind map visualization.
 
 ## Why Use json2map?
 
